@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="https://delhihighcourt.nic.in/app/public/ois/images/logo.png" type="image/png" />
+	<title>High Court of Delhi</title>
+	<link href="https://delhihighcourt.nic.in/app/public/ois/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://delhihighcourt.nic.in/app/public/ois/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="https://delhihighcourt.nic.in/app/public/ois/css/material.css" rel="stylesheet" />
+	<link href="https://delhihighcourt.nic.in/app/public/ois/css/glyphicons.css" rel="stylesheet" />
+	<link href="https://delhihighcourt.nic.in/app/public/ois/css/owl.carousel.min.css" rel="stylesheet" />
+	<link href="https://delhihighcourt.nic.in/app/public/ois/css/owl.theme.default.css" rel="stylesheet">
+	<link href="https://delhihighcourt.nic.in/app/public/ois/css/animate.css" rel="stylesheet">
+	<link href="https://delhihighcourt.nic.in/app/public/ois/css/style.css" rel="stylesheet" />
+
+    <link href="https://delhihighcourt.nic.in/app/public/cis/css/sweetalert2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://delhihighcourt.nic.in/app/public/ois/css/jquery-ui.css">
+    <link href="https://delhihighcourt.nic.in/app/public/ois/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-----------------------------DataTable CSS---------------------->
+    <link rel="stylesheet" type="text/css" href="https://delhihighcourt.nic.in/app/public/ois/css/dataTables.dataTables.css"/>
+    <link rel="stylesheet" type="text/css" href="https://delhihighcourt.nic.in/app/public/ois/css/buttons.dataTables.css"/>
+    <!-----------------------------DataTable CSS---------------------->
+
+    <style>
+        .bootom-quick-links-area .inner-title h4 {
+            font-size: 18px;
+            margin: 0;
+            font-family: "open_sansbold";
+            color: #314e9a;
+        }
+
+        .bootom-quick-links-area .inner-title h4:before {
+            top: 35%;
+            display: none;
+        }
+
+        .quick-ticker ul {
+            list-style: none;
+            padding: 0;
+            color: #fff;
+            margin-top: 15px !important;
+            display: flex;
+            gap: 30px;
+            margin-bottom: 0;
+        }
+
+        .quick-ticker li p {
+            margin: 0;
+            color: #000;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .quick-ticker li:before {
+            transition: all 450ms ease 0s;
+            -webkit-transition: all 450ms ease 0s;
+            content: "";
+            position: absolute;
+            bottom: -4px;
+            height: 2px;
+            width: 0%;
+            background: #3857a1;
+        }
+
+        .quick-ticker li:hover:before {
+            transition: all 450ms ease 0s;
+            -webkit-transition: all 450ms ease 0s;
+            width: 100%;
+        }
+
+        .quick-ticker li p:before {
+            content: "\f0da";
+            position: absolute;
+            top: 3px;
+            left: 0;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: "Font Awesome 5 Free";
+        }
+
+        .quick-ticker li {
+            position: relative;
+        }
+
+        .quick-ticker li:hover a {
+            color: #37599f;
+        }
+
+        .bootom-quick-links-area {
+            margin-top: 5px;
+        }
+        .custom-swal-popup {
+            width: 300px !important;
+            height: auto !important;
+         }
+
+        .whole-page-overlay {
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            position: fixed;
+            background: rgba(0, 0, 0, 0.6);
+            width: 100%;
+            height: 100% !important;
+            z-index: 9999;
+            display: none;
+        }
+
+        .whole-page-overlay .center-loader {
+            top: 50%;
+            left: 48%;
+            position: absolute;
+            color: white;
+        }
+
+    </style>
+
+
+
+
+
+</head>
+
+<body class="">
+<div class="whole-page-overlay" id="whole_page_loader">
+        <img class="center-loader" style="height:100px; color: #fff;" src="https://delhihighcourt.nic.in/app/public/spin.gif" />
+    </div>
+    <header>
+		<!-- Top Header Section End -->
+		<div class="top-header">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-4 col-lg-4 top-left-nav wow fadeInDown">
+						<ul>
+							<li><a href="https://delhihighcourt.nic.in/web/sitemap">Sitemap</a></li>
+							<li><a href="https://delhihighcourt.nic.in/web/contact-us">Contact</a></li>
+							<li><a href="https://delhihighcourt.nic.in/web/form/feedback">Feedback</a></li>
+							<li><a href="https://delhihighcourt.nic.in/web/faqs">FAQs</a></li>
+						</ul>
+					</div>
+					<div class="col-12 col-sm-12 col-md-8 col-lg-8 top-right-nav wow fadeInDown">
+						<ul>
+							<li><a href="#" class="hide skiptomain">Skip to Main Content</a></li>
+							<li><a class="hide" href="https://delhihighcourt.nic.in/web/screen-reader-access">Screen Reader Access</a></li>
+							<li class="text-size">
+								<a href="#">A+</a>
+								<a href="#">A</a>
+								<a href="#">A -</a>
+							</li>
+							<li class="text-size">
+								<a href="#" class="whitebg">A</a>
+								<a href="#" class="blackbg">A</a>
+							</li>
+							<li class="lang-select">
+							Hindi
+								<select class="form-control custom-lang-select">
+									<!--<option>English</option>-->
+									<option>Hindi</option>
+								</select>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Top Header Section End -->
+		<!-- Logo Section Header Start -->
+		<div class="logo-sec-wraper">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-4 logo-sec wow fadeInUp">
+						<a class="logo-align" href="https://delhihighcourt.nic.in/web">
+							<div class="brand-img">
+								<img src="https://delhihighcourt.nic.in/app/public/ois/images/logo.png" alt="emblem">
+							</div>
+							<div class="brand-text">
+								<h4>High Court of Delhi</h4>
+							</div>
+						</a>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-8 main-menu-area wow fadeInUp">
+						<div class="nav-wraper">
+							<nav class="navbar navbar-expand-sm navbar-light custom-nav w-100 wow fadeInUp">
+								<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+									data-bs-target="#collapsibleNavbar">
+									<span class="navbar-toggler-icon"></span>
+								</button>
+								<div class="collapse navbar-collapse" id="collapsibleNavbar">
+									<ul class="navbar-nav mr-auto">
+										<li class="nav-item">
+											<a href="https://delhihighcourt.nic.in/web">Home</a>
+										</li>
+										<li class="nav-item menuparent">
+											<a href="javascript:void(0)">Judges</a>
+											<ul class="sub-menu">
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/CJ_Sitting_Judges">Hon'ble Chief Justice & Sitting Judges</a>
+
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/Honble-Judges-Appointed-as-the-Chief-Justices-of-India">Hon'ble Judges appointed as the Chief
+														Justice of India</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/Honble-Judges-Appointed-as-Judges-of-the-Supreme-Court-of-India">Hon'ble Judges appointed as Judge of
+														the Supreme Court of India</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/Former-Honble-Chief-Justices">Former Hon'ble Chief Justices</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/Former-Honble-Judges-Elevated-as-Chief-Justice-of-Other-High-Courts">Former Hon'ble Judges elevated as Chief
+														Justice of Other High Courts</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/former_judges">Former Hon'ble Judges</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/assets">Assets of Judges</a>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item menuparent">
+											<a href="javascript:void(0)">Administration</a>
+											<ul class="sub-menu">
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/committee">Hon'ble Committees</a>
+												</li>
+												<li class="item-list menuparent">
+													<a href="javascript:void(0)">Registrar</a>
+													<ul class="sub-menu">
+														<li class="item-list">
+															<a href="https://delhihighcourt.nic.in/web/sitting-registrars">Sitting Registrar</a>
+														</li>
+														<li class="item-list">
+															<a href="https://delhihighcourt.nic.in/web/former-registrars">Former Registrar</a>
+														</li>
+													</ul>
+												</li>
+												<li class="item-list menuparent">
+													<a href="javascript:void(0)">Reports & Publications</a>
+													<ul class="sub-menu">
+														<li class="item-list">
+															<a href="https://delhihighcourt.nic.in/web/reports-publications">Reports</a>
+														</li>
+														<li class="item-list">
+															<a href="https://delhihighcourt.nic.in/web/publications">Publications</a>
+														</li>
+														<li class="item-list">
+															<a href="https://delhihighcourt.nic.in/web/publications">Publications</a>
+														</li>
+														<li class="item-list">
+															<a href="https://delhihighcourt.nic.in/web/case_clearance_rate">Case Clearance Rate</a>
+														</li>
+														<li class="item-list">
+															<a href="https://delhihighcourt.nic.in/web/ecommittee_newsletter">Newsletter e-Committee</a>
+														</li>
+													</ul>
+												</li>
+
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/nominated-counsels/current">Nominated Counsel</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/senior-advocate-designation">Senior Advocate Designation</a>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item menuparent">
+											<a href="javascript:void(0)">e-Services</a>
+											<ul class="sub-menu">
+												<li class="item-list">
+													<a href="https://dhcefiling.nic.in/eFiling/">e-Filing</a>
+												</li>
+												<li class="item-list">
+													<a href="https://dhcmisc.nic.in/inspection/">e-Inspection</a>
+												</li>
+												<li class="item-list">
+													<a href="https://dhcrti.nic.in/RTI/index.action">e-RTI</a>
+												</li>
+												<li class="item-list">
+													<a href="https://dhcmisc.nic.in/ecopy/">e-True Copy</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/app/advocate-login">Advocate e-Diary</a>
+												</li>
+												<li class="item-list">
+													<!--<a href="https://delhihighcourt.nic.in/app/gatepass/register">e-Visitor Pass</a>-->
+								                 <a href="https://www.evisitordhc.gov.in/evisitordhcweb/">e-Visitor Pass</a>
+												</li>
+												<li class="item-list">
+													<a href="https://edhcr.nic.in/">e-DHCR</a>
+												</li>
+												<li class="item-list">
+													<a href="http://35.207.227.0/index.html">e-Museum</a>
+												</li>
+												<li class="item-list">
+													<a href="https://www.onlinesbi.sbi/sbicollect/icollecthome.htm?corpID=4769239">Registration for Creche Facility</a>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item menuparent">
+											<a href="javascript:void(0)">Public Notices</a>
+											<ul class="sub-menu">
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/public-notice">General Notices</a>
+												</li>
+												<li class="item-list menuparent">
+													<a href="javascript:void(0)">Recruitment</a>
+													<ul class="sub-menu">
+														<li class="item-list">
+															<a href="https://delhihighcourt.nic.in/web/job-openings">Job Openings</a>
+														</li>
+														<li class="item-list">
+															<a href="https://delhihighcourt.nic.in/web/recruitment-results-current">Recruitment Results</a>
+														</li>
+														<li class="item-list">
+															<a href="https://delhihighcourt.nic.in/web/previous-year-question-papers">Previous Years Question
+																Papers</a>
+														</li>
+													</ul>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/tenders">Tenders</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/online-forms-downloadable-forms">Forms & Performas</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/company_claim/current">Company Claims & Sales Notices</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/citizen-charter">Citizen Charter</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/form/feedback">Give Your feedback</a>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item menuparent">
+											<a href="javascript:void(0)">Rules & Guidelines</a>
+											<ul class="sub-menu">
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/e-filing">e-Filing Rules</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/vc-rules">VC Rules</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/live-streaming-rules">Live Streaming Rules</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/notifications-practice-directions">Notifications & Practice Directions</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/court-rules">Court Rules</a>
+												</li>
+												<li class="item-list">
+													<a href="https://delhihighcourt.nic.in/web/rti-disclosure-rules">RTI Disclosure & Rules</a>
+												</li>
+											</ul>
+										</li>
+										<li class="nav-item">
+											<a href="javascript:void(0)" id="search-icon">
+												<i class="fa fa-search" aria-hidden="true" id="search-icon-img"></i>
+											</a>
+											<div id="search-box" class="search-box">
+												<input type="text" placeholder="Search...">
+												<button type="button" class="yellow-btn">Search</button>
+											</div>
+										</li>
+
+									</ul>
+								</div>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Logo Section Header End -->
+	</header>
+
+    <style>
+        .record-card {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 10px 15px;
+        margin-top: 10px;
+        margin-bottom: 10px; /* Added more space here */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+        .record-header {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            font-size: 1.1rem;
+        }
+		
+
+        .record-subtext {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #007bff;
+        }
+    </style>
+
+	<!-- bradecurm section start  -->
+    <div class="breadcrum-area">
+		<div class="breadcrumb-title-sec">
+			<div class="breadcrumb-bg">
+				<div class="container">
+					<div class="row">
+						<div class="col-12 col-sm-12 col-md-10 col-lg-10">
+							<div class="breadcrumb-body-inner">
+								<div class="region region-breadcrumb">
+									<div id="block-delhihighcourt-breadcrumbs"
+										class="block block-system block-system-breadcrumb-block">
+										<nav aria-label="breadcrumb" class="bradurcum_custom">
+											<ol class="breadcrumb">
+												<li class="breadcrumb-item">
+													<a href="/">Home</a>
+												</li>
+												<li class="breadcrumb-item inactive">
+													<a href="#">JUDGEMENT INFORMATION SYSTEM</a>
+												</li>
+												<li class="breadcrumb-item inactive">
+													<a href="#"> SITTING JUDGES' WISE</a>
+												</li>
+											</ol>
+										</nav>
+
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+						<div class="col-12 col-sm-12 col-md-2 col-lg-2">
+							<a href="javascript:void(0);" onclick="history.back();" class="btn quick-btn">Back</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Edn bradecurm section css  -->
+
+<div class="tabs-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="multistep_content">
+                    <ul class="nav nav-tabs">
+	<li class="nav-item">
+		<a href="https://delhihighcourt.nic.in/app/neutral-citation"  class="nav-link" ><img src="https://delhihighcourt.nic.in/app/public/ois/images/case-wise.png">Neutral Citation</a>
+	</li>
+	<li class="nav-item">
+		<a href="https://delhihighcourt.nic.in/app/case-number"  class="nav-link" ><img src="https://delhihighcourt.nic.in/app/public/ois/images/sitting-judges-wise.png"> Case Number</a>
+	</li>
+	<li class="nav-item">
+		<a href="https://delhihighcourt.nic.in/app/sitting-judges-wise-data"  class="nav-link active" ><img src="https://delhihighcourt.nic.in/app/public/ois/images/former-judges-wise.png"> Sitting Judges' Wise</a>
+	</li>
+	
+	
+	<li class="nav-item">
+		<a href="https://delhihighcourt.nic.in/app/former-judges-wise"  class="nav-link" ><img src="https://delhihighcourt.nic.in/app/public/ois/images/former-judges-wise.png"> Former Judges' Wise </a>
+	</li>
+	
+	<li class="nav-item">
+		<a href="https://delhihighcourt.nic.in/app/judgement-dates-wise"  class="nav-link" ><img src="https://delhihighcourt.nic.in/app/public/ois/images/former-judges-wise.png"> Judgement Date </a>
+	</li>
+	
+	<li class="nav-item">
+		<a href="https://delhihighcourt.nic.in/app/party-name-wise-judgement"  class="nav-link" ><img src="https://delhihighcourt.nic.in/app/public/ois/images/former-judges-wise.png"> Party Name</a>
+	</li>
+	
+</ul>                    <div class="tab-content">
+                   <!--  <span class="custom_text_align_end">
+							The date interval must not be greater than one month
+						</span> -->
+                        <div class="tab-pane container active" id="menu2">
+                            <form method="post" action="https://delhihighcourt.nic.in/app/sitting-judges-wise-data" id="search1">
+                                <input type="hidden" name="_token" value="f9QNYDKrgGOSp0qrRP9bNYTXmezwCGqRPogCP2Im" autocomplete="off">                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-xl-4">
+                                        <div class="form-group">
+                                            <label>Judge Name :</label>
+                                            <select class="form-control" name="s_judge_name" id="s_judge_name">
+                                                <option value="">Select</option>
+                                                                                                <option value="683" >CHIEF JUSTICE DEVENDRA KUMAR UPADHYAYA</option>
+                                                                                                <option value="81" selected >JUSTICE V. KAMESWAR RAO</option>
+                                                                                                <option value="748" >JUSTICE NITIN WASUDEO SAMBRE</option>
+                                                                                                <option value="749" >JUSTICE VIVEK CHAUDHARY</option>
+                                                                                                <option value="100" >JUSTICE PRATHIBA M. SINGH</option>
+                                                                                                <option value="101" >JUSTICE NAVIN CHAWLA</option>
+                                                                                                <option value="102" >JUSTICE C. HARI SHANKAR</option>
+                                                                                                <option value="750" >JUSTICE ANIL KSHETARPAL</option>
+                                                                                                <option value="561" >JUSTICE SUBRAMONIUM PRASAD</option>
+                                                                                                <option value="104" >JUSTICE JYOTI SINGH</option>
+                                                                                                <option value="105" >JUSTICE PRATEEK JALAN</option>
+                                                                                                <option value="106" >JUSTICE ANUP JAIRAM BHAMBHANI</option>
+                                                                                                <option value="107" >JUSTICE SANJEEV NARULA</option>
+                                                                                                <option value="751" >JUSTICE ARUN MONGA</option>
+                                                                                                <option value="108" >JUSTICE MANOJ KUMAR OHRI</option>
+                                                                                                <option value="568" >JUSTICE JASMEET SINGH</option>
+                                                                                                <option value="569" >JUSTICE AMIT BANSAL</option>
+                                                                                                <option value="596" >JUSTICE PURUSHAINDRA KUMAR KAURAV</option>
+                                                                                                <option value="575" >JUSTICE NEENA BANSAL KRISHNA</option>
+                                                                                                <option value="582" >DR. JUSTICE SWARANA KANTA SHARMA</option>
+                                                                                                <option value="590" >JUSTICE TARA VITASTA GANJU</option>
+                                                                                                <option value="592" >JUSTICE MINI PUSHKARNA</option>
+                                                                                                <option value="593" >JUSTICE VIKAS MAHAJAN</option>
+                                                                                                <option value="594" >JUSTICE TUSHAR RAO GEDELA</option>
+                                                                                                <option value="589" >JUSTICE MANMEET PRITAM SINGH ARORA</option>
+                                                                                                <option value="587" >JUSTICE SACHIN DATTA</option>
+                                                                                                <option value="595" >JUSTICE AMIT MAHAJAN</option>
+                                                                                                <option value="591" >JUSTICE SAURABH BANERJEE</option>
+                                                                                                <option value="597" >JUSTICE ANISH DAYAL</option>
+                                                                                                <option value="598" >JUSTICE AMIT SHARMA</option>
+                                                                                                <option value="752" >JUSTICE OM PRAKASH SHUKLA</option>
+                                                                                                <option value="608" >JUSTICE GIRISH KATHPALIA</option>
+                                                                                                <option value="609" >JUSTICE MANOJ JAIN</option>
+                                                                                                <option value="616" >JUSTICE SHALINDER KAUR</option>
+                                                                                                <option value="617" >JUSTICE RAVINDER DUDEJA</option>
+                                                                                                <option value="679" >JUSTICE AJAY DIGPAUL</option>
+                                                                                                <option value="680" >JUSTICE HARISH VAIDYANATHAN SHANKAR</option>
+                                                                                                <option value="687" >JUSTICE TEJAS KARIA</option>
+                                                                                                <option value="688" >JUSTICE RENU BHATNAGAR</option>
+                                                                                                <option value="689" >JUSTICE RAJNEESH KUMAR GUPTA</option>
+                                                                                                <option value="753" >JUSTICE VINOD KUMAR</option>
+                                                                                                <option value="754" >JUSTICE SHAIL JAIN</option>
+                                                                                                <option value="755" >JUSTICE MADHU JAIN</option>
+                                                                                                <option value="757" >JUSTICE VIMAL KUMAR YADAV</option>
+                                                                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-12 col-xl-4">
+                                        <div class="form-group">
+                                            <input type="text" autocomplete="off" class="form-control" value="01-08-2025" placeholder="From Date :"
+                                                name="from_date" id="from_date">
+                                            <label for="name" class="form__label">From Date :</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-12 col-xl-4">
+                                        <div class="form-group">
+                                            <input type="text" autocomplete="off" class="form-control" value="08-08-2025" placeholder="To Date :"
+                                                name="to_date" id="to_date">
+                                            <label for="name" class="form__label">To Date :</label>
+                                        </div>
+                                    </div> 
+									
+									<div class="col-12 col-sm-12 col-md-12 col-xl-3">
+									<div class="form-group">
+											<label id="cap" class="captcha-label mr-4">
+												<span id="captcha-code" class="captcha-code">1605</span>
+											</label>
+											<a href="javascript:void(0)" id="reload-captcha">
+												<i class="fas fa-sync icon-spacing"></i>
+											</a>
+
+											<a href="javascript: playAudio();">
+												<i class="fas fa-volume-up icon-left-spacing"></i>
+											</a>
+										</div>
+                                        <audio id="myAudio">
+                                            <source src="" type="audio/wav">
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                        <input type="hidden" name="randomid" id="randomid" value="1605">
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-12 col-xl-3">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="" name="captchaInput"
+                                                id="captchaInput">
+                                            <label for="name" class="form__label">Enter Captcha Code Here :</label>
+                                        </div>
+                                    </div>
+                                    <!-- Captcha end -->
+									
+
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 col-md-12 col-xl-4">
+                                        <button type="submit" class="btn yellow-btn" id="search">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+							
+							
+															<div class="container p-2">
+								<div class="row justify-content-center">
+									<div class="col-md-6">
+										<div class="record-card text-center">
+											<div class="record-header">HON'BLE <span class="highlight">JUSTICE V. KAMESWAR RAO</span></div>
+											<div class="record-subtext">Total No of Records: <span class="highlight">6</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+
+                            <!-- <h5 class="total-records">Total no of Records : 109</h5> -->
+                            <div class="table-responsive mt-4">
+                                 <table class="table table-hover table-bordered text-center" id="s_judgeTable" style="width:100%">
+    <thead>
+        <tr>
+            <th>S.No.</th>
+            <th>Case No.</th>
+            <th>Date of Judgment/Order</th>
+            <th>Party</th>
+            <th>Corrigendum</th>
+            <th>Remark</th>
+        </tr>
+    </thead>
+    <tbody>
+<tr>    <td align="center">1</td>
+    <td align="center">
+ITA-275/2025&nbsp<font color='blue'><br>2025:DHC:6529-DB</font></td>
+    <td align="center">
+                                				 <a target="dynfr" href="https://delhihighcourt.nic.in/app/showFileJudgment/VKR06082025ITA2752025_173951.pdf">06-08-2025 (pdf)</a><br>
+                                                    <a target="dynfr" href="https://delhihighcourt.nic.in/app/showFileJudgment/VKR06082025ITA2752025_173951.txt">06-08-2025 (txt)</a>
+                        </td>
+    <td align="center">COMMISSIONER OF INCOME TAX -TDS-01<br><b>Vs</b><br>DIAMOND TREE</td>
+    <td align="center">
+                            NA
+            </td>
+    <td align="center">
+                    &nbsp;
+            </td>
+</tr>
+<tr>    <td align="center">2</td>
+    <td align="center">
+ITA-276/2025&nbsp<font color='blue'><br>2025:DHC:6529-DB</font></td>
+    <td align="center">
+                                				 <a target="dynfr" href="https://delhihighcourt.nic.in/app/showFileJudgment/VKR06082025ITA2752025_173951.pdf">06-08-2025 (pdf)</a><br>
+                                                    <a target="dynfr" href="https://delhihighcourt.nic.in/app/showFileJudgment/VKR06082025ITA2752025_173951.txt">06-08-2025 (txt)</a>
+                        </td>
+    <td align="center">COMMISSIONER OF INCOME TAX -TDS-01<br><b>Vs</b><br>DIAMOND TREE</td>
+    <td align="center">
+                            NA
+            </td>
+    <td align="center">
+                    &nbsp;
+            </td>
+</tr>
+<tr>    <td align="center">3</td>
+    <td align="center">
+RFA(COMM)-44/2022&nbsp<font color='blue'><br>2025:DHC:6594-DB</font></td>
+    <td align="center">
+                                				 <a target="dynfr" href="https://delhihighcourt.nic.in/app/showFileJudgment/VKR06082025RFAC442022_173516.pdf">06-08-2025 (pdf)</a><br>
+                                                    <a target="dynfr" href="https://delhihighcourt.nic.in/app/showFileJudgment/VKR06082025RFAC442022_173516.txt">06-08-2025 (txt)</a>
+                        </td>
+    <td align="center">M/S SHIRDI INDUSTRIES LTD &amp; ORS.<br><b>Vs</b><br>MANOJ VIJ</td>
+    <td align="center">
+                            NA
+            </td>
+    <td align="center">
+                    &nbsp;
+            </td>
+</tr>
+<tr>    <td align="center">4</td>
+    <td align="center">
+W.P.(C)-2381/2022&nbsp<font color='blue'><br>2025:DHC:6484-DB</font></td>
+    <td align="center">
+                                				 <a target="dynfr" href="https://delhihighcourt.nic.in/app/showFileJudgment/VKR05082025CW23812022_173847.pdf">05-08-2025 (pdf)</a><br>
+                                                    <a target="dynfr" href="https://delhihighcourt.nic.in/app/showFileJudgment/VKR05082025CW23812022_173847.txt">05-08-2025 (txt)</a>
+                        </td>
+    <td align="center">M/S ERICSSON INDIA PRIVATE LIMITED<br><b>Vs</b><br>NATIONAL FACELESS ASSESSMENT CENTRE DELHI</td>
+    <td align="center">
+                            NA
+            </td>
+    <td align="center">
+                    &nbsp;
+            </td>
+</tr>
+<tr>    <td align="center">5</td>
+    <td align="center">
+W.P.(C)-6862/2023&nbsp<font color='blue'><br>2025:DHC:6491-DB</font></td>
+    <td align="center">
+                                				 <a target="dynfr" href="https://delhihighcourt.nic.in/app/showFileJudgment/VKR05082025CW68622023_175225.pdf">05-08-2025 (pdf)</a><br>
+                                                    <a target="dynfr" href="https://delhihighcourt.nic.in/app/showFileJudgment/VKR05082025CW68622023_175226.txt">05-08-2025 (txt)</a>
+                        </td>
+    <td align="center">NIMIT BUILDERS PRIVATE LIMITED (AS SUCCESSOR IN THE INTEREST OF JK JEET CLOTHES PRIVATE LIMITED AND VERMA PROPTECH PRIVATE LIMITED)<br><b>Vs</b><br>ASSISTANT COMMISSIONER OF INCOME TAX &amp; ORS.</td>
+    <td align="center">
+                            NA
+            </td>
+    <td align="center">
+                    &nbsp;
+            </td>
+</tr>
+<tr>    <td align="center">6</td>
+    <td align="center">
+ITA-262/2025&nbsp<font color='blue'><br>2025:DHC:6325-DB</font></td>
+    <td align="center">
+                                				 <a target="dynfr" href="https://delhihighcourt.nic.in/app/showFileJudgment/VKR01082025ITA2622025_182503.pdf">01-08-2025 (pdf)</a><br>
+                                                    <a target="dynfr" href="https://delhihighcourt.nic.in/app/showFileJudgment/VKR01082025ITA2622025_182503.txt">01-08-2025 (txt)</a>
+                        </td>
+    <td align="center">PR. COMMISSIONER OF INCOME TAX -7<br><b>Vs</b><br>THAPER HOMES PVT. LTD.</td>
+    <td align="center">
+                            NA
+            </td>
+    <td align="center">
+                    &nbsp;
+            </td>
+</tr>
+</tbody>
+</table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <footer>
+		<!-- Important Links Section Start -->
+		<div class="important-links-sec">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-3 important-links">
+						<ul>
+							<li>
+								<!--<a href="https://delhihighcourt.nic.in/app/gatepass/register">e-Visitor Pass</a>-->
+								<a href="https://www.evisitordhc.gov.in/evisitordhcweb/">e-Visitor Pass</a>
+							</li>
+							<li>
+								<a href="https://delhihighcourt.nic.in/web/e-library">e-Library</a>
+							</li>
+							<li>
+								<a href="https://delhihighcourt.nic.in/web/accessibility-services">Accessibility Services</a>
+							</li>
+							<li>
+								<a href="https://delhihighcourt.nic.in/web/e-seva-kendra">e-Sewa Kendra & Accessiblity Helpline</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-3 important-links">
+						<ul>
+							<li>
+								<a href="https://delhihighcourt.nic.in/app/judgments-hindi">निर्णय हिंदी</a>
+							</li>
+							<li>
+								<a href="https://delhihighcourt.nic.in/web/online-forms-downloadable-forms">Forms & Performas</a>
+							</li>
+							<li>
+								<a href="https://delhihighcourt.nic.in/web/summary-of-mps-mlas-pending-cases">Monthly Report on MPs/MLAs Cases in District Court</a>
+							</li>
+							<li>
+								<a href="https://delhihighcourt.nic.in/web">Humour in Court</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-3 important-links">
+						<ul>
+							<li>
+								<a href="https://api.whatsapp.com/send/?phone=9112114450&text=Hi&type=phone_number&app_absent=0"><img src="https://delhihighcourt.nic.in/app/public/ois/images/whatsapp.png"> WhatsApp Services</a>
+							</li>
+							<li>
+								<a href="https://delhihighcourt.nic.in/web/faqs">FAQ's</a>
+							</li>
+							<li>
+								<a href="https://delhihighcourt.nic.in/web/telephone_directory">Telephone Directory</a>
+							</li>
+							<li>
+								<a href="https://delhihighcourt.nic.in/web/live-streaming">Live Streaming</a>
+							</li>
+							<li>
+								<a href="https://delhihighcourt.nic.in/web/sexual-harassment-complaint">Sexual Harassment Complaints</a>
+							</li>
+						</ul>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-3 footer-logo">
+						<a class="logo-align footer_logo" href="#">
+							<div class="brand-img">
+								<img src="https://delhihighcourt.nic.in/app/public/ois/images/logo-footer.png"  alt="emblem">
+							</div>
+							<div class="brand-text">
+								<h4>High Court of Delhi</h4>
+							</div>
+						</a>
+						<div class="download-app-from">
+							<p>Download App From</p>
+							<ul>
+								<li>
+									<a href="#"><img src="https://delhihighcourt.nic.in/app/public/ois/images/aps.png"></a'>
+								</li>
+								<li>
+									<a href="#"><img src="https://delhihighcourt.nic.in/app/public/ois/images/iso.png"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Important Links Section End -->
+		<!-- Footer Top Section Start -->
+		<div class="footer-top-sec">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9 copyright-sec">
+						<div class="footer-nav-sec">
+							<ul>
+								<li>
+									<a href="https://delhihighcourt.nic.in/web/contact-us">Contact us</a>
+								</li>
+								<li>
+									<a href="https://delhihighcourt.nic.in/web/form/feedback">Feedback</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-12 col-sm-12 col-md-3 col-lg-3 visitor-sec">
+						<div class="social-media">
+							<p>Follow Us :</p>
+							<ul>
+								<li>
+									<a href="https://www.youtube.com/@delhihighcourt-official4624"><img src="https://delhihighcourt.nic.in/app/public/ois/images/youtube.png"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+						<hr>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-9 col-lg-9 copyright-sec">
+						<div class="footer-nav-sec">
+							<ul>
+								
+								<li>
+									<a href="https://delhihighcourt.nic.in/web/privacy-policy">Privacy Policy</a>
+								</li>
+								<li>
+									<a href="https://delhihighcourt.nic.in/web/copyright-policy">Copyright Policy</a>
+								</li>
+								<li>
+									<a href="https://delhihighcourt.nic.in/web/hyperlinking-policy">Hyperlinking and Framing Policy</a>
+								</li>
+								<li>
+									<a href="https://delhihighcourt.nic.in/web/acessibility-statement">Accessibility Statement</a>
+								</li>
+								<li>
+									<a href="https://delhihighcourt.nic.in/web/help">Help</a>
+								</li>
+							</ul>
+							<p>Copyright © 2024 Content Owned by High Court of Delhi. All Rights Reserved.</p>
+						</div>
+					</div>
+					<div class="col-12 col-sm-12 col-md-3 col-lg-3 visitor-sec">
+						<p>Visitors: 207611265</p>
+						<p>Page last updated on: 26-03-2025</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Footer Top Section End -->
+	</footer>
+
+	<a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+
+	<!--<script src="https://delhihighcourt.nic.in/app/public/ois/js/jquery-3.3.1.min.js"></script>-->
+	<script src="https://delhihighcourt.nic.in/app/public/ois/js/jquery-3.7.1.min.js"></script>
+	<script src="https://delhihighcourt.nic.in/app/public/ois/js/bootstrap.bundle.min.js"></script>
+	<script src="https://delhihighcourt.nic.in/app/public/ois/js/jquery.easy-ticker.min.js"></script>
+	<script src="https://delhihighcourt.nic.in/app/public/ois/js/wow.min.js"></script>
+	<script src="https://delhihighcourt.nic.in/app/public/ois/js/owl.carousel.js"></script>
+	<script src="https://delhihighcourt.nic.in/app/public/ois/js/custom.js"></script>
+
+
+
+
+    <script src="https://delhihighcourt.nic.in/app/public/cis/js/select2.min.js"></script>
+    <script src="https://delhihighcourt.nic.in/app/public/cis/js/sweetalert.js"></script>
+	<script src="https://delhihighcourt.nic.in/app/public/ois/js/jquery-3.7.1.min.js"></script>
+    <script src="https://delhihighcourt.nic.in/app/public/ois/js/bootstrap-5.3.3.js"></script>
+    <script src="https://delhihighcourt.nic.in/app/public/ois/js/sha.js"></script>
+    <script src="https://delhihighcourt.nic.in/app/public/ois/js/jquery-ui.js"></script>
+    <script src="https://delhihighcourt.nic.in/app/public/ois/js/sweetalert.js"></script>
+    <script src="https://delhihighcourt.nic.in/app/public/cis/js/jquery.validate.min.js"></script>
+
+    <!-----------------------------DataTable Scripts---------------------->
+    <script src="https://delhihighcourt.nic.in/app/public/ois/js/dataTables.js"></script>
+    <script src="https://delhihighcourt.nic.in/app/public/ois/js/dataTables.buttons.js"></script>
+    <script src="https://delhihighcourt.nic.in/app/public/ois/js/buttons.dataTables.js"></script>
+    <script src="https://delhihighcourt.nic.in/app/public/ois/js/jszip.min.js"></script>
+    <script src="https://delhihighcourt.nic.in/app/public/ois/js/pdfmake.min.js"></script>
+    <script src="https://delhihighcourt.nic.in/app/public/ois/js/vfs_fonts.js"></script>
+	<script>
+		/* preloader */
+		setTimeout(function () {
+			$('body')
+				.removeClass('loading')
+				.addClass('loaded');
+		}, 2000);
+		/* preloader */
+	</script>
+	  <script type="text/javascript">
+       /* $(document).ready(function(){
+            $("#from_date").datepicker({
+    			dateFormat: 'dd-mm-yy',
+	            changeMonth: true,
+	            changeYear: true,
+	            yearRange: "-50:-0"
+			});
+            $("#to_date").datepicker({
+    			dateFormat: 'dd-mm-yy',
+	            changeMonth: true,
+	            changeYear: true,
+	            yearRange: "-50:-0"
+			});
+        });*/
+
+        
+
+         $(document).ready(function(){
+        // Initialize the from_date datepicker
+        $("#from_date").datepicker({
+            dateFormat: 'dd-mm-yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-50:-0",
+            onSelect: function(selectedDate) {
+                var selectedDateObj = $(this).datepicker('getDate');
+                
+                // Set the minimum date for to_date to be the selected from_date
+                $("#to_date").datepicker("option", "minDate", selectedDateObj);
+            }
+        });
+
+        // Initialize the to_date datepicker
+        $("#to_date").datepicker({
+            dateFormat: 'dd-mm-yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-50:-0",
+            minDate: 0,  // Disable past dates (before today) by default
+            beforeShowDay: function(date) {
+                // Get the from_date as selected date
+                var fromDate = $("#from_date").datepicker("getDate");
+                
+                // If no from_date is selected, disable all dates before today
+                if (!fromDate) {
+                    var today = new Date();
+                    if (date < today) {
+                        return [false]; // Disable the date
+                    }
+                } else {
+                    // Compare and disable dates before the from_date
+                    if (date < fromDate) {
+                        return [false]; // Disable the date
+                    }
+                }
+                
+                // Allow selecting the date if it's not before from_date
+                return [true]; // Enable the date
+            }
+        });
+    });
+    </script>	
+	 <script>
+        $(document).ready(function()
+        {
+            $( document ).ajaxStart(function()
+            {
+                $('#whole_page_loader').show();
+            });
+
+            $(document).ajaxError(function()
+            {
+                $('#whole_page_loader').hide();
+                //alert("Something went wrong!");
+            });
+
+            $(document).ajaxSuccess(function()
+            {
+                $('#whole_page_loader').hide();
+            });
+
+            // $('.select2').select2();
+        });
+        document.onreadystatechange = function ()
+        {
+            var state = document.readyState
+            if (state == 'interactive')
+            {
+                $('#whole_page_loader').show();
+            } 
+            else if (state == 'complete')
+            {
+                setTimeout(function(){
+                    $('#whole_page_loader').hide();
+                },1000);
+            }
+        }
+    </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Show loader on page load
+    document.getElementById("whole_page_loader").style.display = "block";
+});
+
+window.onload = function() {
+    // Hide loader once page is fully loaded
+    document.getElementById("whole_page_loader").style.display = "none";
+};
+</script>
+
+   
+        <script src="https://cdn.jsdelivr.net/npm/tesseract.js"></script>
+<script src="https://delhihighcourt.nic.in/app/public/ois/js/moment.min.js"></script>
+<script>
+// This function is called when the "Play Audio" button is clicked
+function playAudio() {
+    var code = document.getElementById("randomid").value; // Get the captcha code
+    var audioSrc = "https://delhihighcourt.nic.in/app/storage/app/public/captcha_audios/" + code + ".wav"; // Build the URL
+    var audio = document.getElementById("myAudio");
+    audio.src = audioSrc; // Set the audio source
+    audio.play(); // Play the audio
+}
+
+// Function to refresh the captcha image when the refresh button is clicked
+function refreshCaptcha() {
+    location.reload();
+}
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+	
+	$('#reload-captcha').on('click', function() {
+        $.ajax({
+            url: "https://delhihighcourt.nic.in/app/generate-captcha", // Route to generate captcha
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                // Update the captcha code in the label with the new code
+                $('#captcha-code').text(response.captcha_code);
+
+                // Update the hidden input 'randomid' with the new captcha code
+                document.getElementById('randomid').value = response.captcha_code;
+
+                // Update the audio source dynamically if you want to update it as well
+                $('#captcha-audio').attr('src', response.audio_url); // Update the audio URL
+            },
+            error: function() {
+                alert("Error loading captcha.");
+            }
+        });
+    });
+
+    var table = $('#s_judgeTable').DataTable();
+ 
+
+    $('#search').on('click', function(e) {
+        e.preventDefault();
+        var s_judge_name = $("#s_judge_name").val();
+        var from_date = $("#from_date").val();
+        var to_date = $("#to_date").val();
+        var captchaInput = $("#captchaInput").val(); // Get CAPTCHA input value
+        var fromDate = moment(from_date, 'DD-MM-YYYY');
+        var toDate = moment(to_date, 'DD-MM-YYYY');
+        var maxToDate = moment(fromDate).add(25000, 'days');
+        // if (captchaInput == '') {
+        //     Swal.fire('Alert', 'CAPTCHA is required', 'warning');
+        //     return;
+        // }
+        if (s_judge_name == '') {
+            Swal.fire('Alert', 'Judge name field is require', 'warning');
+        } else if (from_date == '') {
+            Swal.fire('Alert', 'From date field is require', 'warning');
+        } else if (to_date == '') {
+            Swal.fire('Alert', 'To date field is required', 'warning');
+        } else if (captchaInput == '') {
+            Swal.fire('Alert', 'Captcha field is required', 'warning');
+        } else if (toDate.isBefore(fromDate)) {
+            Swal.fire('Alert', 'To Date should always be greater than From Date.', 'warning');
+        } else if (toDate.isAfter(maxToDate)) {
+            Swal.fire('Alert', 'The date interval must not be greater than one month.', 'warning');
+        } else {
+            $.ajax({
+                url: 'https://delhihighcourt.nic.in/app/validateCaptcha',
+                type: 'POST',
+                data: {
+                    "_token": "f9QNYDKrgGOSp0qrRP9bNYTXmezwCGqRPogCP2Im",
+                    "captchaInput": captchaInput
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $("#search1").submit();
+						$('#whole_page_loader').show();
+                    } else {
+                        Swal.fire('Alert', 'CAPTCHA is incorrect. Please try again.',
+                            'error');
+                        // reloadCaptcha();
+                        $("#captchaInput").val(""); // Clear the CAPTCHA input
+                    }
+                },
+                error: function() {
+                    Swal.fire('Error', 'CAPTCHA validation failed. Please try again later.',
+                        'error');
+                }
+            });
+        }
+    });
+});
+</script>
+</body>
+
+</html>

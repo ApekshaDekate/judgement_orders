@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Court Case Search</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-4">
+  <h2 class="mb-4">Court Case Search</h2>
+
+  <!-- Search form -->
+  <form id="caseSearchForm">
+    <div class="mb-3">
+      <label for="state_code" class="form-label fw-bold">Select Court</label>
+      <select id="state_code" name="state_code" class="form-select">
+        <option value="">Select Court</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="dist_code" class="form-label fw-bold">Select Bench</label>
+      <select id="dist_code" name="dist_code" class="form-select">
+        <option value="">Select Bench</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="case_type" class="form-label fw-bold">Case Type</label>
+      <select id="case_type" name="case_type" class="form-select">
+        <option value="">Select Case Type</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="disposal_type" class="form-label fw-bold">Disposal Nature</label>
+      <select id="disposal_type" name="disposal_type" class="form-select">
+        <option value="">Select Disposal Type</option>
+      </select>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label for="case_no" class="form-label fw-bold">Case No</label>
+        <input type="text" id="case_no" name="case_no" class="form-control" placeholder="Enter Case Number">
+      </div>
+      <div class="col">
+        <label for="case_year" class="form-label fw-bold">Year</label>
+        <input type="text" id="case_year" name="case_year" class="form-control" placeholder="Enter Year">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="judge" class="form-label fw-bold">Judge Name</label>
+      <input list="judges" id="judge" name="judge" class="form-control" placeholder="Start typing Judge Name">
+      <datalist id="judges"></datalist>
+    </div>
+
+    <div class="mb-3">
+      <label for="party" class="form-label fw-bold">Party</label>
+      <input type="text" id="party" name="party" class="form-control" placeholder="Enter Petitioner / Respondent">
+    </div>
+
+    <div class="row mb-3">
+      <div class="col">
+        <label for="act" class="form-label fw-bold">Act</label>
+        <input list="acts" id="act" name="act" class="form-control" placeholder="Start typing Act">
+        <datalist id="acts"></datalist>
+      </div>
+      <div class="col">
+        <label for="section" class="form-label fw-bold">Section</label>
+        <input type="text" id="section" name="section" class="form-control" placeholder="Enter Section">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label fw-bold">Decision Date</label>
+      <select id="decision_date" name="decision_date" class="form-select">
+        <option value="ALL">All</option>
+        <option value="WEEK">Past Week</option>
+        <option value="MONTH">Past Month</option>
+        <option value="YEAR">Past Year</option>
+        <option value="CUSTOM">Custom Range</option>
+      </select>
+    </div>
+
+    <div class="row mb-3" id="custom_date_range" style="display:none;">
+      <div class="col">
+        <label for="from_date" class="form-label">From Date</label>
+        <input type="date" id="from_date" name="from_date" class="form-control">
+      </div>
+      <div class="col">
+        <label for="to_date" class="form-label">To Date</label>
+        <input type="date" id="to_date" name="to_date" class="form-control">
+      </div>
+    </div>
+    <a href="{{ pdf_url }}" target="_blank" class="btn btn-sm btn-outline-primary">
+   📄 View PDF
+</a>
+
+
+    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="reset" class="btn btn-secondary">Reset</button>
+  </form>
+
+  <div class="mb-2">
+    <strong>Total Cases: </strong>
+    <span id="totalCasesCount">0</span>
+  </div>
+
+  <div class="mt-4">
+    <table class="table table-bordered">
+      <thead><tr><th>#</th><th>Case Details</th></tr></thead>
+      <tbody id="report_body"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="mt-3 d-flex justify-content-between">
+  <button id="prevBtn" class="btn btn-primary">Previous</button>
+  <button id="nextBtn" class="btn btn-primary">Next</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+let appToken = "";
+let sEcho = 1;
+let iDisplayStart = 0;
+const iDisplayLength = 100;
+
+function fillSelect(selectId, options, placeholder = "Select") {
+  const select = document.getElementById(selectId);
+  select.innerHTML = `<option value="">${placeholder}</option>`;
+  options.forEach(opt => {
+    const o = document.createElement("option");
+    o.value = opt.value;
+    o.text = opt.text;
+    select.add(o);
+  });
+}
+function fillDatalist(listId, options) {
+  const list = document.getElementById(listId);
+  list.innerHTML = "";
+  options.forEach(opt => {
+    const o = document.createElement("option");
+    o.value = opt.text || opt;
+    list.appendChild(o);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const res = await fetch("http://127.0.0.1:8000/init");
+  const data = await res.json();
+  appToken = data.app_token;
+  fillSelect("state_code", data.dropdowns.state_code, "Select Court");
+});
+
+document.getElementById("state_code").addEventListener("change", async e => {
+  if (!e.target.value) return;
+  const res = await fetch(`http://127.0.0.1:8000/select_court?court_code=${encodeURIComponent(e.target.value)}&app_token=${appToken}`);
+  const data = await res.json();
+  appToken = data.app_token;
+  fillSelect("dist_code", data.dropdowns.dist_code, "Select Bench");
+});
+
+document.getElementById("dist_code").addEventListener("change", async e => {
+  if (!e.target.value) return;
+  const courtVal = document.getElementById("state_code").value;
+  const res = await fetch(`http://127.0.0.1:8000/select_bench?court_code=${encodeURIComponent(courtVal)}&bench_code=${encodeURIComponent(e.target.value)}&app_token=${appToken}`);
+  const data = await res.json();
+  appToken = data.app_token;
+  fillSelect("case_type", data.dropdowns.case_types, "Select Case Type");
+  fillSelect("disposal_type", data.dropdowns.disposal_types, "Select Disposal Type");
+});
+
+document.getElementById("decision_date").addEventListener("change", function () {
+  document.getElementById("custom_date_range").style.display = this.value === "CUSTOM" ? "flex" : "none";
+});
+
+function renderTableFromAaData(aaData) {
+  const tbody = document.getElementById("report_body");
+  tbody.innerHTML = "";
+  aaData.forEach(row => {
+    const tr = document.createElement("tr");
+    const tdIndex = document.createElement("td");
+    tdIndex.textContent = row[0];
+    tr.appendChild(tdIndex);
+    const tdDetails = document.createElement("td");
+    tdDetails.innerHTML = row[1];
+    tr.appendChild(tdDetails);
+    tbody.appendChild(tr);
+  });
+}
+
+async function loadPage() {
+  const form = document.getElementById("caseSearchForm");
+  const payload = {
+    sEcho, iColumns: 2, sColumns: ",", iDisplayStart, iDisplayLength,
+    page: (iDisplayStart / iDisplayLength) + 1,
+    page_size: iDisplayLength,
+    pet_res: form.party.value,
+    state_code: form.state_code.value,
+    dist_code: form.dist_code.value,
+    case_no: form.case_no.value,
+    case_year: form.case_year.value,
+    judge_name: form.judge.value,
+    fulltext_case_type: form.case_type.value,
+    act: form.act.value,
+    sections: form.section.value,
+    disp_nature: form.disposal_type.value,
+    search_opt: "ALL",
+    date_val: document.getElementById("decision_date").value,
+    fcourt_type: 2,
+    from_date: document.getElementById("from_date").value,
+    to_date: document.getElementById("to_date").value,
+    ajax_req: true,
+    app_token: appToken
+  };
+  const res = await fetch("http://127.0.0.1:8000/search_cases", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(payload)
+  });
+  const data = await res.json();
+  const totalCases = data.total || data.iTotalRecords || (data.reportrow && data.reportrow.iTotalRecords) || 0;
+  document.getElementById("totalCasesCount").textContent = totalCases;
+
+  if (data.reportrow && data.reportrow.aaData) renderTableFromAaData(data.reportrow.aaData);
+  else if (data.aaData) renderTableFromAaData(data.aaData);
+  else document.getElementById("report_body").innerHTML = "<tr><td colspan='2'>No data</td></tr>";
+}
+
+document.getElementById("nextBtn").addEventListener("click", () => { iDisplayStart += iDisplayLength; sEcho++; loadPage(); });
+document.getElementById("prevBtn").addEventListener("click", () => { if (iDisplayStart >= iDisplayLength) { iDisplayStart -= iDisplayLength; sEcho++; loadPage(); }});
+document.getElementById("caseSearchForm").addEventListener("submit", e => { e.preventDefault(); iDisplayStart = 0; sEcho = 1; loadPage(); });
+document.getElementById("caseSearchForm").addEventListener("reset", () => { document.getElementById("report_body").innerHTML=""; });
+
+/* 🧩 DIRECT REDIRECT LOGIC */
+document.getElementById("report_body").addEventListener("click", async (e) => {
+  const btn = e.target.closest("button[id^='link_']");
+  if (!btn) return;
+
+  const onclickVal = btn.getAttribute("onclick");
+  if (!onclickVal) return;
+
+  const match = onclickVal.match(/'([^']+)'/);
+  if (!match) return;
+
+  const cnr = match[1];  // extract the CNR number
+
+  // 🔹 Ask backend for the real redirect URL
+  const res = await fetch(`http://127.0.0.1:8000/get_redirect_link?cnr_number=${encodeURIComponent(cnr)}`);
+  const data = await res.json();
+
+  if (data.redirect_url) {
+    window.open(data.redirect_url, "_blank"); // open directly in new tab
+  } else {
+    alert("Failed to open court page");
+  }
+});
+</script>
+</body>
+</html>

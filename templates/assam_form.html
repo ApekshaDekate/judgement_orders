@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assam Judgements</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
+
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        label { font-weight: bold; }
+        .form-section { display: none; margin-top: 15px; }
+        .visible { display: block; }
+    </style>
+</head>
+
+<body>
+
+    <h1>High Court of Assam</h1>
+    <h2>Search Judgements</h2>
+
+    <form id="assamForm" action="/assam/results" method="post">
+
+        <p><b>Select Search Type:</b></p>
+
+        <label><input type="radio" name="search_type" value="date" checked> By Date</label>
+        <label><input type="radio" name="search_type" value="judge"> By Judge</label>
+        <label><input type="radio" name="search_type" value="party"> By Party Name</label>
+        <label><input type="radio" name="search_type" value="citation"> By Citation</label>
+
+        <hr>
+
+        <!-- Bench selection ALWAYS visible -->
+        <div id="bench_selector" class="form-section visible">
+            <label>Select Bench:</label>
+            <select id="bench_id" name="bench_id">
+                <option value="guwahati">Principal Seat - Guwahati</option>
+                <option value="aizwal">Aizawl Bench</option>
+                <option value="kohima">Kohima Bench</option>
+                <option value="itanagar">Itanagar Bench</option>
+            </select>
+            <br><br>
+        </div>
+
+        <!-- DATE SEARCH -->
+        <div id="date" class="form-section visible">
+            <label>From Date:</label>
+            <input type="text" name="from_date" id="from_date">
+
+            <br><br>
+            <label>To Date:</label>
+            <input type="text" name="to_date" id="to_date">
+        </div>
+
+        <!-- JUDGE SEARCH -->
+        <div id="judge" class="form-section">
+            <label>Select Judge:</label>
+            <!-- name must be nnjudgecode1 to match backend -->
+            <select id="judge_dropdown" name="nnjudgecode1">
+                <option value="-1">All Judges</option>
+            </select>
+
+            <br><br>
+            <label>From Date (judge):</label>
+            <!-- we keep separate judge date inputs for UX, but we'll copy these to from_date/to_date before submit -->
+            <input type="text" name="judge_from_date" id="judge_from_date">
+
+            <br><br>
+            <label>To Date (judge):</label>
+            <input type="text" name="judge_to_date" id="judge_to_date">
+        </div>
+
+        <!-- PARTY SEARCH -->
+        <div id="party" class="form-section">
+            <label>Party Name (Petitioner/Respondent):</label>
+            <!-- backend expects "party_name" -->
+            <input type="text" name="party_name" id="party_name">
+
+            <br><br>
+            <label>Year:</label>
+            <input type="text" name="rgyear" id="rgyear" placeholder="YYYY">
+        </div>
+
+        <!-- CITATION SEARCH -->
+        <div id="citation" class="form-section">
+            <label>Citation No:</label>
+            <input type="text" name="citation_no" id="citation_no">
+        </div>
+
+        <br>
+        <button type="submit">Search</button>
+
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <script>
+
+        // Helper: load judges for a bench
+        function loadJudgesForBench(benchId) {
+            const sel = $("#judge_dropdown");
+            sel.empty();
+            sel.append(`<option value="-1">All Judges</option>`);
+            fetch(`/assam/judges/${benchId}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Failed to fetch judges");
+                    return res.json();
+                })
+                .then(data => {
+                    // data.judges expected as [{value,label}, ...]
+                    if (data && Array.isArray(data.judges)) {
+                        data.judges.forEach(j => {
+                            sel.append(`<option value="${j.value}">${j.label}</option>`);
+                        });
+                    } else if (Array.isArray(data)) {
+                        // fallback if endpoint returns array directly
+                        data.forEach(j => {
+                            sel.append(`<option value="${j.value}">${j.label}</option>`);
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.warn("Could not load judges:", err);
+                });
+        }
+
+        // Populate judges when bench selection changes
+        $("#bench_id").on("change", function () {
+            loadJudgesForBench($(this).val());
+        });
+
+        // Ensure judges are loaded on page load for the default bench
+        $(document).ready(function () {
+            const defaultBench = $("#bench_id").val();
+            if (defaultBench) {
+                loadJudgesForBench(defaultBench);
+            }
+        });
+
+        // Toggle visible form section (bench selector remains visible)
+        function toggleSection(type) {
+            document.querySelectorAll(".form-section").forEach(sec => sec.classList.remove("visible"));
+            // bench selector always visible
+            document.getElementById("bench_selector").classList.add("visible");
+            // show chosen section
+            document.getElementById(type).classList.add("visible");
+        }
+
+        document.querySelectorAll("input[name='search_type']").forEach(r => {
+            r.addEventListener("change", e => toggleSection(e.target.value));
+        });
+
+        toggleSection("date"); // default visible section
+
+        // Date picker initialization
+        $(function () {
+            $("#from_date, #to_date, #judge_from_date, #judge_to_date").datepicker({
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "2000:2050"
+            });
+        });
+
+        // Before submit:
+        // 1) copy judge_from_date/judge_to_date into from_date/to_date when searching by judge
+        // 2) disable inputs from hidden sections (but keep bench selector enabled)
+        document.getElementById("assamForm").addEventListener("submit", function (ev) {
+            const form = this;
+            const searchType = form.querySelector("input[name='search_type']:checked").value;
+
+            if (searchType === "judge") {
+                // copy judge dates to the standard names expected by backend
+                const jf = document.getElementById("judge_from_date").value || "";
+                const jt = document.getElementById("judge_to_date").value || "";
+                // ensure there are hidden canonical inputs named from_date / to_date to send
+                // if not present (because date section hidden) create/overwrite hidden inputs
+                let fd = form.querySelector("input[name='from_date']");
+                let td = form.querySelector("input[name='to_date']");
+                if (!fd) {
+                    fd = document.createElement("input");
+                    fd.type = "hidden";
+                    fd.name = "from_date";
+                    form.appendChild(fd);
+                }
+                if (!td) {
+                    td = document.createElement("input");
+                    td.type = "hidden";
+                    td.name = "to_date";
+                    form.appendChild(td);
+                }
+                fd.value = jf;
+                td.value = jt;
+            }
+
+            // disable inputs/selects in sections that are not visible, except bench_selector
+            document.querySelectorAll(".form-section").forEach(section => {
+                const isVisible = section.classList.contains("visible");
+                section.querySelectorAll("input, select, textarea").forEach(el => {
+                    // Do not disable bench selector itself
+                    if (section.id === "bench_selector") {
+                        el.disabled = false;
+                    } else {
+                        el.disabled = !isVisible;
+                    }
+                });
+            });
+
+            // allow form to submit normally
+        });
+
+    </script>
+
+</body>
+</html>

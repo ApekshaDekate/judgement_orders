@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kerala Judgments - Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #444;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        a {
+            text-decoration: none;
+            color: blue;
+        }
+        .back-link {
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h2>Results Table</h2>
+    <div>{{ html_table | safe }}</div>
+
+    {% if has_next %}
+  <form method="post" action="/kerala/results">
+    <input type="hidden" name="from_date" value="{{ from_date }}">
+    <input type="hidden" name="to_date" value="{{ to_date }}">
+    <input type="hidden" name="judge_code" value="{{ judge_code }}">
+    <input type="hidden" name="citationno" value="{{ citationno }}">
+    <input type="hidden" name="citationyear" value="{{ citationyear }}">
+    <input type="hidden" name="cnt" value="{{ cnt }}">
+    <input type="hidden" name="page_cnt" value="{{ page_cnt }}">
+    <button type="submit">Next</button>
+  </form>
+{% endif %}
+
+</body>
+</html>

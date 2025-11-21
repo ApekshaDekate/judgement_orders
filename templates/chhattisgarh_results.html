@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chhattisgarh High Court Results</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f8f9fa; padding: 20px; }
+    .container { background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 8px; border: 1px solid #ddd; }
+    th { background-color: #007bff; color: white; }
+    a { color: #007bff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="mb-4">🧾 Chhattisgarh High Court Search Results</h2>
+
+    <p><strong>PDFs saved at:</strong> <code>{{ folder_name }}</code></p>
+
+    {% if result_html %}
+      <div class="table-responsive">
+        {{ result_html | safe }}
+      </div>
+    {% else %}
+      <p style="color:red;">⚠️ No result table found.</p>
+    {% endif %}
+
+    <hr />
+    <a href="/chhattisgarh" class="btn btn-primary">🔙 New Search</a>
+  </div>
+</body>
+</html>

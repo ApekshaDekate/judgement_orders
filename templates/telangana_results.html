@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid rgb(0, 0, 0);  /* border for table */
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+{% block content %}
+<h3>Search Results</h3>
+
+{% if results %}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      {% for h in headers %}
+        <th>{{ h }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in results %}
+    <tr>
+        {% for h in headers %}
+        <td>{{ row[h]|safe }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+{% else %}
+<p>No records found.</p>
+{% endif %}
+
+{% endblock %}
+
+</html>

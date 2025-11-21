@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bombay HC Orders ({{ from_date }} to {{ to_date }})</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid #999;
+            padding: 8px;
+        }
+        th {
+            background: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h2>Orders from {{ from_date }} to {{ to_date }}</h2>
+    <a href="/bombay">🔙 Back to Form</a>
+    <table>
+        <thead>
+            <tr>
+                {% for heading in rows[0] %}
+                    <th>{{ heading }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows[1:] %}
+                <tr>
+                    {% for col in row %}
+                        <td>{{ col | safe }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+

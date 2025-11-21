@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Case Orders</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #f8f8f8;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h2>Case Results</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>S No.</th>
+                <th>Case Type / Number / Year</th>
+                <th>Order Date</th>
+                <th>Order Type</th>
+                <th>PDF</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ item.index }}</td>
+                <td>{{ item.case_no }}</td>
+                <td>{{ item.order_date }}</td>
+                <td>{{ item.order_type }}</td>
+                <td>
+                    {% if item.pdf_link %}
+                    <a href="{{ item.pdf_link }}" target="_blank" download>
+                        <button>Download PDF</button>
+                    </a>
+                    {% else %}
+                    <span style="color: red;">Unavailable</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

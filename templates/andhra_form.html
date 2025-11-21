@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Andhra Pradesh Judgements</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        label { font-weight: bold; }
+        .form-section { display: none; margin-top: 15px; }
+        .visible { display: block; }
+    </style>
+</head>
+
+<body>
+
+<h1>High Court of Andhra Pradesh</h1>
+<h2>Search Judgements</h2>
+
+<form id="searchForm" action="/andhra/results" method="post">
+
+    <p><b>Select Search Type:</b></p>
+    <label><input type="radio" name="search_type" value="date" checked> By Date</label>
+    <label><input type="radio" name="search_type" value="judge"> By Judge</label>
+    <!-- <label><input type="radio" name="search_type" value="act"> By Act</label> -->
+    <label><input type="radio" name="search_type" value="party"> By Party</label>
+    <label><input type="radio" name="search_type" value="citation"> By Citation</label>
+
+    <hr>
+
+    <!-- DATE SEARCH -->
+    <div id="date" class="form-section visible">
+        <label>From Date:</label>
+        <input type="text" name="from_date" id="from_date">
+
+        <br><br>
+
+        <label>To Date:</label>
+        <input type="text" name="to_date" id="to_date">
+    </div>
+
+    <!-- JUDGE SEARCH -->
+    <div id="judge" class="form-section">
+        <label>Judge Name:</label>
+        <select name="judge_code" id="judge_code">
+            <option value="">-- Select Judge --</option>
+            {% for judge in judge_list %}
+            <option value="{{ judge.value }}">{{ judge.label }}</option>
+            {% endfor %}
+        </select>
+
+        <br><br>
+
+        <label>From Date:</label>
+        <input type="text" name="judge_from_date" id="from_date_j">
+
+        <label>To Date:</label>
+        <input type="text" name="judge_to_date" id="to_date_j">
+    </div>
+
+    <!-- ACT SEARCH
+    <div id="act" class="form-section">
+        <label>Search Act:</label>
+        <input type="text" name="act_name" id="search_act">
+        <button type="button" id="searchActBtn">Search</button>
+
+        <br><br>
+
+        <label>Act Type:</label>
+        <select name="act_type_code" id="act_type_code">
+            <option value="">---------Select Act---------</option>
+        </select>
+
+        <br><br>
+
+        <label>Section:</label>
+        <input type="text" name="section">
+    </div> -->
+
+    <!-- PARTY SEARCH -->
+    <div id="party" class="form-section">
+        <label>Petitioner/Respondent:</label>
+        <input type="text" name="party_name" id="party_name">
+
+        <br><br>
+
+        <label>Year:</label>
+        <input type="number" name="rgyear" id="rgyear" placeholder="YYYY">
+    </div>
+
+    <!-- CITATION SEARCH -->
+    <div id="citation" class="form-section">
+        <label>Citation No:</label>
+        <input type="text" name="citation_no" id="citation_no">
+    </div>
+
+    <br>
+    <button type="submit">Search</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+<script>
+    // Toggle sections
+    function toggleForm(type) {
+        document.querySelectorAll(".form-section").forEach(sec =>
+            sec.classList.remove("visible")
+        );
+        document.getElementById(type).classList.add("visible");
+    }
+
+    document.querySelectorAll("input[name='search_type']").forEach(radio => {
+        radio.addEventListener("change", e => toggleForm(e.target.value));
+    });
+
+    toggleForm("date");
+
+    // Disable hidden fields before submitting
+    document.getElementById("searchForm").addEventListener("submit", () => {
+        document.querySelectorAll(".form-section").forEach(section => {
+            if (!section.classList.contains("visible")) {
+                section.querySelectorAll("input, select").forEach(el => {
+                    el.disabled = true;
+                });
+            }
+        });
+    });
+
+    // Act search
+    document.getElementById("searchActBtn").addEventListener("click", function () {
+        const query = document.getElementById("search_act").value.trim();
+        if (!query) return;
+
+        fetch(`/andhra/act-types?search=${encodeURIComponent(query)}`)
+            .then(res => res.json())
+            .then(data => {
+                const sel = document.getElementById("act_type_code");
+                sel.innerHTML = `<option value="">---------Select Act---------</option>`;
+                data.forEach(a => {
+                    const op = document.createElement("option");
+                    op.value = a.value;
+                    op.textContent = a.label;
+                    sel.appendChild(op);
+                });
+            });
+    });
+
+    // Datepicker
+    $(function () {
+        $("#from_date, #to_date, #from_date_j, #to_date_j").datepicker({
+            dateFormat: "dd-mm-yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "2000:2050"
+        });
+    });
+</script>
+
+</body>
+</html>

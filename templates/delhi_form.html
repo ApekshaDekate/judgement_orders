@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Delhi HC Judgement Info System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .form-control {
+      width: 50% !important;
+    }
+  </style>
+
+</head>
+
+<body class="bg-light">
+
+  <div class="container py-4">
+    <h2 class="mb-4">Delhi High Court Judgement Search</h2>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+      <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#neutral">Neutral
+          Citation</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#case">Case Number</button>
+      </li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#sitting">Sitting Judges'
+          Wise</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#former">Former Judges'
+          Wise</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#date">Judgement Date</button>
+      </li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#party">Party Name</button>
+      </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content mt-3">
+
+      <!-- Neutral Citation -->
+      <div class="tab-pane fade show active" id="neutral">
+        <!-- <form method="post" action="/neutral_citation/search"></form> -->
+        <form id="neutralForm">
+        <div class="mb-3">
+          <label class="form-label">Neutral Citation </label>
+          <input type="text" class="form-control" name="neutral_citation" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <div id="neutralResults" class="mt-3"></div>
+      </div>
+
+      <!-- Case Number -->
+      <div class="tab-pane fade" id="case">
+        <form id="caseForm">
+          <div class="mb-3">
+            <label class="form-label">Case Type</label>
+            <select class="form-select" id="caseTypeSelect" name="case_type"></select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Case Number</label>
+            <input type="text" class="form-control" name="case_number" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Year</label>
+            <select class="form-select" id="yearSelect" name="year"></select>
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <div id="caseResults" class="mt-3"></div>
+      </div>
+
+      <!-- Sitting Judges -->
+      <div class="tab-pane fade" id="sitting">
+        <form id="judgeForm">
+          <div class="mb-3">
+            <label class="form-label">Judge Name</label>
+            <select class="form-select" id="judgeSelect" name="judge_id"></select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">From Date</label>
+            <input type="date" class="form-control" name="from_date" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">To Date</label>
+            <input type="date" class="form-control" name="to_date" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <div id="judgeResults" class="mt-3"></div>
+      </div>
+
+      <!-- Former Judges -->
+      <div class="tab-pane fade" id="former">
+        <form id="formerForm">
+          <div class="mb-3">
+            <label class="form-label">Judge Name</label>
+            <select class="form-select" id="formerJudgeSelect" name="judge_id"></select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">From Date</label>
+            <input type="date" class="form-control" name="from_date" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">To Date</label>
+            <input type="date" class="form-control" name="to_date" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <div id="formerResults" class="mt-3"></div>
+      </div>
+
+      <!-- Judgement Date -->
+      <div class="tab-pane fade" id="date">
+        <form id="dateForm">
+          <div class="mb-3">
+            <label class="form-label">From Date</label>
+            <input type="date" class="form-control" name="from_date" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">To Date</label>
+            <input type="date" class="form-control" name="to_date" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <div id="dateResults" class="mt-3"></div>
+      </div>
+
+      <!-- Party Name -->
+<div class="tab-pane fade" id="party">
+  <form id="partyForm">
+    <div class="mb-3">
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="titlesel" value="P">
+        <label class="form-check-label">Petitioner</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="titlesel" value="R">
+        <label class="form-check-label">Respondent</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="titlesel" value="0" checked>
+        <label class="form-check-label">Don’t Know</label>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Party Name</label>
+      <input type="text" class="form-control" name="party_name" placeholder="Enter Full or Part Name" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">From Date</label>
+      <input type="date" class="form-control" name="from_date">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">To Date</label>
+      <input type="date" class="form-control" name="to_date">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+
+  <div id="partyResults" class="mt-3"></div>
+</div>
+
+
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = "http://127.0.0.1:8000";  // backend
+
+    async function loadDropdowns() {
+      try {
+        // Case Types + Years
+        let res = await fetch(`${API_BASE}/case-types`);
+        let [caseTypes, years] = await res.json();
+        document.getElementById("caseTypeSelect").innerHTML =
+          caseTypes.map(c => `<option value="${c.id}">${c.name}</option>`).join("");
+        document.getElementById("yearSelect").innerHTML =
+          years.map(y => `<option value="${y.id}">${y.name}</option>`).join("");
+
+        // Sitting Judges
+        res = await fetch(`${API_BASE}/sitting_judges`);
+        let judges = await res.json();
+        document.getElementById("judgeSelect").innerHTML =
+          judges.map(j => `<option value="${j.id}">${j.name}</option>`).join("");
+
+        // Former Judges
+        res = await fetch(`${API_BASE}/former_judges`);
+        let former = await res.json();
+        document.getElementById("formerJudgeSelect").innerHTML =
+          former.map(f => `<option value="${f.id}">${f.name}</option>`).join("");
+      } catch (err) {
+        console.error("Error loading dropdowns:", err);
+      }
+    }
+
+    loadDropdowns();
+
+    // Neutral Citation
+    document.getElementById("neutralForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const res = await fetch(`${API_BASE}/neutral_citation/search`, { method: "POST", body: formData });
+      document.getElementById("neutralResults").innerHTML = await res.text();
+    });
+
+    // Case Number
+    document.getElementById("caseForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const res = await fetch(`${API_BASE}/case-number/search`, { method: "POST", body: formData });
+      document.getElementById("caseResults").innerHTML = await res.text();
+    });
+
+    // Sitting Judge
+    document.getElementById("judgeForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const res = await fetch(`${API_BASE}/search_sitting_judge`, { method: "POST", body: formData });
+      document.getElementById("judgeResults").innerHTML = await res.text();
+    });
+
+    // Former Judge
+    document.getElementById("formerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const res = await fetch(`${API_BASE}/search_former_judge`, { method: "POST", body: formData });
+      document.getElementById("formerResults").innerHTML = await res.text();
+    });
+
+    // Date Search
+    document.getElementById("dateForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const res = await fetch(`${API_BASE}/search_by_date`, { method: "POST", body: formData });
+      document.getElementById("dateResults").innerHTML = await res.text();
+    });
+
+    // Party Search
+    document.getElementById("partyForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const res = await fetch(`${API_BASE}/search_by_party`, { method: "POST", body: formData });
+      document.getElementById("partyResults").innerHTML = await res.text();
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

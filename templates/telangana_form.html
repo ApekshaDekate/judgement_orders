@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Telangana Judgements</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    label { font-weight: bold; margin-right:8px }
+    .form-section { display: none; margin-top: 15px;}
+    .visible { display:block; }
+    .row { margin-bottom: 8px; }
+    #act_select {width:50%;}
+  </style>
+</head>
+<body>
+  <h1>High Court of Telangana</h1>
+  <h2>Search Judgements</h2>
+
+  <!-- ALWAYS post to your one backend endpoint -->
+  <form id="searchForm" action="/telangana/results" method="post">
+    <p><b>Select Search Type:</b></p>
+    <label><input type="radio" name="search_type" value="date" checked> By Date</label>
+    <label><input type="radio" name="search_type" value="judge"> By Judge</label>
+    <label><input type="radio" name="search_type" value="act"> By Act</label>
+    <label><input type="radio" name="search_type" value="bench"> By Bench</label>
+    <hr>
+
+    <!-- DATE section -->
+    <div id="sec_date" class="form-section visible">
+      <div class="row">
+        <label>* From Date:</label>
+        <input type="text" id="from_date" name="from_date" placeholder="dd-mm-yyyy" required>
+      </div>
+      <div class="row">
+        <label>* To Date:</label>
+        <input type="text" id="to_date" name="to_date" placeholder="dd-mm-yyyy" required>
+      </div>
+      <div class="row">
+        <label>Status:</label>
+        <select id="status_date" name="status">
+          <option value="">Select Status</option>
+          <option value="Y">LR (Reportable)</option>
+          <option value="N">NLR (Non-Reportable)</option>
+          <option value="B">BOTH</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- JUDGE section -->
+    <div id="sec_judge" class="form-section">
+      <div class="row">
+        <label>* Judge:</label>
+        <select id="judge_select" name="judge" required>
+          <option value="">--Select--</option>
+          {% for judge in judge_list %}
+            <option value="{{ judge.value }}">{{ judge.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="row">
+        <label>* From:</label>
+        <input type="text" id="from_date_j" name="from_date" placeholder="dd-mm-yyyy" required>
+      </div>
+      <div class="row">
+        <label>* To:</label>
+        <input type="text" id="to_date_j" name="to_date" placeholder="dd-mm-yyyy" required>
+      </div>
+    </div>
+
+    <!-- ACT section -->
+    <div id="sec_act" class="form-section">
+      <div class="row">
+        <label>* Act Name:</label>
+        <!-- IMPORTANT: name must be 'act' because backend expects 'act' -->
+        <select id="act_select" name="act" required>
+          <option value="">--Select Act--</option>
+          {% for act in act_list %}
+            <option value="{{ act.value }}">{{ act.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="row">
+        <label>Sections:</label>
+        <!-- backend expects 'section' -->
+        <input type="text" id="section" name="section">
+      </div>
+
+      <div class="row">
+        <label>* From:</label>
+        <input type="text" id="from_date_act" name="from_date" placeholder="dd-mm-yyyy" required>
+      </div>
+      <div class="row">
+        <label>* To:</label>
+        <input type="text" id="to_date_act" name="to_date" placeholder="dd-mm-yyyy" required>
+      </div>
+
+      <div class="row">
+        <label>* Judge (optional):</label>
+        <!-- backend accepts 'judge' -->
+        <select id="judge_for_act" name="judge">
+          <option value="">--Any--</option>
+          {% for judge in judge_list %}
+            <option value="{{ judge.value }}">{{ judge.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <div id="sec_bench" class="form-section">
+      <div class="row">
+        <label>* Bench (code):</label>
+        <select id="bench_select" name="bench_code" required>
+          <option value="">--Select Bench--</option>
+          {% for bench in bench_list %}
+            <option value="{{ bench.value }}">{{ bench.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="row">
+        <label>* Judge:</label>
+        <select id="judge_for_bench" name="judge" required>
+          <option value="">--Select--</option>
+          {% for judge in judge_list %}
+            <option value="{{ judge.value }}">{{ judge.label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="row">
+        <label>Status:</label>
+        <select id="status_bench" name="status">
+          <option value="">Select</option>
+          <option value="Y">LR</option>
+          <option value="N">NLR</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>* From:</label>
+        <input type="text" id="from_date_b" name="from_date" placeholder="dd-mm-yyyy" required>
+      </div>
+      <div class="row">
+        <label>* To:</label>
+        <input type="text" id="to_date_b" name="to_date" placeholder="dd-mm-yyyy" required>
+      </div>
+    </div>
+
+    <div style="margin-top:12px;">
+      <button type="submit">Search</button>
+    </div>
+  </form>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <script>
+    // Map radio value -> section id
+    const sectionMap = {
+      date: 'sec_date',
+      judge: 'sec_judge',
+      act: 'sec_act',
+      bench: 'sec_bench'
+    };
+
+    function toggleForm(type) {
+      // hide all sections
+      Object.values(sectionMap).forEach(id => {
+        document.getElementById(id).classList.remove('visible');
+      });
+      // show selected
+      document.getElementById(sectionMap[type]).classList.add('visible');
+
+      // disable every non-radio input/select so only active section values are submitted
+      document.querySelectorAll("#searchForm input:not([type=radio]), #searchForm select").forEach(el => {
+        el.disabled = true;
+        el.required = false;
+      });
+
+      // enable inputs in the visible section (restore required if present)
+      document.querySelectorAll(`#${sectionMap[type]} input, #${sectionMap[type]} select`).forEach(el => {
+        el.disabled = false;
+        if (el.hasAttribute('data-required') || el.getAttribute('required') !== null) el.required = true;
+      });
+    }
+
+    // attach radios
+    document.querySelectorAll("input[name='search_type']").forEach(radio => {
+      radio.addEventListener('change', e => toggleForm(e.target.value));
+    });
+
+    // initial view
+    toggleForm('date');
+
+    // datepickers: dd-mm-yy so server gets day-first
+    $(function(){
+      $("#from_date, #to_date, #from_date_j, #to_date_j, #from_date_act, #to_date_act, #from_date_b, #to_date_b").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "2000:2050"
+      });
+    });
+
+    // Act search — keeps same name 'act' so backend receives it
+    document.getElementById("searchActBtn").addEventListener("click", function(){
+      const q = document.getElementById("search_act").value.trim();
+      if (!q) return;
+      fetch(`/telangana/act-types?search=${encodeURIComponent(q)}`)
+        .then(r => r.json())
+        .then(data => {
+          const sel = document.getElementById("act_select");
+          sel.innerHTML = '<option value="">--Select Act--</option>';
+          data.forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = item.value;
+            opt.textContent = item.label;
+            sel.appendChild(opt);
+          });
+        }).catch(console.error);
+    });
+
+    // debug helper: quickly log form values before submit (optional)
+    // document.getElementById('searchForm').addEventListener('submit', function(e){
+    //   const fd = new FormData(this);
+    //   for (const pair of fd.entries()) console.log(pair[0], ':', pair[1]);
+    // });
+  </script>
+</body>
+</html>

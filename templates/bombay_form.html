@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Bombay HC Orders - Search</title>
@@ -12,41 +13,49 @@
       background: #f4f6f9;
       font-family: "Segoe UI", sans-serif;
     }
+
     .search-card {
       background: #ecf2f5;
       border-radius: 10px;
       padding: 25px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       margin: 30px auto;
       max-width: 1000px;
       border: 1px solid #ddd,
     }
+
     h1 {
       text-align: center;
       color: #2c3e50;
       margin-bottom: 5px;
     }
+
     h2 {
       text-align: center;
       color: #666;
       margin-bottom: 25px;
       font-size: 18px;
     }
+
     label {
       font-weight: 600;
       margin-bottom: 5px;
       color: #333;
     }
-    .form-control, .select2-container .select2-selection {
+
+    .form-control,
+    .select2-container .select2-selection {
       border-radius: 6px;
     }
+
     #actcode {
       color: var(--bs-body-color);
-    background-color: var(--bs-body-bg);
-    border-color: #86b7fe;
-    outline: 0;
-    box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+      background-color: var(--bs-body-bg);
+      border-color: #86b7fe;
+      outline: 0;
+      box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
     }
+
     /* .btn-primary {
       background-color: #0056b3;
       border: none;
@@ -57,12 +66,14 @@
     .btn-primary:hover {
       background-color: #003d80;
     }
+
     .checkbox label {
       font-weight: 400;
       margin-right: 20px;
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="search-card">
@@ -88,345 +99,44 @@
         <!-- hidden input for actside -->
         <input type="hidden" name="actside" id="actside" value="">
 
+        <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 margin-bottom-10">
+          <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
+            <label class="pull-left">Jurisdiction:</label>
+          </div>
+          <div class="col-xs-12 col-sm-8 col-lg-8 col-md-8">
+            <select name="m_sideflg" id="m_sideflg" 
+              class="form-control pull-left1 width_auto1">
+              <option value="">Select</option>
+              <option value="C" >Civil</option>
+              <option value="CR">Criminal</option>
+            </select>
+          </div>
+        </div>
+
         <!-- Case Type -->
-         <div class="col-md-8">
+        <div class="col-md-8">
           <label for="m_skey">Case Type</label>
           <select id="m_skey" name="m_skey" class="form-control" multiple="multiple"></select>
         </div>
 
 
-        <!-- <div class="col-md-8">
-          <label for="m_skey">Case Type</label>
-          <select name="m_skey" class="form-control">
-                    <option value="">Select</option>
-                    <option value="3">Appeal from Order - Civil</option>
-                    <option value="15">Arbitration Appeal - Civil</option>
-                    <option value="13">Arbitration Petition - Civil</option>
-                    <option value="41">CA in Others(MCA/TXA/CA) - Civil</option>
-                    <option value="39">Civil Appl. in ARP - Civil</option>
-                    <option value="18">Civil Application - Civil</option>
-                    <option value="32">Civil Application in AO - Civil</option>
-                    <option value="50">Civil Application in C.REF - Civil</option>
-                    <option value="38">Civil Application in CAPL - Civil</option>
-                    <option value="37">Civil Application in CP - Civil</option>
-                    <option value="35">Civil Application in CRA - Civil</option>
-                    <option value="31">Civil Application in FA - Civil</option>
-                    <option value="36">Civil Application in FCA - Civil</option>
-                    <option value="67">Civil Application In FEMA - Civil</option>
-                    <option value="60">Civil Application in FERA - Civil</option>
-                    <option value="34">Civil Application in LPA - Civil</option>
-                    <option value="49">Civil Application in PIL - Civil</option>
-                    <option value="33">Civil Application in SA - Civil</option>
-                    <option value="30">Civil Application in WP - Civil</option>
-                    <option value="40">Civil Appln. in ARA - Civil</option>
-                    <option value="9">Civil References - Civil</option>
-                    <option value="7">Civil Revision Application - Civil</option>
-                    <option value="347">Civil Suo Motu Contempt Petition - Civil</option>
-                    <option value="1">Civil Writ Petition - Civil</option>
-                    <option value="341">Commercial AO - Civil</option>
-                    <option value="340">Commercial Arbitration Appeal - Civil</option>
-                    <option value="342">Commercial Arbitration Petition - Civil</option>
-                    <option value="344">Commercial Contempt Appeal - Civil</option>
-                    <option value="343">Commercial Contempt Petition - Civil</option>
-                    <option value="339">Commercial FA - Civil</option>
-                    <option value="10">Cont. Petition - Civil</option>
-                    <option value="12">Contempt Appeal - Civil</option>
-                    <option value="63">Court Receiver Report - Civil</option>
-                    <option value="346">Cross Objection In Commercial FA/ARA/CO/ARP/CP/CA - Civil</option>
-                    <option value="42">Cross Objection Stamp - Civil</option>
-                    <option value="8">Family Court Appeal - Civil</option>
-                    <option value="66">FEMA Appeal - Civil</option>
-                    <option value="58">FERA Appeal - Civil</option>
-                    <option value="2">First Appeal - Civil</option>
-                    <option value="69">INTERIM APPLICATION - Civil</option>
-                    <option value="5">Letter Patent Appeal - Civil</option>
-                    <option value="62">Marriage Petition (A) - Civil</option>
-                    <option value="11">Misc.Civil Application - Civil</option>
-                    <option value="6">Public Interest Litigation - Civil</option>
-                    <option value="43">Rejected Case - Civil</option>
-                    <option value="20">Review Pent. in FA - Civil</option>
-                    <option value="29">Review Petition in ARA - Civil</option>
-                    <option value="345">Review Petition In Commercial FA/ARA/AO/ARP/CP/CA - Civil</option>
-                    <option value="68">Review Petition In FEMA Appeal - Civil</option>
-                    <option value="70">REVIEW PETITION IN IA - Civil</option>
-                    <option value="48">Review Petition in MCA - Civil</option>
-                    <option value="51">Review Petition In PIL - Civil</option>
-                    <option value="21">Review Petn. in AO - Civil</option>
-                    <option value="28">Review Petn. in ARP - Civil</option>
-                    <option value="27">Review Petn. in CAPL - Civil</option>
-                    <option value="26">Review Petn. in CP - Civil</option>
-                    <option value="24">Review Petn. in CRA - Civil</option>
-                    <option value="25">Review Petn. in FCA - Civil</option>
-                    <option value="23">Review Petn. in LPA - Civil</option>
-                    <option value="22">Review Petn. in SA - Civil</option>
-                    <option value="19">Review Petn. in WP - Civil</option>
-                    <option value="4">Second Appeal - Civil</option>
-                    <option value="59">Suo Moto Petition - Civil</option>
-                    <option value="64">Suo Motu Writ Petition - Civil</option>
-                    <option value="65">Suo Motuo PIL - Civil</option>
-                    <option value="14">Tax Appeal - Civil</option>
-                    <option value="44">Transfer Case - Civil</option>
-                    <option value="329">Application in Cr. Suo Moto CONP - Criminal</option>
-                    <option value="335">Appln For Leave To Appeal(PVT.) - Criminal</option>
-                    <option value="334">Appln For Leave to Appeal(STATE) - Criminal</option>
-                    <option value="332">Cr. Anticipatory Bail Appln. - Criminal</option>
-                    <option value="321">Cr. Application in Appeal - Criminal</option>
-                    <option value="323">Cr. Application in Application - Criminal</option>
-                    <option value="327">Cr. Application in Confirmation - Criminal</option>
-                    <option value="326">Cr. Application in Contempt - Criminal</option>
-                    <option value="325">Cr. Application in PIL - Criminal</option>
-                    <option value="324">Cr. Application in Reference - Criminal</option>
-                    <option value="322">Cr. Application in Revision - Criminal</option>
-                    <option value="320">Cr. Application in Writ Petition - Criminal</option>
-                    <option value="330">Cr. Application U/s 482 - Criminal</option>
-                    <option value="331">Cr. Bail Application - Criminal</option>
-                    <option value="319">Cr. Public Interest Litigation - Criminal</option>
-                    <option value="307">Cr. Suo-Motu Contempt Petn. - Criminal</option>
-                    <option value="303">Cr. Suo-Motu Petition - Criminal</option>
-                    <option value="306">Cr. Suo-Motu Revision Appln. - Criminal</option>
-                    <option value="305">Cr. Suo-Motu Writ Petition - Criminal</option>
-                    <option value="310">Criminal Appeal - Criminal</option>
-                    <option value="302">Criminal Application - Criminal</option>
-                    <option value="301">Criminal Confirmation Case - Criminal</option>
-                    <option value="312">Criminal Contempt Petition - Criminal</option>
-                    <option value="311">Criminal Reference - Criminal</option>
-                    <option value="328">Criminal Review - Criminal</option>
-                    <option value="309">Criminal Revision Appln. - Criminal</option>
-                    <option value="304">Criminal Suo-Motu Application - Criminal</option>
-                    <option value="308">Criminal Writ Petition - Criminal</option>
-                    <option value="337">INTERIM APPLICATION - Criminal</option>
-                    <option value="336">Suo-Motu Cr. PIL - Criminal</option>
-                    <option value="502">ADMIRALTY SUITS - Original</option>
-                    <option value="544">AGRICULTURAL INCOME TAX REFERENCE - Original</option>
-                    <option value="565">APPEALS (OS) - Original</option>
-                    <option value="606">APPLICATION IN ELECTION PETITION - Original</option>
-                    <option value="620">ARBITRATION APPEAL - Original</option>
-                    <option value="511">ARBITRATION APPLICATION - Original</option>
-                    <option value="510">ARBITRATION PETITION. - Original</option>
-                    <option value="508">ARBITRATION SUITS - Original</option>
-                    <option value="608">AWARDS - Original</option>
-                    <option value="656">CASE UNDER BIFR - Original</option>
-                    <option value="725">CAVEAT IN TESTAMENTARY - Original</option>
-                    <option value="624">CENTRAL EXCISE APPEAL - Original</option>
-                    <option value="536">CENTRAL EXCISE APPLICATION - Original</option>
-                    <option value="543">CENTRAL EXCISE REFERENCE - Original</option>
-                    <option value="719">CHAMBER ORDER (INSOLVENCY) - Original</option>
-                    <option value="610">CHAMBER ORDER LODGING - Original</option>
-                    <option value="611">CHAMBER ORDER LODGING(CONDONATION OF DELAY) - Original</option>
-                    <option value="586">CHAMBER SUMMONS - Original</option>
-                    <option value="626">CHAMBER SUMMONS (PARSI SUITS) - Original</option>
-                    <option value="625">CHAMBER SUMMONS (PROTHONOTARY) - Original</option>
-                    <option value="666">CHAMBER SUMMONS (TESTAMENTARY) - Original</option>
-                    <option value="597">CHAMBER SUMMONS (WRIT PETITION) - Original</option>
-                    <option value="750">Chamber Summons in Commercial Appellate Division matters - Original</option>
-                    <option value="749">Chamber Summons in Commercial Division matters - Original</option>
-                    <option value="671">CHARTERED ACCOUNTANT APPEAL - Original</option>
-                    <option value="545">CHARTERED ACCOUNTANT REFERENCE - Original</option>
-                    <option value="534">CHARTERED ACCOUNTANTS APPLICATION. - Original</option>
-                    <option value="705">CIVIL CONTEMPT PETITION (INPT) - Original</option>
-                    <option value="758">COMMERCIAL ADMIRALTY SUITS - Original</option>
-                    <option value="739">Commercial Appeal - Original</option>
-                    <option value="745">Commercial Arbitration Appeal - Original</option>
-                    <option value="738">Commercial Arbitration Application - Original</option>
-                    <option value="743">Commercial Arbitration Petition - Original</option>
-                    <option value="755">COMMERCIAL EXECUTION APPLICATION - Original</option>
-                    <option value="759">COMMERCIAL INTELLECTUAL PROPERTY RIGHTS SUITS - Original</option>
-                    <option value="761">COMMERCIAL MISCELLANEOUS PETITION - Original</option>
-                    <option value="742">Commercial Suit - Original</option>
-                    <option value="757">COMMERCIAL SUMMARY SUITS - Original</option>
-                    <option value="577">COMPANY APPEAL - Original</option>
-                    <option value="564">COMPANY APPLICATION - Original</option>
-                    <option value="701">COMPANY APPLICATION IN APEAL - Original</option>
-                    <option value="736">Company Partnership Petition - Original</option>
-                    <option value="563">COMPANY PETITION - Original</option>
-                    <option value="700">COMPANY SCHEME PETITION - Original</option>
-                    <option value="555">COMPANY SECRETARY REFERENCE - Original</option>
-                    <option value="699">COMPANY SUMMONS FOR DIRECTION - Original</option>
-                    <option value="604">COMPLAINTS (IN COMPANY PETITION) - Original</option>
-                    <option value="760">COMPLAINTS IN TESTAMENTARY MATTERS - Original</option>
-                    <option value="627">CONTEMPET PETITION (PARSI CASE) - Original</option>
-                    <option value="589">CONTEMPT NOTICE - Original</option>
-                    <option value="600">CONTEMPT NOTICE (WRIT PETITIONS) - Original</option>
-                    <option value="569">CONTEMPT PETITION - Original</option>
-                    <option value="576">CONTEMPT PETITION (COMPANY PETITION) - Original</option>
-                    <option value="674">CONTEMPT PETITION (TP) - Original</option>
-                    <option value="574">CONTEMPT PETITION (WRIT PETITION) - Original</option>
-                    <option value="754">Contempt Petition in Commercial Appellate Division matters - Original</option>
-                    <option value="741">Contempt Petition in Commercial Appellate Division Matters - Original</option>
-                    <option value="753">Contempt Petition in Commercial Division matters - Original</option>
-                    <option value="740">Contempt Petition in Commercial Division Matters - Original</option>
-                    <option value="583">CONTEMPT PETITION IN EXECUTION - Original</option>
-                    <option value="729">CONTEMPT PETITION IN PIL - Original</option>
-                    <option value="507">COUNTER CLAIM - Original</option>
-                    <option value="711">COUNTER CLAIM(PARSI) - Original</option>
-                    <option value="676">COURT RECEIVER EXECUTION - Original</option>
-                    <option value="675">COURT RECEIVERS REPORT - Original</option>
-                    <option value="714">CR. CONTEMPT PETITION(COMPAMY) - Original</option>
-                    <option value="657">CRIMINAL CONTEMPT PETITION - Original</option>
-                    <option value="706">CRIMINAL CONTEMPT PETITION (INPT) - Original</option>
-                    <option value="697">CRIMINAL CONTEMPT PETITION IN TP - Original</option>
-                    <option value="559">CROSS OBJECTION LODGING - Original</option>
-                    <option value="522">CUSTODY PETITION - Original</option>
-                    <option value="628">CUSTOM APPEAL - Original</option>
-                    <option value="535">CUSTOM APPLICATION LODGING. - Original</option>
-                    <option value="538">CUSTOM DUTY APPLICATION - Original</option>
-                    <option value="546">CUSTOM DUTY REFERENCE - Original</option>
-                    <option value="533">CUSTOMS ACT APPLICATION. - Original</option>
-                    <option value="629">CUSTOMS APPLICATION LODGING - Original</option>
-                    <option value="509">ELECTION PETITION - Original</option>
-                    <option value="634">ESTATE DUTY TAX APPLICATION - Original</option>
-                    <option value="527">ESTATE DUTY TAX REFERENCE - Original</option>
-                    <option value="553">EXCESS PROFIT TAX REFEENCE - Original</option>
-                    <option value="539">EXCISE DUTY APPLICATION - Original</option>
-                    <option value="549">EXCISE DUTY REFERENCE - Original</option>
-                    <option value="609">EXECUTION APPLICATION - Original</option>
-                    <option value="554">EXPENDITURE TAX REFERENCE - Original</option>
-                    <option value="670">FEMA APPEAL - Original</option>
-                    <option value="512">FOREIGN ADOPTION PETITION - Original</option>
-                    <option value="516">GAURDIANSHIP PETITION. - Original</option>
-                    <option value="591">GAURNISHEE NOTICE - Original</option>
-                    <option value="602">GIFT TAX APPEAL - Original</option>
-                    <option value="532">GIFT TAX APPLICATION - Original</option>
-                    <option value="635">GIFT TAX REFERENCE - Original</option>
-                    <option value="528">GOLD CONTROL APPLICATION - Original</option>
-                    <option value="548">GOLD CONTROL REFERENCE - Original</option>
-                    <option value="734">In Person Application - Original</option>
-                    <option value="601">INCOME TAX APPEAL - Original</option>
-                    <option value="530">INCOME TAX APPLICATION - Original</option>
-                    <option value="542">INCOME TAX REFERENCE - Original</option>
-                    <option value="526">INDIAN ADOPTION PETITION - Original</option>
-                    <option value="737">Indian Companies - Original</option>
-                    <option value="658">INDIAN GUARDIANSHIP PETITION - Original</option>
-                    <option value="660">INSOLVENCY DISCHARGE APPLICATION - Original</option>
-                    <option value="567">INSOLVENCY NOTICE - Original</option>
-                    <option value="514">INSOLVENCY PETITION - Original</option>
-                    <option value="659">INSOLVENCY RULE NISI - Original</option>
-                    <option value="637">INSURANCE ACT - Original</option>
-                    <option value="617">INTEREST TAX APPEAL - Original</option>
-                    <option value="907">INTERIM APPLICATION - Original</option>
-                    <option value="582">INTERIM ARBITRATION APPLICATION - Original</option>
-                    <option value="521">INTERIM ARBITRATION PETITION - Original</option>
-                    <option value="570">INTERIM CONTEMPT PETITION - Original</option>
-                    <option value="517">INTERIM CUSTODY PETITION. - Original</option>
-                    <option value="523">INTERIM GUARDIAN PETITION - Original</option>
-                    <option value="636">INTERIM LUNANCY PETITION - Original</option>
-                    <option value="525">INTERIM MENTAL HEALTH ACT PETITION - Original</option>
-                    <option value="520">INTERIM MISC. PETITION - Original</option>
-                    <option value="639">INTERIM PARSI MATRIMONIAL PETITION - Original</option>
-                    <option value="638">INTERIM PETITION - Original</option>
-                    <option value="702">INTERVENTION APPLICATION - Original</option>
-                    <option value="664">JUDGES ORDER - Original</option>
-                    <option value="721">JUDGES ORDER (INSOLVENCY) - Original</option>
-                    <option value="552">JUDGES ORDER (TESTAMENTARY) - Original</option>
-                    <option value="672">JUDGES ORDER (WRIT PETITION) - Original</option>
-                    <option value="613">LAND ACQUISITION REFERENCE - Original</option>
-                    <option value="556">LEAVE PETITION - Original</option>
-                    <option value="713">LEAVE PETITION(WRIT) - Original</option>
-                    <option value="519">LUNANCY PETITION. - Original</option>
-                    <option value="722">MAH. VALUE ADDED TAX APPEAL - Original</option>
-                    <option value="615">MAHARASHTRA ELECTRICITY REGULATORY COMM. - Original</option>
-                    <option value="503">MATRIMONIAL SUITS - Original</option>
-                    <option value="524">MENTAL HEALTH ACT PETITION - Original</option>
-                    <option value="703">MISC PETITION FOR LEAVE(INPT) - Original</option>
-                    <option value="641">MISC. PARSI PETITION - Original</option>
-                    <option value="515">MISC. PETITION - Original</option>
-                    <option value="562">MISC. PETITION IN T.&amp; I.J. - Original</option>
-                    <option value="616">MISC. TESTAMENTARY APPLN. - Original</option>
-                    <option value="614">MISC.APPLICATION - Original</option>
-                    <option value="640">MISC.COM.APP - Original</option>
-                    <option value="642">MISF.SUMMONSES - Original</option>
-                    <option value="661">NM FOR SETTING ASIDE INSOL.NOTICE - Original</option>
-                    <option value="644">NOTICE OF MOTION (COMPANY) - Original</option>
-                    <option value="596">NOTICE OF MOTION (WRIT PETITION) - Original</option>
-                    <option value="585">NOTICE OF MOTION (APPEALS) - Original</option>
-                    <option value="645">NOTICE OF MOTION (IN INSOLVENCY) - Original</option>
-                    <option value="646">NOTICE OF MOTION (PARSI SUIT) - Original</option>
-                    <option value="584">NOTICE OF MOTION (SUITS) - Original</option>
-                    <option value="665">NOTICE OF MOTION (TESTAMENTARY) - Original</option>
-                    <option value="748">Notice of Motion in Commercial Appellate Division matters - Original</option>
-                    <option value="747">Notice of Motion in Commercial Division matters - Original</option>
-                    <option value="587">NOTICE. - Original</option>
-                    <option value="715">OBJ. TO SCHEME (COMPANY) - Original</option>
-                    <option value="662">OFFICIAL ASSIGNEE REPORT - Original</option>
-                    <option value="716">OFFICIAL LIQUIDATOR REPORT - Original</option>
-                    <option value="590">ORGINATING SUMMONS. - Original</option>
-                    <option value="647">PARSI CONTEMPT NOTICE OF MOTION - Original</option>
-                    <option value="669">PARSI MAINTENANCE PETITION - Original</option>
-                    <option value="648">PARSI MATRIMONIAL PETITION - Original</option>
-                    <option value="730">PARSI MISC. APPLICATION - Original</option>
-                    <option value="710">PARSI PETITION - Original</option>
-                    <option value="505">PARSI SUITS - Original</option>
-                    <option value="501">PAUPER PETITION - Original</option>
-                    <option value="580">PAUPER PETITION ( APPEAL) - Original</option>
-                    <option value="667">PAUPER PETITION (TESTAMENTARY) - Original</option>
-                    <option value="592">PERJURY NOTICE - Original</option>
-                    <option value="599">PERJURY NOTICE ( WRIT PETITION) - Original</option>
-                    <option value="581">PERJURY PETITION - Original</option>
-                    <option value="607">PETI.FOR LEAVE TO APPEAL TO THE SUP.CRT - Original</option>
-                    <option value="723">PROTECTION PETITION (INPT) - Original</option>
-                    <option value="668">PUBLIC INTEREST LITIGATION - Original</option>
-                    <option value="712">RECRIMINATION PETITION - Original</option>
-                    <option value="649">REFERENCE APPLICATION LODGING - Original</option>
-                    <option value="677">Rejected Case(OS-WP) - Original</option>
-                    <option value="557">REVIEW PETITION - Original</option>
-                    <option value="579">REVIEW PETITION (COMPANY) - Original</option>
-                    <option value="578">REVIEW PETITION (TESTAMENTARY) - Original</option>
-                    <option value="568">REVIEW PETITION (WRIT PETITION). - Original</option>
-                    <option value="704">REVIEW PETITION FOR LEAVE(INPT) - Original</option>
-                    <option value="558">REVIEW PETITION IN APPEAL. - Original</option>
-                    <option value="752">Review Petition in Commercial Appellate Division matters - Original</option>
-                    <option value="751">Review Petition in Commercial Division matters - Original</option>
-                    <option value="718">REVIEW PETITION IN PARSI SUIT - Original</option>
-                    <option value="732">REVIEW PETITION(PIL) - Original</option>
-                    <option value="727">RSTORATION APPLICATION - Original</option>
-                    <option value="673">SALES TAX APPEAL - Original</option>
-                    <option value="531">SALES TAX APPLICATIONS - Original</option>
-                    <option value="551">SALES TAX REFERENCE - Original</option>
-                    <option value="612">SEBI APPEAL - Original</option>
-                    <option value="619">SHOW CAUSE NOTICE (COMPANY) - Original</option>
-                    <option value="707">SHOW CAUSE NOTICE (INPT) - Original</option>
-                    <option value="598">SHOW CAUSE NOTICE (WRIT PETITION) - Original</option>
-                    <option value="698">SHOW CAUSE NOTICE IN CPTP - Original</option>
-                    <option value="618">SHOW CAUSE NOTICE(TESTAMENTARY PETN) - Original</option>
-                    <option value="588">SHOW CAUSE NOTICE. - Original</option>
-                    <option value="594">SOU MOTU NOTICE - Original</option>
-                    <option value="605">SPECIAL CASE IN ARBITRATION PETN/APPL - Original</option>
-                    <option value="504">SUITS - Original</option>
-                    <option value="506">SUMMARY SUITS. - Original</option>
-                    <option value="595">SUMMONSES FOR JUDGEMENT - Original</option>
-                    <option value="593">SUO MOTO CONTEMPT NOTICE - Original</option>
-                    <option value="726">SUO MOTO PIL - Original</option>
-                    <option value="724">SUO MOTO SHOW CAUSE NOTICE - Original</option>
-                    <option value="572">SUO MOTU CIVIL CONTEMPT REFERENCE - Original</option>
-                    <option value="573">SUO MOTU CONTEMPT PETITION - Original</option>
-                    <option value="571">SUO MOTU CRIMINAL CONTEMPT PETITION - Original</option>
-                    <option value="575">SUO MOTU WRIT PETITION - Original</option>
-                    <option value="540">SUPER PROFIT TAX APPLICATIONS - Original</option>
-                    <option value="550">SUPER PROFIT TAX REFERENCE - Original</option>
-                    <option value="663">SUR TAX APPEAL - Original</option>
-                    <option value="537">SUR TAX APPLICATION - Original</option>
-                    <option value="651">SUR TAX REFERENCE - Original</option>
-                    <option value="561">TESTAMENTARY PETITION - Original</option>
-                    <option value="654">TESTAMENTARY SUITS - Original</option>
-                    <option value="733">Third Party Applications for CC - Original</option>
-                    <option value="652">THIRD PARTY NOTICE - Original</option>
-                    <option value="709">TRANSFER DECREE - Original</option>
-                    <option value="653">TRANSFERED SUITS FROM OTHER COURTS - Original</option>
-                    <option value="518">TRUST PETITION. - Original</option>
-                    <option value="603">WEALTH TAX APPEAL - Original</option>
-                    <option value="529">WEALTH TAX APPLICATION - Original</option>
-                    <option value="541">WEALTH TAX REFERENCE - Original</option>
-                    <option value="735">WILL - Original</option>
-                    <option value="560">WRIT PETITION(OS) - Original</option>
-                    <option value="655">WRITTEN STATMENT &amp; COUNTER-CLAIM LODGING - Original</option>
-        </select>
-        </div> -->
+
 
 
         <!-- Case No -->
         <div class="col-md-4">
           <label for="m_no">Case No.</label>
           <input type="text" name="m_no" maxlength="8" class="form-control">
+        </div>
+
+        <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4 margin-bottom-10">
+          <div class="col-xs-12 col-sm-4 col-lg-4 col-md-4">
+            <label class="">Case Year :</label>
+          </div>
+          <div class="col-xs-12 col-sm-8 col-lg-8 col-md-8">
+            <input type="number" min="1800" max="2025" step="1" value="" name="m_yr" id="fp2"
+              class="form-control pull-left1 width_auto1">
+          </div>
         </div>
 
         <!-- Neutral Citation -->
@@ -448,11 +158,11 @@
         <!-- Dates -->
         <div class="col-md-6">
           <label for="from_date">From Date</label>
-          <input type="date" name="from_date" class="form-control" >
+          <input type="date" name="from_date" class="form-control">
         </div>
         <div class="col-md-6">
           <label for="to_date">To Date</label>
-          <input type="date" name="to_date" class="form-control" >
+          <input type="date" name="to_date" class="form-control">
         </div>
 
         <!-- Bench Strength -->
@@ -460,19 +170,19 @@
           <label>Bench Strength</label>
           <div class="d-flex flex-wrap gap-3">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="bflag[]" value="S">
+              <input class="form-check-input" type="checkbox" name="bflag" value="S">
               <label class="form-check-label">Single</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="bflag[]" value="D">
+              <input class="form-check-input" type="checkbox" name="bflag" value="D">
               <label class="form-check-label">Division</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="bflag[]" value="F">
+              <input class="form-check-input" type="checkbox" name="bflag" value="F">
               <label class="form-check-label">Full</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="bflag[]" value="L">
+              <input class="form-check-input" type="checkbox" name="bflag" value="L">
               <label class="form-check-label">Larger</label>
             </div>
           </div>
@@ -482,317 +192,317 @@
         <div class="col-md-12">
           <label for="coram">Hon'ble Shri/Smt. Justice</label>
           <select name="coram" class="form-control">
-                        <option value="">Select</option>
-                        <option value="1010">HON'BLE THE CHIEF JUSTICE</option>
-                        <option value="10096">HON\'BLE SHRI JUSTICE SHREE CHANDRASHEKHAR</option>
-                        <option value="1020">HON\'BLE THE ACTING CHIEF JUSTICE</option>
-                        <option value="700">HON'BLE SHRI JUSTICE NITIN JAMDAR</option>
-                        <option value="735">HON'BLE SHRI JUSTICE K.R. SHRIRAM</option>
-                        <option value="745">HON'BLE SHRI JUSTICE A.S. CHANDURKAR</option>
-                        <option value="750">HON'BLE JUSTICE R.P. MOHITE-DERE</option>
-                        <option value="755">HON'BLE SHRI JUSTICE M.S. SONAK</option>
-                        <option value="760">HON'BLE SHRI JUSTICE RAVINDRA V. GHUGE</option>
-                        <option value="775">HON'BLE SHRI JUSTICE A.S. GADKARI</option>
-                        <option value="780">HON'BLE SHRI JUSTICE NITIN W. SAMBRE</option>
-                        <option value="785">HON'BLE SHRI JUSTICE G. S. KULKARNI</option>
-                        <option value="790">HON'BLE SHRI JUSTICE B.P. COLABAWALLA</option>
-                        <option value="10097">HON\'BLE SHRI JUSTICE SUMAN SHYAM</option>
-                        <option value="800">HON'BLE SHRI JUSTICE C.V. BHADANG</option>
-                        <option value="845">HON'BLE SHRI JUSTICE MAKARAND SUBHASH KARNIK</option>
-                        <option value="846">HON'BLE MRS. JUSTICE SWAPNA JOSHI</option>
-                        <option value="887">HON\'BLE SHRI JUSTICE ABHAY AHUJA </option>
-                        <option value="851">HON'BLE SHRI JUSTICE R. B. DEO</option>
-                        <option value="852">HON'BLE SMT. JUSTICE BHARATI DANGRE</option>
-                        <option value="853">HON'BLE SHRI JUSTICE S. V. KOTWAL</option>
-                        <option value="854">HON'BLE SHRI JUSTICE R. I. CHAGLA</option>
-                        <option value="856">HON'BLE SHRI JUSTICE MANISH PITALE</option>
-                        <option value="859">HON'BLE SHRI JUSTICE MANGESH S. PATIL</option>
-                        <option value="861">HON'BLE SHRI JUSTICE PRITHVIRAJ K. CHAVAN</option>
-                        <option value="863">HON'BLE SMT. JUSTICE V. V. KANKANWADI</option>
-                        <option value="865">HON'BLE SHRI JUSTICE S. M. MODAK</option>
-                        <option value="866">HON'BLE SHRI JUSTICE N. J. JAMADAR</option>
-                        <option value="867">HON'BLE SHRI JUSTICE VINAY JOSHI</option>
-                        <option value="868">HON'BLE SHRI JUSTICE R. G. AVACHAT</option>
-                        <option value="873">HON'BLE SHRI JUSTICE AVINASH G. GHAROTE</option>
-                        <option value="874">HON'BLE SHRI JUSTICE NITIN B. SURYAWANSHI</option>
-                        <option value="875">HON'BLE SHRI JUSTICE ANIL S. KILOR</option>
-                        <option value="876">HON'BLE SHRI JUSTICE MILIND N. JADHAV</option>
-                        <option value="878">HON'BLE SHRI JUSTICE M. G. SEWLIKAR</option>
-                        <option value="881">HON'BLE SMT. JUSTICE MUKULIKA SHRIKANT JAWALKAR</option>
-                        <option value="883">HON'BLE SHRI JUSTICE N. R. BORKAR</option>
-                        <option value="884">HON'BLE SHRI JUSTICE MADHAV J. JAMDAR</option>
-                        <option value="886"> HON'BLE SHRI JUSTICE AMIT BORKAR</option>
-                        <option value="885">HON'BLE SHRI JUSTICE SHRIKANT DATTATRAY KULKARNI</option>
-                        <option value="10005">HON'BLE SHRI JUSTICE R. N. LADDHA</option>
-                        <option value="10004">HON'BLE SHRI JUSTICE S. G. MEHARE</option>
-                        <option value="10002">HON'BLE SHRI JUSTICE G. A. SANAP</option>
-                        <option value="10003">HON'BLE SHRI JUSTICE S. G. DIGE</option>
-                        <option value="10010">HON'BLE SHRI JUSTICE ANIL LAXMAN PANSARE</option>
-                        <option value="10009">HON'BLE SHRI JUSTICE SANDIPKUMAR CHANDRABHAN MORE</option>
-                        <option value="211">NATIONAL LOK ADALAT</option>
-                        <option value="152">LOK ADALAT</option>
-                        <option value="10015">HON'BLE SMT. JUSTICE URMILA SACHIN JOSHI- PHALKE</option>
-                        <option value="10016">HON'BLE SHRI JUSTICE BHARAT PANDURANG DESHPANDE</option>
-                        <option value="10024">HON'BLE SHRI JUSTICE KISHORE CHANDRAKANT SANT</option>
-                        <option value="10027">HON'BLE SHRI JUSTICE VALMIKI SA MENEZES</option>
-                        <option value="10026">HON'BLE JUSTICE KAMAL KHATA</option>
-                        <option value="10031">HON'BLE JUSTICE SHARMILA U. DESHMUKH</option>
-                        <option value="10028">HON'BLE SHRI JUSTICE ARUN R. PEDNEKER</option>
-                        <option value="10025">HON'BLE SHRI JUSTICE SANDEEP V. MARNE</option>
-                        <option value="10030">HON'BLE MS. JUSTICE GAURI GODSE</option>
-                        <option value="10032">HON'BLE SHRI JUSTICE RAJESH S. PATIL</option>
-                        <option value="10029">HON'BLE JUSTICE SHRI ARIF S. DOCTOR</option>
-                        <option value="10034">HON'BLE SHRI JUSTICE SANJAY A. DESHMUKH</option>
-                        <option value="10035">HON'BLE SHRI JUSTICE Y. G. KHOBRAGADE</option>
-                        <option value="10036">HON'BLE SHRI JUSTICE M. W. CHANDWANI</option>
-                        <option value="10037">HON'BLE SHRI JUSTICE ABHAY S. WAGHWASE</option>
-                        <option value="10038">HON'BLE SHRI JUSTICE R. M. JOSHI</option>
-                        <option value="10039">HON'BLE MRS. JUSTICE VRUSHALI V. JOSHI</option>
-                        <option value="10041">HON'BLE SHRI JUSTICE S. G. CHAPALGAONKAR</option>
-                        <option value="10042">HON'BLE SHRI JUSTICE M. M. SATHAYE</option>
-                        <option value="10048">HON'BLE JUSTICE DR. NEELA GOKHALE</option>
-                        <option value="10052">HON'BLE SHRI JUSTICE SHAILESH P. BRAHME </option>
-                        <option value="10053">HON'BLE SHRI JUSTICE FIRDOSH PHIROZE POONIWALLA</option>
-                        <option value="10054">HON'BLE SHRI JUSTICE JITENDRA SHANTILAL JAIN</option>
-                        <option value="10063">HON'BLE JUSTICE SMT MANJUSHA AJAY DESHPANDE</option>
-                        <option value="10065">HON'BLE SHRI JUSTICE ABHAY J. MANTRI</option>
-                        <option value="10066">HON'BLE SHRI JUSTICE SHYAM C. CHANDAK</option>
-                        <option value="10067">HON'BLE SHRI JUSTICE NEERAJ P. DHOTE</option>
-                        <option value="10068">HON'BLE SHRI JUSTICE SOMASEKHAR SUNDARESAN</option>
-                        <option value="10075">HON\'BLE MS. JUSTICE NIVEDITA P. MEHTA</option>
-                        <option value="10076">HONBLE JUSTICE PRAFULLA S. KHUBALKAR</option>
-                        <option value="10077">HON\'BLE JUSTICE ASHWIN DAMODAR BHOBE</option>
-                        <option value="10078">HONBLE JUSTICE R. W. JOSHI</option>
-                        <option value="10079">HON'BLE JUSTICE ADVAIT M. SETHNA</option>
-                        <option value="10083">HON'BLE SHRI JUSTICE PRAVIN S. PATIL</option>
-                        <option value="10091">HON'BLE SHRI JUSTICE SACHIN SHIVAJIRAO DESHMUKH</option>
-                        <option value="10094">HON'BLE SHRI JUSTICE GAUTAM A. ANKHAD</option>
-                        <option value="10095">HON\'BLE SHRI JUSTICE M. M. NERLIKAR</option>
-                        <option value="10098">HON\'BLE SHRI JUSTICE AJIT BHAGWANRAO KADETHANKAR</option>
-                        <option value="10099">HON'BLE SHRI JUSTICE SUSHIL MANOHAR GHODESWAR</option>
-                        <option value="10100">HON\'BLE MS. JUSTICE AARTI ARUN SATHE</option>
-                        <option value="10001">------------- FORMER JUDGES ----------------</option>
-                        <option value="2020">HON'BLE SHRI JUSTICE V.G. MUNSHI</option>
-                        <option value="4020">HON'BLE SHRI JUSTICE A.H. JOSHI</option>
-                        <option value="880">HON'BLE SHRI JUSTICE B. U. DEBADWAR</option>
-                        <option value="879">HON'BLE SHRI JUSTICE VIRENDRASINGH GYANSINGH BISHT</option>
-                        <option value="4030">HON'BLE SHRI JUSTICE B.P. DHARMADHIKARI</option>
-                        <option value="877">HON'BLE SHRI JUSTICE UJJAL BHUYAN</option>
-                        <option value="4040">HON'BLE SHRI JUSTICE S.U. KAMDAR</option>
-                        <option value="4050">HON'BLE SHRI JUSTICE N.A. BRITTO</option>
-                        <option value="6060">HON'BLE SHRI JUSTICE R.M. SAVANT</option>
-                        <option value="882">HON'BLE SHRI JUSTICE SURENDRA PANDHARINATH TAVADE</option>
-                        <option value="4010">HON'BLE SHRI JUSTICE A.P. LAVANDE</option>
-                        <option value="3080">HON'BLE SHRI JUSTICE B.R. GAVAI</option>
-                        <option value="2030">HON'BLE SHRI JUSTICE P.B. GAIKWAD</option>
-                        <option value="3010">HON'BLE SHRI JUSTICE S.B. DESHMUKH</option>
-                        <option value="3020">HON'BLE SHRI JUSTICE A.S. OKA</option>
-                        <option value="3030">HON'BLE SHRI JUCTICE K.J. ROHEE</option>
-                        <option value="3040">HON'BLE SHRI JUSTICE S.R. SATHE</option>
-                        <option value="3050">HON'BLE SHRI JUSTICE M.G. GAIKWAD</option>
-                        <option value="3060">HON'BLE SHRI JUSTICE ANOOP V. MOHTA</option>
-                        <option value="3070">HON'BLE SHRI JUSTICE S.C. DHARMADHIKARI</option>
-                        <option value="6080">HON'BLE SHRI JUSTICE C.L. PANGARKAR</option>
-                        <option value="871">HON'BLE SMT. JUSTICE PUSHPA V. GANEDIWALA</option>
-                        <option value="6040">HON'BLE SHRI JUSTICE R.M. BORDE</option>
-                        <option value="6030">HON'BLE SHRI JUSTICE A.B. CHAUDHARI</option>
-                        <option value="857">HON'BLE SHRI JUSTICE SUNIL KESHAORAO KOTWAL</option>
-                        <option value="858">HON'BLE SHRI JUSTICE A. D. UPADHYE</option>
-                        <option value="860">HON'BLE SHRI JUSTICE A. M. DHAVALE</option>
-                        <option value="862">HON'BLE SHRI JUSTICE M. G. GIRATKAR</option>
-                        <option value="8025">HON'BLE SHRI JUSTICE A.P. BHANGALE</option>
-                        <option value="864">HON'BLE SHRI JUSTICE S. M. GAVHANE</option>
-                        <option value="6050">HON'BLE SHRI JUSTICE RANJIT MORE</option>
-                        <option value="5050">HON'BLE SMT. JUSTICE R.S. DALVI</option>
-                        <option value="850">HON'BLE SHRI JUSTICE S. K. SHINDE</option>
-                        <option value="872">HON'BLE SHRI JUSTICE D. S. NAIDU</option>
-                        <option value="870">HON'BLE SHRI JUSTICE I. MAHANTY</option>
-                        <option value="869">HON'BLE SHRI JUSTICE AKIL KURESHI</option>
-                        <option value="5010">HON'BLE SHRI JUSTICE S.P. KUKDAY</option>
-                        <option value="5020">HON'BLE SMT. JUSTICE VASANTI A. NAIK</option>
-                        <option value="5030">HON'BLE SHRI JUSTICE J.H. BHATIA</option>
-                        <option value="5040">HON'BLE SHRI JUSTICE R.C. CHAVAN</option>
-                        <option value="6070">HON'BLE SHRI JUSTICE P.R. BORKAR</option>
-                        <option value="8030">HON'BLE SHRI JUSTICE A.V. NIRGUDE</option>
-                        <option value="2010">HON'BLE SHRI JUSTICE S.T. KHARCHE</option>
-                        <option value="6020">HON'BLE SHRI JUSTICE V.R. KINGAONKAR</option>
-                        <option value="8010">HON'BLE SHRI JUSTICE BILAL NAZKI</option>
-                        <option value="92">HON'BLE SHRI JUSTICE S.B. MHASE</option>
-                        <option value="96">HON'BLE SHRI JUSTICE V.C. DAGA</option>
-                        <option value="97">HON'BLE SHRI JUSTICE H.L. GOKHALE</option>
-                        <option value="99">HON'BLE SHRI JUSTICE P.S. BRAMHE</option>
-                        <option value="100">HON'BLE SHRI JUSTICE S.K. SHAH</option>
-                        <option value="101">HON'BLE SHRI JUSTICE N.V. DABHOLKAR</option>
-                        <option value="102">HON'BLE SHRI JUSTICE A.N. BAGGA</option>
-                        <option value="7010">HON'BLE SHRI JUSTICE A.A. SAYED</option>
-                        <option value="85">HON'BLE SHRI JUSTICE B.H. MARLAPALLE</option>
-                        <option value="78">HON'BLE SHRI JUSTICE R.M.S. KHANDEPARKAR</option>
-                        <option value="39">HON'BLE SHRI JUSTICE A.P. SHAH</option>
-                        <option value="45">HON'BLE SHRI JUSTICE R.M. LODHA</option>
-                        <option value="62">HON'BLE SHRI JUSTICE D.G. DESHPANDE</option>
-                        <option value="64">HON'BLE SHRI JUSTICE J.N. PATEL</option>
-                        <option value="66">HON'BLE SMT. JUSTICE RANJANA DESAI</option>
-                        <option value="67">HON'BLE SHRI JUSTICE S. RADHAKRISHNAN</option>
-                        <option value="76">HON'BLE SHRI JUSTICE D.K. DESHMUKH</option>
-                        <option value="77">HON'BLE SHRI JUSTICE D.D. SINHA</option>
-                        <option value="103">HON'BLE SHRI JUSTICE D.S. ZOTING</option>
-                        <option value="6010">HON'BLE SHRI JUSTICE S.R. DONGAONKAR</option>
-                        <option value="1070">HON'BLE SMT. JUSTICE NISHITA MHATRE</option>
-                        <option value="1080">HON'BLE SHRI JUSTICE A.S. AGUIAR</option>
-                        <option value="1090">HON'BLE SHRI JUSTICE P.V. HARDAS</option>
-                        <option value="1100">HON'BLE SMT. JUSTICE V.K. TAHILRAMANI</option>
-                        <option value="1120">HON'BLE SHRI JUSTICE J.P. DEVADHAR</option>
-                        <option value="1130">HON'BLE SHRI JUSTICE R.S. MOHITE</option>
-                        <option value="1140">HON'BLE SHRI JUSTICE V.M. KANADE</option>
-                        <option value="10018">HON'BLE SHRI JUSTICE DHIRAJ SINGH THAKUR</option>
-                        <option value="1060">HON'BLE SHRI JUSTICE S.J. VAZIFDAR</option>
-                        <option value="1050">HON'BLE SHRI JUSTICE D.B.BHOSALE</option>
-                        <option value="1110">HON'BLE SHRI JUSTICE D.G. KARNIK</option>
-                        <option value="104">HON'BLE SHRI JUSTICE DR. D.Y. CHANDRACHUD</option>
-                        <option value="105">HON'BLE SHRI JUSTICE S.A. BOBDE</option>
-                        <option value="106">HON'BLE SHRI JUSTICE A.M. KHANWILKAR</option>
-                        <option value="107">HON'BLE SHRI JUSTICE P.V. KAKADE</option>
-                        <option value="108">HON'BLE SHRI JUSTICE V.G. PALSHIKAR</option>
-                        <option value="110">HON'BLE SHRI JUSTICE F.I. REBELLO</option>
-                        <option value="113">HON'BLE SHRI JUSTICE S.S. PARKAR</option>
-                        <option value="1040">HON'BLE SHRI JUSTICE A.P. DESHPANDE</option>
-                        <option value="1150">HON'BLE SHRI JUSTICE NARESH H. PATIL</option>
-                        <option value="770">HON'BLE SHRI JUSTICE V.M. DESHPANDE</option>
-                        <option value="815">HON'BLE SHRI JUSTICE P.R. BORA</option>
-                        <option value="820">HONBLE SMT. JUSTICE ANUJA PRABHUDESSAI</option>
-                        <option value="725">HON'BLE SHRI JUSTICE S.C. GUPTE</option>
-                        <option value="8020">HON'BLE SHRI JUSTICE S.S. SHINDE</option>
-                        <option value="610">HON'BLE SHRI JUSTICE SHRIHARI P. DAVARE</option>
-                        <option value="8045">HON'BLE SMT. JUSTICE R.P. SONDURBALDOTA</option>
-                        <option value="685">HON'BLE SHRI JUSTICE M.S. SANKLECHA</option>
-                        <option value="825">HON'BLE SHRI JUSTICE K.L. WADANE</option>
-                        <option value="835">HON'BLE SMT. JUSTICE DR. SHALINI PHANSALKAR-JOSHI</option>
-                        <option value="830">HON'BLE SMT. JUSTICE I.K. JAIN</option>
-                        <option value="720">HON'BLE SHRI JUSTICE SUNIL B. SHUKRE</option>
-                        <option value="715">HON'BLE SHRI JUSTICE A.I.S. CHEEMA</option>
-                        <option value="730">HON'BLE SHRI JUSTICE Z.A. HAQ</option>
-                        <option value="810">HON'BLE SHRI JUSTICE A.M. BADAR</option>
-                        <option value="805">HON'BLE SHRI JUSTICE V.K. JADHAV</option>
-                        <option value="8070">HON'BLE SHRI JUSTICE K.K. TATED</option>
-                        <option value="765">HON'BLE SHRI JUSTICE V.L. ACHLIYA</option>
-                        <option value="8075">HON'BLE SHRI JUSTICE PRASANNA B. VARALE</option>
-                        <option value="8080">HON'BLE SHRI JUSTICE S.J. KATHAWALLA</option>
-                        <option value="8060">HON'BLE SHRI JUSTICE A.A. KUMBHAKONI</option>
-                        <option value="8065">HON'BLE SHRI JUSTICE P.B. MAJMUDAR</option>
-                        <option value="8055">HON'BLE SHRI JUSTICE SANTOSH BORA</option>
-                        <option value="601">HON'BLE SHRI JUSTICE P.D. KODE</option>
-                        <option value="740">HON'BLE SHRI JUSTICE G.S. PATEL</option>
-                        <option value="605">HON'BLE SHRI JUSTICE U.D. SALVI</option>
-                        <option value="795">HON'BLE SHRI JUSTICE A. K. MENON</option>
-                        <option value="8050">HON'BLE SHRI JUSTICE K.U. CHANDIWAL</option>
-                        <option value="710">HON'BLE SHRI JUSTICE P.N. DESHMUKH</option>
-                        <option value="620">HON'BLE MRS. JUSTICE MRIDULA BHATKAR</option>
-                        <option value="840">HON'BLE SHRI JUSTICE PRAKASH DEU NAIK</option>
-                        <option value="8040">HON'BLE SHRI JUSTICE N.D. DESHPANDE</option>
-                        <option value="665">HON'BLE SHRI JUSTICE M.L. TAHALIYANI</option>
-                        <option value="8035">HON'BLE SHRI JUSTICE R.Y. GANOO</option>
-                        <option value="848">HON'BLE SHRI JUSTICE SANGITRAO S. PATIL</option>
-                        <option value="660">HON'BLE SHRI JUSTICE M.T. JOSHI</option>
-                        <option value="847">HON'BLE SHRI JUSTICE K. K. SONAWANE</option>
-                        <option value="849">HON'BLE KUM. JUSTICE NUTAN D. SARDESSAI</option>
-                        <option value="650">HON'BLE SHRI JUSTICE M.N. GILANI</option>
-                        <option value="645">HON'BLE SHRI JUSTICE T.V. NALAWADE</option>
-                        <option value="654">HON'BLE SHRI JUSTICE S.V. GANGAPURWALA</option>
-                        <option value="855">HON'BLE SHRI JUSTICE SHANTANU S. KEMKAR</option>
-                        <option value="640">HON'BLE SHRI JUSTICE RAVI K. DESHPANDE</option>
-                        <option value="635">HON'BLE SHRI JUSTICE RAJESH G. KETKAR</option>
-                        <option value="630">HON'BLE SHRI JUSTICE F.M. REIS</option>
-                        <option value="625">HON'BLE SHRI JUSTICE A.V. POTDAR</option>
-                        <option value="675">HON'BLE SHRI JUSTICE U.V. BAKRE</option>
-                        <option value="670">HON'BLE SHRI JUSTICE A.M. THIPSAY</option>
-                        <option value="690">HON'BLE SHRI JUSTICE R.D. DHANUKA</option>
-                        <option value="695">HON'BLE SHRI JUSTICE S.P. DESHMUKH</option>
-                        <option value="615">HON'BLE SHRI JUSTICE A.R. JOSHI</option>
-                        <option value="705">HON'BLE SMT. JUSTICE S.S. JADHAV</option>
-                        <option value="680">HON'BLE SHRI JUSTICE G.S. GODBOLE</option>
-                        <option value="99999">--------------- OFFICERS/REGISTRARS ---------</option>
-                        <option value="134">Registrar(OS)/Prothonotary &amp; Sr. Master</option>
-                        <option value="180">S.S. Agate, Master &amp; Asstt. Protho.</option>
-                        <option value="10047">Shri S. R. Agrawal, I/C(Reg.Judl I)</option>
-                        <option value="10043">Shri. P.A. Jagdale, Officer On Special Duty With Testamentary Department
-                        </option>
-                        <option value="129">OFFICIAL ASSIGNEE</option>
-                        <option value="10013">Shri. A. L. Yawalkar</option>
-                        <option value="10014">MRS.KANCHAN M. RANE, Official Assignee, High Court, Bombay</option>
-                        <option value="178">S.K. Dighe, Master &amp; Asstt. Protho.</option>
-                        <option value="168">Mangesh S. Patil, Registrar(Judl - I) </option>
-                        <option value="179">K.M. Rane, Company Registrar</option>
-                        <option value="173">M.D. Narvekar, Official Assignee</option>
-                        <option value="10044">Shri. S.R. Agrawal, Registrar(Judl II)</option>
-                        <option value="10045">Shri H.M.Bhosale, Registrar(Judl I)</option>
-                        <option value="172">B.M. Gore, Addl. Protho. and Senior Master</option>
-                        <option value="175">D.R. Talekar, Insolvancy Registrar</option>
-                        <option value="176">P.D. Digraskar, Registrar(Judicial)</option>
-                        <option value="177">V.S. Kulkarni, Registrar(Adm.)</option>
-                        <option value="10046">Shri H.M.Bhosale, I/C(Reg.Judl II)</option>
-                        <option value="10061">Vimalnath S. Tiwari I/C Reg.Judicial</option>
-                        <option value="10051">Mr.Pradeep B. Ghuge Registrar (Judicial)</option>
-                        <option value="170">D.V. Sawant, Protho. &amp; Senior Master</option>
-                        <option value="169">Dilip R. Shirasao, Registrar(Judl - II)</option>
-                        <option value="171">S.P. Mathkar, Addl. Protho. and Senior Master</option>
-                        <option value="229">Shri H.M.Bhosale, Registrar(Judl II)</option>
-                        <option value="181">G.G. Ketkar, Deputy Official Assignee</option>
-                        <option value="202">R. C. Kale, Company Registrar</option>
-                        <option value="249">SHRI H. A. PATIL (I/C REGISTRAR JUDL.)</option>
-                        <option value="195">Mrs. U. S. Shrivastva,Deputy Official Assignee</option>
-                        <option value="213">A. N. Mare, Registrar (Judical I)</option>
-                        <option value="214">A. N. Mare,I/c Registrar (Judical II)</option>
-                        <option value="215">G. B. Gurav , Registrar (Judical II)</option>
-                        <option value="216">G. B. Gurav , I/c Registrar (Judical I)</option>
-                        <option value="217">M. P. KUNTE , 1st Asstt. to Official Assignee</option>
-                        <option value="161">IST ASSTT. TO OFFICIAL ASSIGNEE</option>
-                        <option value="218">Aniruddha M. Chandekar, Protho. &amp; Senior Master</option>
-                        <option value="220">V. R. Kachare , Registrar (Judical II)</option>
-                        <option value="221">V. R. Kachare , I/c Registrar (Judical I)</option>
-                        <option value="196">K. K. Trivedi, Company Registrar</option>
-                        <option value="197">R. M. Joshi, Registrar (Judical I)</option>
-                        <option value="198">N.V. Navkar, I/c. Registrar(Judl - I) </option>
-                        <option value="203">P. P. Bhaidkar, Master &amp; Asstt. Protho.</option>
-                        <option value="204">E. B. Shivakumar , Deputy Official Assignee</option>
-                        <option value="205">Shri. A. N. Mare, I/c. Registrar(Judl - I)</option>
-                        <option value="206">Urmila S. Joshi-Phalke, Registrar (Judicial-II)</option>
-                        <option value="207">R. C. Kale, Master &amp; Asstt. Protho.</option>
-                        <option value="209">E. B. Sivakumar , Company Registrar</option>
-                        <option value="208">C.J. Bhatt, Deputy Official Assignee</option>
-                        <option value="201">R. M. Joshi, I/C Registrar (Judical I)</option>
-                        <option value="135">Addl. Reg.(OS)/Addl. Prothonotary &amp; Sr. Maste</option>
-                        <option value="200">K. K. Trivedi, Commissioner</option>
-                        <option value="174">S.T. Kapse, Commissioner</option>
-                        <option value="222">K. K. Trivedi, Addl Reg(OS)/Addl Protho Sr Master</option>
-                        <option value="223">C.J. Bhatt, Company Registrar</option>
-                        <option value="194">M.A. Lovekar, Registrar(Adm.)</option>
-                        <option value="243">M. P. KUNTE , Insolvancy Registrar</option>
-                        <option value="245">M. P. KUNTE , I/c Execution Dept</option>
-                        <option value="250">Shri. R.R. Kakani , Registrar (Judicial) </option>
-                        <option value="246">S.K. Dighe, Accounts Officer (Judicial)</option>
-                        <option value="248">Subodh R. Patil , 1st Asstt. to Official Assignee</option>
-                        <option value="251">Shri. S.T. Kapse, Commissioner for Taking Accounts</option>
-                        <option value="185">S. D. Kulkarni , Registrar(Judicial II)</option>
-                        <option value="184">N.V. Navkar, Registrar(Judl - II)</option>
-                        <option value="183">C.J. Bhatt, Master &amp; Asstt. Protho.</option>
-                        <option value="10000">Shri. D.S. Deshmukh,Registrar(Judl II)</option>
-                        <option value="9999">Shri. V.R. Kachare, Registrar(Judl-I)</option>
-                        <option value="188">S.D. Kulkarni, Registrar(Judicial I)</option>
-                        <option value="187">B.H. Loya , Registrar(Judicial II)</option>
-                        <option value="240">S. R. PARANJPE,ADDL REG(OS)/ADDL PROTHO SR MASTER</option>
-                        <option value="193">Sudhir P. Kulkarni, Registrar(O.S.)</option>
-                        <option value="224">S. R. Paranjpe, Insolvancy Registrar</option>
-                        <option value="225">D.R. Talekar, First Assistant Master</option>
-                        <option value="226">Registrar (Inspection)</option>
-                        <option value="192">Registrar(O.S.)</option>
-                        <option value="191">R.M. Joshi , Registrar(Judicial II)</option>
-                        <option value="236">Aniruddha M. Chandekar, Registrar (Judical I)</option>
-                        <option value="237">Shri. M.W. Chandwani, Protho. And Senior Master</option>
-                        <option value="235">S. S. AGATE, COMMISSIONER FOR TAKING ACCOUNTS</option>
-                        <option value="190">S.T. Kapse, Addl. Protho. &amp; Sr. Maaster</option>
-                        <option value="189">B.M. Gore, Commissioner</option>
-                        <option value="182">V.S. Avasare, 1st Asstt. to Official Assignee</option>
-                    </select>
+            <option value="">Select</option>
+            <option value="1010">HON'BLE THE CHIEF JUSTICE</option>
+            <option value="10096">HON\'BLE SHRI JUSTICE SHREE CHANDRASHEKHAR</option>
+            <option value="1020">HON\'BLE THE ACTING CHIEF JUSTICE</option>
+            <option value="700">HON'BLE SHRI JUSTICE NITIN JAMDAR</option>
+            <option value="735">HON'BLE SHRI JUSTICE K.R. SHRIRAM</option>
+            <option value="745">HON'BLE SHRI JUSTICE A.S. CHANDURKAR</option>
+            <option value="750">HON'BLE JUSTICE R.P. MOHITE-DERE</option>
+            <option value="755">HON'BLE SHRI JUSTICE M.S. SONAK</option>
+            <option value="760">HON'BLE SHRI JUSTICE RAVINDRA V. GHUGE</option>
+            <option value="775">HON'BLE SHRI JUSTICE A.S. GADKARI</option>
+            <option value="780">HON'BLE SHRI JUSTICE NITIN W. SAMBRE</option>
+            <option value="785">HON'BLE SHRI JUSTICE G. S. KULKARNI</option>
+            <option value="790">HON'BLE SHRI JUSTICE B.P. COLABAWALLA</option>
+            <option value="10097">HON\'BLE SHRI JUSTICE SUMAN SHYAM</option>
+            <option value="800">HON'BLE SHRI JUSTICE C.V. BHADANG</option>
+            <option value="845">HON'BLE SHRI JUSTICE MAKARAND SUBHASH KARNIK</option>
+            <option value="846">HON'BLE MRS. JUSTICE SWAPNA JOSHI</option>
+            <option value="887">HON\'BLE SHRI JUSTICE ABHAY AHUJA </option>
+            <option value="851">HON'BLE SHRI JUSTICE R. B. DEO</option>
+            <option value="852">HON'BLE SMT. JUSTICE BHARATI DANGRE</option>
+            <option value="853">HON'BLE SHRI JUSTICE S. V. KOTWAL</option>
+            <option value="854">HON'BLE SHRI JUSTICE R. I. CHAGLA</option>
+            <option value="856">HON'BLE SHRI JUSTICE MANISH PITALE</option>
+            <option value="859">HON'BLE SHRI JUSTICE MANGESH S. PATIL</option>
+            <option value="861">HON'BLE SHRI JUSTICE PRITHVIRAJ K. CHAVAN</option>
+            <option value="863">HON'BLE SMT. JUSTICE V. V. KANKANWADI</option>
+            <option value="865">HON'BLE SHRI JUSTICE S. M. MODAK</option>
+            <option value="866">HON'BLE SHRI JUSTICE N. J. JAMADAR</option>
+            <option value="867">HON'BLE SHRI JUSTICE VINAY JOSHI</option>
+            <option value="868">HON'BLE SHRI JUSTICE R. G. AVACHAT</option>
+            <option value="873">HON'BLE SHRI JUSTICE AVINASH G. GHAROTE</option>
+            <option value="874">HON'BLE SHRI JUSTICE NITIN B. SURYAWANSHI</option>
+            <option value="875">HON'BLE SHRI JUSTICE ANIL S. KILOR</option>
+            <option value="876">HON'BLE SHRI JUSTICE MILIND N. JADHAV</option>
+            <option value="878">HON'BLE SHRI JUSTICE M. G. SEWLIKAR</option>
+            <option value="881">HON'BLE SMT. JUSTICE MUKULIKA SHRIKANT JAWALKAR</option>
+            <option value="883">HON'BLE SHRI JUSTICE N. R. BORKAR</option>
+            <option value="884">HON'BLE SHRI JUSTICE MADHAV J. JAMDAR</option>
+            <option value="886"> HON'BLE SHRI JUSTICE AMIT BORKAR</option>
+            <option value="885">HON'BLE SHRI JUSTICE SHRIKANT DATTATRAY KULKARNI</option>
+            <option value="10005">HON'BLE SHRI JUSTICE R. N. LADDHA</option>
+            <option value="10004">HON'BLE SHRI JUSTICE S. G. MEHARE</option>
+            <option value="10002">HON'BLE SHRI JUSTICE G. A. SANAP</option>
+            <option value="10003">HON'BLE SHRI JUSTICE S. G. DIGE</option>
+            <option value="10010">HON'BLE SHRI JUSTICE ANIL LAXMAN PANSARE</option>
+            <option value="10009">HON'BLE SHRI JUSTICE SANDIPKUMAR CHANDRABHAN MORE</option>
+            <option value="211">NATIONAL LOK ADALAT</option>
+            <option value="152">LOK ADALAT</option>
+            <option value="10015">HON'BLE SMT. JUSTICE URMILA SACHIN JOSHI- PHALKE</option>
+            <option value="10016">HON'BLE SHRI JUSTICE BHARAT PANDURANG DESHPANDE</option>
+            <option value="10024">HON'BLE SHRI JUSTICE KISHORE CHANDRAKANT SANT</option>
+            <option value="10027">HON'BLE SHRI JUSTICE VALMIKI SA MENEZES</option>
+            <option value="10026">HON'BLE JUSTICE KAMAL KHATA</option>
+            <option value="10031">HON'BLE JUSTICE SHARMILA U. DESHMUKH</option>
+            <option value="10028">HON'BLE SHRI JUSTICE ARUN R. PEDNEKER</option>
+            <option value="10025">HON'BLE SHRI JUSTICE SANDEEP V. MARNE</option>
+            <option value="10030">HON'BLE MS. JUSTICE GAURI GODSE</option>
+            <option value="10032">HON'BLE SHRI JUSTICE RAJESH S. PATIL</option>
+            <option value="10029">HON'BLE JUSTICE SHRI ARIF S. DOCTOR</option>
+            <option value="10034">HON'BLE SHRI JUSTICE SANJAY A. DESHMUKH</option>
+            <option value="10035">HON'BLE SHRI JUSTICE Y. G. KHOBRAGADE</option>
+            <option value="10036">HON'BLE SHRI JUSTICE M. W. CHANDWANI</option>
+            <option value="10037">HON'BLE SHRI JUSTICE ABHAY S. WAGHWASE</option>
+            <option value="10038">HON'BLE SHRI JUSTICE R. M. JOSHI</option>
+            <option value="10039">HON'BLE MRS. JUSTICE VRUSHALI V. JOSHI</option>
+            <option value="10041">HON'BLE SHRI JUSTICE S. G. CHAPALGAONKAR</option>
+            <option value="10042">HON'BLE SHRI JUSTICE M. M. SATHAYE</option>
+            <option value="10048">HON'BLE JUSTICE DR. NEELA GOKHALE</option>
+            <option value="10052">HON'BLE SHRI JUSTICE SHAILESH P. BRAHME </option>
+            <option value="10053">HON'BLE SHRI JUSTICE FIRDOSH PHIROZE POONIWALLA</option>
+            <option value="10054">HON'BLE SHRI JUSTICE JITENDRA SHANTILAL JAIN</option>
+            <option value="10063">HON'BLE JUSTICE SMT MANJUSHA AJAY DESHPANDE</option>
+            <option value="10065">HON'BLE SHRI JUSTICE ABHAY J. MANTRI</option>
+            <option value="10066">HON'BLE SHRI JUSTICE SHYAM C. CHANDAK</option>
+            <option value="10067">HON'BLE SHRI JUSTICE NEERAJ P. DHOTE</option>
+            <option value="10068">HON'BLE SHRI JUSTICE SOMASEKHAR SUNDARESAN</option>
+            <option value="10075">HON\'BLE MS. JUSTICE NIVEDITA P. MEHTA</option>
+            <option value="10076">HONBLE JUSTICE PRAFULLA S. KHUBALKAR</option>
+            <option value="10077">HON\'BLE JUSTICE ASHWIN DAMODAR BHOBE</option>
+            <option value="10078">HONBLE JUSTICE R. W. JOSHI</option>
+            <option value="10079">HON'BLE JUSTICE ADVAIT M. SETHNA</option>
+            <option value="10083">HON'BLE SHRI JUSTICE PRAVIN S. PATIL</option>
+            <option value="10091">HON'BLE SHRI JUSTICE SACHIN SHIVAJIRAO DESHMUKH</option>
+            <option value="10094">HON'BLE SHRI JUSTICE GAUTAM A. ANKHAD</option>
+            <option value="10095">HON\'BLE SHRI JUSTICE M. M. NERLIKAR</option>
+            <option value="10098">HON\'BLE SHRI JUSTICE AJIT BHAGWANRAO KADETHANKAR</option>
+            <option value="10099">HON'BLE SHRI JUSTICE SUSHIL MANOHAR GHODESWAR</option>
+            <option value="10100">HON\'BLE MS. JUSTICE AARTI ARUN SATHE</option>
+            <option value="10001">------------- FORMER JUDGES ----------------</option>
+            <option value="2020">HON'BLE SHRI JUSTICE V.G. MUNSHI</option>
+            <option value="4020">HON'BLE SHRI JUSTICE A.H. JOSHI</option>
+            <option value="880">HON'BLE SHRI JUSTICE B. U. DEBADWAR</option>
+            <option value="879">HON'BLE SHRI JUSTICE VIRENDRASINGH GYANSINGH BISHT</option>
+            <option value="4030">HON'BLE SHRI JUSTICE B.P. DHARMADHIKARI</option>
+            <option value="877">HON'BLE SHRI JUSTICE UJJAL BHUYAN</option>
+            <option value="4040">HON'BLE SHRI JUSTICE S.U. KAMDAR</option>
+            <option value="4050">HON'BLE SHRI JUSTICE N.A. BRITTO</option>
+            <option value="6060">HON'BLE SHRI JUSTICE R.M. SAVANT</option>
+            <option value="882">HON'BLE SHRI JUSTICE SURENDRA PANDHARINATH TAVADE</option>
+            <option value="4010">HON'BLE SHRI JUSTICE A.P. LAVANDE</option>
+            <option value="3080">HON'BLE SHRI JUSTICE B.R. GAVAI</option>
+            <option value="2030">HON'BLE SHRI JUSTICE P.B. GAIKWAD</option>
+            <option value="3010">HON'BLE SHRI JUSTICE S.B. DESHMUKH</option>
+            <option value="3020">HON'BLE SHRI JUSTICE A.S. OKA</option>
+            <option value="3030">HON'BLE SHRI JUCTICE K.J. ROHEE</option>
+            <option value="3040">HON'BLE SHRI JUSTICE S.R. SATHE</option>
+            <option value="3050">HON'BLE SHRI JUSTICE M.G. GAIKWAD</option>
+            <option value="3060">HON'BLE SHRI JUSTICE ANOOP V. MOHTA</option>
+            <option value="3070">HON'BLE SHRI JUSTICE S.C. DHARMADHIKARI</option>
+            <option value="6080">HON'BLE SHRI JUSTICE C.L. PANGARKAR</option>
+            <option value="871">HON'BLE SMT. JUSTICE PUSHPA V. GANEDIWALA</option>
+            <option value="6040">HON'BLE SHRI JUSTICE R.M. BORDE</option>
+            <option value="6030">HON'BLE SHRI JUSTICE A.B. CHAUDHARI</option>
+            <option value="857">HON'BLE SHRI JUSTICE SUNIL KESHAORAO KOTWAL</option>
+            <option value="858">HON'BLE SHRI JUSTICE A. D. UPADHYE</option>
+            <option value="860">HON'BLE SHRI JUSTICE A. M. DHAVALE</option>
+            <option value="862">HON'BLE SHRI JUSTICE M. G. GIRATKAR</option>
+            <option value="8025">HON'BLE SHRI JUSTICE A.P. BHANGALE</option>
+            <option value="864">HON'BLE SHRI JUSTICE S. M. GAVHANE</option>
+            <option value="6050">HON'BLE SHRI JUSTICE RANJIT MORE</option>
+            <option value="5050">HON'BLE SMT. JUSTICE R.S. DALVI</option>
+            <option value="850">HON'BLE SHRI JUSTICE S. K. SHINDE</option>
+            <option value="872">HON'BLE SHRI JUSTICE D. S. NAIDU</option>
+            <option value="870">HON'BLE SHRI JUSTICE I. MAHANTY</option>
+            <option value="869">HON'BLE SHRI JUSTICE AKIL KURESHI</option>
+            <option value="5010">HON'BLE SHRI JUSTICE S.P. KUKDAY</option>
+            <option value="5020">HON'BLE SMT. JUSTICE VASANTI A. NAIK</option>
+            <option value="5030">HON'BLE SHRI JUSTICE J.H. BHATIA</option>
+            <option value="5040">HON'BLE SHRI JUSTICE R.C. CHAVAN</option>
+            <option value="6070">HON'BLE SHRI JUSTICE P.R. BORKAR</option>
+            <option value="8030">HON'BLE SHRI JUSTICE A.V. NIRGUDE</option>
+            <option value="2010">HON'BLE SHRI JUSTICE S.T. KHARCHE</option>
+            <option value="6020">HON'BLE SHRI JUSTICE V.R. KINGAONKAR</option>
+            <option value="8010">HON'BLE SHRI JUSTICE BILAL NAZKI</option>
+            <option value="92">HON'BLE SHRI JUSTICE S.B. MHASE</option>
+            <option value="96">HON'BLE SHRI JUSTICE V.C. DAGA</option>
+            <option value="97">HON'BLE SHRI JUSTICE H.L. GOKHALE</option>
+            <option value="99">HON'BLE SHRI JUSTICE P.S. BRAMHE</option>
+            <option value="100">HON'BLE SHRI JUSTICE S.K. SHAH</option>
+            <option value="101">HON'BLE SHRI JUSTICE N.V. DABHOLKAR</option>
+            <option value="102">HON'BLE SHRI JUSTICE A.N. BAGGA</option>
+            <option value="7010">HON'BLE SHRI JUSTICE A.A. SAYED</option>
+            <option value="85">HON'BLE SHRI JUSTICE B.H. MARLAPALLE</option>
+            <option value="78">HON'BLE SHRI JUSTICE R.M.S. KHANDEPARKAR</option>
+            <option value="39">HON'BLE SHRI JUSTICE A.P. SHAH</option>
+            <option value="45">HON'BLE SHRI JUSTICE R.M. LODHA</option>
+            <option value="62">HON'BLE SHRI JUSTICE D.G. DESHPANDE</option>
+            <option value="64">HON'BLE SHRI JUSTICE J.N. PATEL</option>
+            <option value="66">HON'BLE SMT. JUSTICE RANJANA DESAI</option>
+            <option value="67">HON'BLE SHRI JUSTICE S. RADHAKRISHNAN</option>
+            <option value="76">HON'BLE SHRI JUSTICE D.K. DESHMUKH</option>
+            <option value="77">HON'BLE SHRI JUSTICE D.D. SINHA</option>
+            <option value="103">HON'BLE SHRI JUSTICE D.S. ZOTING</option>
+            <option value="6010">HON'BLE SHRI JUSTICE S.R. DONGAONKAR</option>
+            <option value="1070">HON'BLE SMT. JUSTICE NISHITA MHATRE</option>
+            <option value="1080">HON'BLE SHRI JUSTICE A.S. AGUIAR</option>
+            <option value="1090">HON'BLE SHRI JUSTICE P.V. HARDAS</option>
+            <option value="1100">HON'BLE SMT. JUSTICE V.K. TAHILRAMANI</option>
+            <option value="1120">HON'BLE SHRI JUSTICE J.P. DEVADHAR</option>
+            <option value="1130">HON'BLE SHRI JUSTICE R.S. MOHITE</option>
+            <option value="1140">HON'BLE SHRI JUSTICE V.M. KANADE</option>
+            <option value="10018">HON'BLE SHRI JUSTICE DHIRAJ SINGH THAKUR</option>
+            <option value="1060">HON'BLE SHRI JUSTICE S.J. VAZIFDAR</option>
+            <option value="1050">HON'BLE SHRI JUSTICE D.B.BHOSALE</option>
+            <option value="1110">HON'BLE SHRI JUSTICE D.G. KARNIK</option>
+            <option value="104">HON'BLE SHRI JUSTICE DR. D.Y. CHANDRACHUD</option>
+            <option value="105">HON'BLE SHRI JUSTICE S.A. BOBDE</option>
+            <option value="106">HON'BLE SHRI JUSTICE A.M. KHANWILKAR</option>
+            <option value="107">HON'BLE SHRI JUSTICE P.V. KAKADE</option>
+            <option value="108">HON'BLE SHRI JUSTICE V.G. PALSHIKAR</option>
+            <option value="110">HON'BLE SHRI JUSTICE F.I. REBELLO</option>
+            <option value="113">HON'BLE SHRI JUSTICE S.S. PARKAR</option>
+            <option value="1040">HON'BLE SHRI JUSTICE A.P. DESHPANDE</option>
+            <option value="1150">HON'BLE SHRI JUSTICE NARESH H. PATIL</option>
+            <option value="770">HON'BLE SHRI JUSTICE V.M. DESHPANDE</option>
+            <option value="815">HON'BLE SHRI JUSTICE P.R. BORA</option>
+            <option value="820">HONBLE SMT. JUSTICE ANUJA PRABHUDESSAI</option>
+            <option value="725">HON'BLE SHRI JUSTICE S.C. GUPTE</option>
+            <option value="8020">HON'BLE SHRI JUSTICE S.S. SHINDE</option>
+            <option value="610">HON'BLE SHRI JUSTICE SHRIHARI P. DAVARE</option>
+            <option value="8045">HON'BLE SMT. JUSTICE R.P. SONDURBALDOTA</option>
+            <option value="685">HON'BLE SHRI JUSTICE M.S. SANKLECHA</option>
+            <option value="825">HON'BLE SHRI JUSTICE K.L. WADANE</option>
+            <option value="835">HON'BLE SMT. JUSTICE DR. SHALINI PHANSALKAR-JOSHI</option>
+            <option value="830">HON'BLE SMT. JUSTICE I.K. JAIN</option>
+            <option value="720">HON'BLE SHRI JUSTICE SUNIL B. SHUKRE</option>
+            <option value="715">HON'BLE SHRI JUSTICE A.I.S. CHEEMA</option>
+            <option value="730">HON'BLE SHRI JUSTICE Z.A. HAQ</option>
+            <option value="810">HON'BLE SHRI JUSTICE A.M. BADAR</option>
+            <option value="805">HON'BLE SHRI JUSTICE V.K. JADHAV</option>
+            <option value="8070">HON'BLE SHRI JUSTICE K.K. TATED</option>
+            <option value="765">HON'BLE SHRI JUSTICE V.L. ACHLIYA</option>
+            <option value="8075">HON'BLE SHRI JUSTICE PRASANNA B. VARALE</option>
+            <option value="8080">HON'BLE SHRI JUSTICE S.J. KATHAWALLA</option>
+            <option value="8060">HON'BLE SHRI JUSTICE A.A. KUMBHAKONI</option>
+            <option value="8065">HON'BLE SHRI JUSTICE P.B. MAJMUDAR</option>
+            <option value="8055">HON'BLE SHRI JUSTICE SANTOSH BORA</option>
+            <option value="601">HON'BLE SHRI JUSTICE P.D. KODE</option>
+            <option value="740">HON'BLE SHRI JUSTICE G.S. PATEL</option>
+            <option value="605">HON'BLE SHRI JUSTICE U.D. SALVI</option>
+            <option value="795">HON'BLE SHRI JUSTICE A. K. MENON</option>
+            <option value="8050">HON'BLE SHRI JUSTICE K.U. CHANDIWAL</option>
+            <option value="710">HON'BLE SHRI JUSTICE P.N. DESHMUKH</option>
+            <option value="620">HON'BLE MRS. JUSTICE MRIDULA BHATKAR</option>
+            <option value="840">HON'BLE SHRI JUSTICE PRAKASH DEU NAIK</option>
+            <option value="8040">HON'BLE SHRI JUSTICE N.D. DESHPANDE</option>
+            <option value="665">HON'BLE SHRI JUSTICE M.L. TAHALIYANI</option>
+            <option value="8035">HON'BLE SHRI JUSTICE R.Y. GANOO</option>
+            <option value="848">HON'BLE SHRI JUSTICE SANGITRAO S. PATIL</option>
+            <option value="660">HON'BLE SHRI JUSTICE M.T. JOSHI</option>
+            <option value="847">HON'BLE SHRI JUSTICE K. K. SONAWANE</option>
+            <option value="849">HON'BLE KUM. JUSTICE NUTAN D. SARDESSAI</option>
+            <option value="650">HON'BLE SHRI JUSTICE M.N. GILANI</option>
+            <option value="645">HON'BLE SHRI JUSTICE T.V. NALAWADE</option>
+            <option value="654">HON'BLE SHRI JUSTICE S.V. GANGAPURWALA</option>
+            <option value="855">HON'BLE SHRI JUSTICE SHANTANU S. KEMKAR</option>
+            <option value="640">HON'BLE SHRI JUSTICE RAVI K. DESHPANDE</option>
+            <option value="635">HON'BLE SHRI JUSTICE RAJESH G. KETKAR</option>
+            <option value="630">HON'BLE SHRI JUSTICE F.M. REIS</option>
+            <option value="625">HON'BLE SHRI JUSTICE A.V. POTDAR</option>
+            <option value="675">HON'BLE SHRI JUSTICE U.V. BAKRE</option>
+            <option value="670">HON'BLE SHRI JUSTICE A.M. THIPSAY</option>
+            <option value="690">HON'BLE SHRI JUSTICE R.D. DHANUKA</option>
+            <option value="695">HON'BLE SHRI JUSTICE S.P. DESHMUKH</option>
+            <option value="615">HON'BLE SHRI JUSTICE A.R. JOSHI</option>
+            <option value="705">HON'BLE SMT. JUSTICE S.S. JADHAV</option>
+            <option value="680">HON'BLE SHRI JUSTICE G.S. GODBOLE</option>
+            <option value="99999">--------------- OFFICERS/REGISTRARS ---------</option>
+            <option value="134">Registrar(OS)/Prothonotary &amp; Sr. Master</option>
+            <option value="180">S.S. Agate, Master &amp; Asstt. Protho.</option>
+            <option value="10047">Shri S. R. Agrawal, I/C(Reg.Judl I)</option>
+            <option value="10043">Shri. P.A. Jagdale, Officer On Special Duty With Testamentary Department
+            </option>
+            <option value="129">OFFICIAL ASSIGNEE</option>
+            <option value="10013">Shri. A. L. Yawalkar</option>
+            <option value="10014">MRS.KANCHAN M. RANE, Official Assignee, High Court, Bombay</option>
+            <option value="178">S.K. Dighe, Master &amp; Asstt. Protho.</option>
+            <option value="168">Mangesh S. Patil, Registrar(Judl - I) </option>
+            <option value="179">K.M. Rane, Company Registrar</option>
+            <option value="173">M.D. Narvekar, Official Assignee</option>
+            <option value="10044">Shri. S.R. Agrawal, Registrar(Judl II)</option>
+            <option value="10045">Shri H.M.Bhosale, Registrar(Judl I)</option>
+            <option value="172">B.M. Gore, Addl. Protho. and Senior Master</option>
+            <option value="175">D.R. Talekar, Insolvancy Registrar</option>
+            <option value="176">P.D. Digraskar, Registrar(Judicial)</option>
+            <option value="177">V.S. Kulkarni, Registrar(Adm.)</option>
+            <option value="10046">Shri H.M.Bhosale, I/C(Reg.Judl II)</option>
+            <option value="10061">Vimalnath S. Tiwari I/C Reg.Judicial</option>
+            <option value="10051">Mr.Pradeep B. Ghuge Registrar (Judicial)</option>
+            <option value="170">D.V. Sawant, Protho. &amp; Senior Master</option>
+            <option value="169">Dilip R. Shirasao, Registrar(Judl - II)</option>
+            <option value="171">S.P. Mathkar, Addl. Protho. and Senior Master</option>
+            <option value="229">Shri H.M.Bhosale, Registrar(Judl II)</option>
+            <option value="181">G.G. Ketkar, Deputy Official Assignee</option>
+            <option value="202">R. C. Kale, Company Registrar</option>
+            <option value="249">SHRI H. A. PATIL (I/C REGISTRAR JUDL.)</option>
+            <option value="195">Mrs. U. S. Shrivastva,Deputy Official Assignee</option>
+            <option value="213">A. N. Mare, Registrar (Judical I)</option>
+            <option value="214">A. N. Mare,I/c Registrar (Judical II)</option>
+            <option value="215">G. B. Gurav , Registrar (Judical II)</option>
+            <option value="216">G. B. Gurav , I/c Registrar (Judical I)</option>
+            <option value="217">M. P. KUNTE , 1st Asstt. to Official Assignee</option>
+            <option value="161">IST ASSTT. TO OFFICIAL ASSIGNEE</option>
+            <option value="218">Aniruddha M. Chandekar, Protho. &amp; Senior Master</option>
+            <option value="220">V. R. Kachare , Registrar (Judical II)</option>
+            <option value="221">V. R. Kachare , I/c Registrar (Judical I)</option>
+            <option value="196">K. K. Trivedi, Company Registrar</option>
+            <option value="197">R. M. Joshi, Registrar (Judical I)</option>
+            <option value="198">N.V. Navkar, I/c. Registrar(Judl - I) </option>
+            <option value="203">P. P. Bhaidkar, Master &amp; Asstt. Protho.</option>
+            <option value="204">E. B. Shivakumar , Deputy Official Assignee</option>
+            <option value="205">Shri. A. N. Mare, I/c. Registrar(Judl - I)</option>
+            <option value="206">Urmila S. Joshi-Phalke, Registrar (Judicial-II)</option>
+            <option value="207">R. C. Kale, Master &amp; Asstt. Protho.</option>
+            <option value="209">E. B. Sivakumar , Company Registrar</option>
+            <option value="208">C.J. Bhatt, Deputy Official Assignee</option>
+            <option value="201">R. M. Joshi, I/C Registrar (Judical I)</option>
+            <option value="135">Addl. Reg.(OS)/Addl. Prothonotary &amp; Sr. Maste</option>
+            <option value="200">K. K. Trivedi, Commissioner</option>
+            <option value="174">S.T. Kapse, Commissioner</option>
+            <option value="222">K. K. Trivedi, Addl Reg(OS)/Addl Protho Sr Master</option>
+            <option value="223">C.J. Bhatt, Company Registrar</option>
+            <option value="194">M.A. Lovekar, Registrar(Adm.)</option>
+            <option value="243">M. P. KUNTE , Insolvancy Registrar</option>
+            <option value="245">M. P. KUNTE , I/c Execution Dept</option>
+            <option value="250">Shri. R.R. Kakani , Registrar (Judicial) </option>
+            <option value="246">S.K. Dighe, Accounts Officer (Judicial)</option>
+            <option value="248">Subodh R. Patil , 1st Asstt. to Official Assignee</option>
+            <option value="251">Shri. S.T. Kapse, Commissioner for Taking Accounts</option>
+            <option value="185">S. D. Kulkarni , Registrar(Judicial II)</option>
+            <option value="184">N.V. Navkar, Registrar(Judl - II)</option>
+            <option value="183">C.J. Bhatt, Master &amp; Asstt. Protho.</option>
+            <option value="10000">Shri. D.S. Deshmukh,Registrar(Judl II)</option>
+            <option value="9999">Shri. V.R. Kachare, Registrar(Judl-I)</option>
+            <option value="188">S.D. Kulkarni, Registrar(Judicial I)</option>
+            <option value="187">B.H. Loya , Registrar(Judicial II)</option>
+            <option value="240">S. R. PARANJPE,ADDL REG(OS)/ADDL PROTHO SR MASTER</option>
+            <option value="193">Sudhir P. Kulkarni, Registrar(O.S.)</option>
+            <option value="224">S. R. Paranjpe, Insolvancy Registrar</option>
+            <option value="225">D.R. Talekar, First Assistant Master</option>
+            <option value="226">Registrar (Inspection)</option>
+            <option value="192">Registrar(O.S.)</option>
+            <option value="191">R.M. Joshi , Registrar(Judicial II)</option>
+            <option value="236">Aniruddha M. Chandekar, Registrar (Judical I)</option>
+            <option value="237">Shri. M.W. Chandwani, Protho. And Senior Master</option>
+            <option value="235">S. S. AGATE, COMMISSIONER FOR TAKING ACCOUNTS</option>
+            <option value="190">S.T. Kapse, Addl. Protho. &amp; Sr. Maaster</option>
+            <option value="189">B.M. Gore, Commissioner</option>
+            <option value="182">V.S. Avasare, 1st Asstt. to Official Assignee</option>
+          </select>
         </div>
 
         <!-- Act -->
@@ -822,21 +532,22 @@
           <label>Judgement / Order</label>
           <div class="d-flex gap-4">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="joflag[]" value="J">
+              <input class="form-check-input" type="checkbox" name="joflag" value="J">
               <label class="form-check-label">Judgement</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="joflag[]" value="O">
+              <input class="form-check-input" type="checkbox" name="joflag" value="O">
               <label class="form-check-label">Order</label>
             </div>
           </div>
         </div>
 
         <div class="col-xs-12 col-lg-12 col-md-12 margin-bottom-10">
-				<div class="col-xs-12 col-lg-12 col-md-12">
-				<a href="https://judgments.ecourts.gov.in/pdfsearch/index.php" target="_blank" class="btn btn-info">Free Text Search</a>
-				</div>
-		    </div>
+          <div class="col-xs-12 col-lg-12 col-md-12">
+            <a href="https://judgments.ecourts.gov.in/pdfsearch/index.php" target="_blank" class="btn btn-info">Free
+              Text Search</a>
+          </div>
+        </div>
 
         <!-- Submit -->
         <div class="col-12 text-center">
@@ -849,94 +560,142 @@
   <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <sc="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
-    
+
     // Case Type autocomplete (new)
     $('#m_skey').select2({
-            placeholder: 'Type Case Type Below',
-            ajax: {
-                url: '/autocomplete/caseType',   // 👈 new backend endpoint
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return { q: params.term };
-                },
-                processResults: function (data) {
-                    let parsed = [];
-                    try {
-                        if (Array.isArray(data) && typeof data[0] === 'string') {
-                            parsed = JSON.parse(data[0]);
-                        } else {
-                            parsed = data;
-                        }
-
-                        return {
-                            results: parsed.map(ct => ({
-                                id: ct.id,
-                                text: ct.name?.trim() || ''
-                            }))
-                        };
-                    } catch (e) {
-                        console.error("Failed to parse case type response:", e);
-                        return { results: [] };
-                    }
-                }
+      placeholder: 'Type Case Type Below',
+      ajax: {
+        url: '/autocomplete/caseType',   // 👈 new backend endpoint
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+          return { q: params.term };
         },
-        minimumInputLength: 2
+        processResults: function (data) {
+          let parsed = [];
+          try {
+            if (Array.isArray(data) && typeof data[0] === 'string') {
+              parsed = JSON.parse(data[0]);
+            } else {
+              parsed = data;
+            }
+
+            return {
+              results: parsed.map(ct => ({
+                id: ct.id,
+                text: ct.name?.trim() || ''
+              }))
+            };
+          } catch (e) {
+            console.error("Failed to parse case type response:", e);
+            return { results: [] };
+          }
+        }
+      },
+      minimumInputLength: 2
     });
 
     $('#actcode').select2({
-            placeholder: 'Type Act Name Below',
-            ajax: {
-                url: '/autocomplete/act',
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return { q: params.term };
-                },
-                processResults: function (data) {
-                    let parsed = [];
-                    try {
-                        if (Array.isArray(data) && typeof data[0] === 'string') {
-                            parsed = JSON.parse(data[0]);
-                        } else {
-                            parsed = data;
-                        }
-
-                        const names = parsed.map(item => item.name?.trim() || '');
-                        console.log("Parsed act names:", names);
-
-                        return {
-                            results: parsed.map(act => ({
-                                id: act.id,
-                                text: act.name?.trim() || ''
-                            }))
-                        };
-                    } catch (e) {
-                        console.error("Failed to parse act response:", e);
-                        return { results: [] };
-                    }
-                }
+      placeholder: 'Type Act Name Below',
+      ajax: {
+        url: '/autocomplete/act',
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+          return { q: params.term };
         },
-        minimumInputLength: 2
+        processResults: function (data) {
+          let parsed = [];
+          try {
+            if (Array.isArray(data) && typeof data[0] === 'string') {
+              parsed = JSON.parse(data[0]);
+            } else {
+              parsed = data;
+            }
+
+            const names = parsed.map(item => item.name?.trim() || '');
+            console.log("Parsed act names:", names);
+
+            return {
+              results: parsed.map(act => ({
+                id: act.id,
+                text: act.name?.trim() || ''
+              }))
+            };
+          } catch (e) {
+            console.error("Failed to parse act response:", e);
+            return { results: [] };
+          }
+        }
+      },
+      minimumInputLength: 2
     });
 
-    document.getElementById("m_bench").addEventListener("change", function() {
-      let bench = this.value;
-      let actside = "";
+    document.querySelector("form").addEventListener("submit", function () {
+    let bench = document.getElementById("m_bench").value;
+    let actside = "";
 
-      switch (bench) {
-        case "B": actside = "C"; break;      // Bombay
-        case "N": actside = "NC"; break;     // Nagpur
-        case "A": actside = "AC"; break;     // Aurangabad
-        case "K": actside = "KC"; break;     // Kolhapur
-        case "G": actside = "GC"; break;     // Goa
-      }
+    switch (bench) {
+        case "B": actside = "C"; break;
+        case "N": actside = "NC"; break;
+        case "A": actside = "AC"; break;
+        case "K": actside = "KC"; break;
+        case "G": actside = "GC"; break;
+    }
 
-      document.getElementById("actside").value = actside;
-      console.log("actside updated →", actside);
-    });
+    document.getElementById("actside").value = actside;
+});
   </script>
+  <script>
+  /* ---------------------------------------
+      🔵 UPDATE JURISDICTION LIST DYNAMICALLY
+  ----------------------------------------*/
+
+  const jurisdictionOptions = {
+    "B": [
+      { val: "C", text: "Civil" },
+      { val: "CR", text: "Criminal" },
+      { val: "OS", text: "Original Side" }  // Only for Bombay
+    ],
+    "N": [
+      { val: "C", text: "Civil" },
+      { val: "CR", text: "Criminal" }
+    ],
+    "A": [
+      { val: "C", text: "Civil" },
+      { val: "CR", text: "Criminal" }
+    ],
+    "K": [
+      { val: "C", text: "Civil" },
+      { val: "CR", text: "Criminal" }
+    ],
+    "G": [
+      { val: "C", text: "Civil" },
+      { val: "CR", text: "Criminal" }
+    ]
+  };
+
+  // 🔥 When Bench changes → update "m_sideflg"
+  document.getElementById("m_bench").addEventListener("change", function () {
+    let bench = this.value;
+    let sideDropdown = document.getElementById("m_sideflg");
+
+    // clear existing options
+    sideDropdown.innerHTML = "";
+
+    // add new options based on selected bench
+    jurisdictionOptions[bench].forEach(opt => {
+      let option = document.createElement("option");
+      option.value = opt.val;
+      option.textContent = opt.text;
+      sideDropdown.appendChild(option);
+    });
+  });
+</script>
+
+  
 </body>
+
 </html>

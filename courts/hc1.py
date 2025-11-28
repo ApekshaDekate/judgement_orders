@@ -21,16 +21,16 @@ router = APIRouter()
 BASE_DIR = Path(__file__).resolve().parent.parent
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
-PDF_CACHE = "pdf_cache"
-os.makedirs(PDF_CACHE, exist_ok=True)
+# PDF_CACHE = "pdf_cache"
+# os.makedirs(PDF_CACHE, exist_ok=True)
 
 BASE_URL = "https://judgments.ecourts.gov.in"
 
 SEARCH_URL = f"{BASE_URL}/pdfsearch"
 session = requests.Session()
 
-CAPTCHA_SAVE_DIR = "captchas_debug"
-os.makedirs(CAPTCHA_SAVE_DIR, exist_ok=True)
+# CAPTCHA_SAVE_DIR = "captchas_debug"
+# os.makedirs(CAPTCHA_SAVE_DIR, exist_ok=True)
 
 def solve_captcha_blacktext(session, captcha_url, max_retries=5):
     for attempt in range(1, max_retries + 1):
@@ -352,7 +352,7 @@ def get_pdf(val: str, citation_year: str, path: str, nc_display: str, app_token:
     outputfile = result["outputfile"].replace("\\", "/")
     pdf_url = BASE_URL + outputfile if outputfile.startswith("/") else f"{BASE_URL}/{outputfile}"
     filename = pdf_url.split("/")[-1]
-    filepath = os.path.join(PDF_CACHE, filename)
+    # filepath = os.path.join(PDF_CACHE, filename)
 
     print(f"[get_pdf] Downloading from: {pdf_url}")
     if not os.path.exists(filepath) or os.path.getsize(filepath) < 1024:

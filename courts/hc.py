@@ -23,11 +23,11 @@ templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 BASE_URL = "https://judgments.ecourts.gov.in"
 SEARCH_URL = f"{BASE_URL}/pdfsearch"
-PDF_CACHE = "pdf_cache"
-os.makedirs(PDF_CACHE, exist_ok=True)
+# PDF_CACHE = "pdf_cache"
+# os.makedirs(PDF_CACHE, exist_ok=True)
 
-CAPTCHA_SAVE_DIR = "captchas_debug"
-os.makedirs(CAPTCHA_SAVE_DIR, exist_ok=True)
+# CAPTCHA_SAVE_DIR = "captchas_debug"
+# os.makedirs(CAPTCHA_SAVE_DIR, exist_ok=True)
 
 session = requests.Session()
 
@@ -270,7 +270,7 @@ def fetch_pdf_from_fragment(path, app_token, row_pos=0):
 
     pdf_url = f"{BASE_URL}{j['outputfile']}"
     filename = os.path.basename(pdf_url)
-    filepath = os.path.join(PDF_CACHE, filename)
+    # filepath = os.path.join(PDF_CACHE, filename)
 
     if os.path.exists(filepath):
         return filepath

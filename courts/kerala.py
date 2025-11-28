@@ -5,23 +5,27 @@ from urllib.parse import urlparse, parse_qs
 from fastapi import APIRouter, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from datetime import datetime
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
-# === NEW BASE DIRECTORY STRUCTURE ===
-BASE_PDF_DIR = os.path.join("Pdfs", "kerala")  # "pdfs" main folder, then "kerala" subfolder
+# === MAIN PDF DIRECTORY (COMMON FOR ALL STATES) ===
+BASE_PDF_ROOT = "All_Pdfs"
+STATE_FOLDER = os.path.join(BASE_PDF_ROOT, "kerala")
+os.makedirs(STATE_FOLDER, exist_ok=True)
 
 
 @router.get("/kerala", response_class=HTMLResponse)
 async def show_kerala_form(request: Request):
-    """Show Kerala High Court judgment search form."""
+
     judge_url = "https://hckinfo.keralacourts.in/digicourt/Casedetailssearch/CRjudgmentsearch"
     res = requests.get(judge_url)
     soup = BeautifulSoup(res.text, "html.parser")
 
     judge_select = soup.find("select", {"id": "judge_code"})
     judges = []
+
     if judge_select:
         for option in judge_select.find_all("option"):
             code = option.get("value", "0")
@@ -32,20 +36,23 @@ async def show_kerala_form(request: Request):
     return templates.TemplateResponse("kerala_form.html", {"request": request, "judges": judges})
 
 
+
 @router.post("/kerala/results", response_class=HTMLResponse)
-async def fetch_kerala_results(request: Request,
-                               from_date: str = Form(None),
-                               to_date: str = Form(None),
-                               judge_code: str = Form("0"),
-                               citationno: str = Form(None),
-                               citationyear: str = Form(None),
-                               cnt: int = Form(0),
-                               page_cnt: int = Form(1)):
+async def fetch_kerala_results(
+    request: Request,
+    from_date: str = Form(None),
+    to_date: str = Form(None),
+    judge_code: str = Form("0"),
+    citationno: str = Form(None),
+    citationyear: str = Form(None),
+    cnt: int = Form(0),
+    page_cnt: int = Form(1)
+):
 
     BASE_URL = "https://hckinfo.keralacourts.in/digicourt/Casedetailssearch/"
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+    headers = {"User-Agent": "Mozilla/5.0"}
 
-    # === Choose request type ===
+    # === Decide request type ===
     if citationno and citationyear:
         url = BASE_URL + "Citation_ajax/"
         payload = {
@@ -63,6 +70,7 @@ async def fetch_kerala_results(request: Request,
             "search_type": "1"
         }
         folder_name = f"citation_{citationyear}_{citationno}"
+
     else:
         url = f"{BASE_URL}CRjudgmentsearchresult_ajax/{cnt}"
         payload = {
@@ -74,8 +82,13 @@ async def fetch_kerala_results(request: Request,
         }
         folder_name = f"judge_{judge_code}_{from_date}_{to_date}"
 
-    # === Prepare download folder ===
-    folder_path = os.path.join(BASE_PDF_DIR, folder_name)
+    # === Create date folder ===
+    today = datetime.now().strftime("%Y-%m-%d")
+    DATE_FOLDER = os.path.join(STATE_FOLDER, today)
+    os.makedirs(DATE_FOLDER, exist_ok=True)
+
+    # === Create search-wise folder inside date folder ===
+    folder_path = os.path.join(DATE_FOLDER, folder_name)
     os.makedirs(folder_path, exist_ok=True)
 
     total_pdfs = 0
@@ -84,7 +97,6 @@ async def fetch_kerala_results(request: Request,
     while True:
         print(f"📄 Fetching results with cnt={cnt} ...")
 
-        # Fetch the correct page
         if citationno and citationyear:
             response = requests.post(url, data=payload, headers=headers, timeout=30)
         else:
@@ -92,22 +104,21 @@ async def fetch_kerala_results(request: Request,
             response = requests.post(paged_url, data=payload, headers=headers, timeout=30)
 
         if response.status_code != 200:
-            print(f"⚠️ Failed to fetch page at cnt={cnt}")
+            print("⚠️ Page fetch failed.")
             break
 
         soup = BeautifulSoup(response.text, "html.parser")
 
-        # Remove footer boxes
         for tag in soup.find_all("div", class_="box-footer"):
             tag.decompose()
 
-        # === Extract PDF links ===
         pdf_tags = []
         for a_tag in soup.find_all("a"):
             onclick = a_tag.get("onclick", "")
             if "viewordercitation" in onclick:
                 match = re.search(
-                    r"viewordercitation\('([^']+)','([^']+)','([^']+)','([^']+)'\)", onclick
+                    r"viewordercitation\('([^']+)','([^']+)','([^']+)','([^']+)'\)",
+                    onclick
                 )
                 if match:
                     token, lookups, citationno, isqr = match.groups()
@@ -117,14 +128,13 @@ async def fetch_kerala_results(request: Request,
                     )
                     pdf_tags.append((a_tag, full_url))
 
-        print(f"🧾 Found {len(pdf_tags)} PDFs on this page")
+        print(f"🧾 Found {len(pdf_tags)} PDFs")
 
-        # === Download PDFs and update links ===
+        # === Download PDFs ===
         for a_tag, pdf_page_url in pdf_tags:
             try:
                 page_resp = requests.get(pdf_page_url, headers=headers, timeout=20)
                 if page_resp.status_code != 200:
-                    print(f"⚠️ Failed to fetch {pdf_page_url}")
                     continue
 
                 parsed = urlparse(pdf_page_url)
@@ -133,52 +143,46 @@ async def fetch_kerala_results(request: Request,
                 lookups_b64 = params.get("lookups", [""])[0]
 
                 try:
-                    token_decoded = base64.b64decode(token_b64).decode("utf-8")
-                    lookups_decoded = base64.b64decode(lookups_b64).decode("utf-8")
-                    pdf_url = f"https://hckinfo.keralacourts.in/digicourt/{lookups_decoded}/{token_decoded}"
-                except Exception as e:
-                    print(f"⚠️ Decode failed: {e}")
+                    token_dec = base64.b64decode(token_b64).decode("utf-8")
+                    lookups_dec = base64.b64decode(lookups_b64).decode("utf-8")
+                    pdf_url = f"https://hckinfo.keralacourts.in/digicourt/{lookups_dec}/{token_dec}"
+                except:
                     continue
 
-                filename = os.path.basename(pdf_url.split("?")[0])
+                filename = os.path.basename(pdf_url)
                 if not filename.lower().endswith(".pdf"):
                     filename += ".pdf"
 
                 filepath = os.path.join(folder_path, filename)
-                pdf_resp = requests.get(pdf_url, headers=headers, timeout=30)
+                pdf_resp = requests.get(pdf_url, timeout=20)
 
-                if pdf_resp.status_code == 200 and "application/pdf" in pdf_resp.headers.get("Content-Type", ""):
+                if pdf_resp.status_code == 200:
                     with open(filepath, "wb") as f:
                         f.write(pdf_resp.content)
+
                     print(f"✅ Saved: {filepath}")
                     total_pdfs += 1
 
-                    # ✅ Replace onclick with local href
-                    a_tag["href"] = filename  # link to same folder
-                    if "onclick" in a_tag.attrs:
-                        del a_tag["onclick"]
-
-                else:
-                    print(f"⚠️ Invalid PDF ({pdf_resp.status_code}) -> {pdf_url}")
+                    a_tag["href"] = filename
+                    a_tag.attrs.pop("onclick", None)
 
             except Exception as e:
-                print(f"❌ Error with {pdf_page_url}: {e}")
+                print("❌ Error:", e)
 
-        # === Save updated HTML after all PDFs for this page ===
+        # === Save updated HTML ===
         html_path = os.path.join(folder_path, f"results_cnt_{cnt}.html")
         with open(html_path, "w", encoding="utf-8") as f:
             f.write(str(soup))
-        print(f"💾 Saved result table: {html_path}")
 
-        # === Pagination condition ===
+        print(f"💾 Saved: {html_path}")
+
         if len(pdf_tags) < 20:
-            print("⏹ No more pages or fewer than 20 results.")
             break
 
         cnt += 20
         page_cnt += 1
 
-    print(f"🎯 Finished. Total PDFs downloaded: {total_pdfs}")
+    print(f"🎯 Total PDFs downloaded: {total_pdfs}")
 
     return templates.TemplateResponse("kerala_results.html", {
         "request": request,

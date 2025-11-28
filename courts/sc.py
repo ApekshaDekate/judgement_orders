@@ -304,42 +304,39 @@ def clean_supreme_court_html(raw_html: str) -> str:
     try:
         # 1️⃣ Decode escaped sequences like \r, \n, \t, \/, etc.
         decoded = raw_html.encode("utf-8").decode("unicode_escape")
+
+        # 2️⃣ Clean all escaped slashes and other unwanted sequences
         decoded = (
-            decoded.replace("\\/", "/")
+            decoded.replace("\\/", "/")   # escape \/ → /
             .replace('\\"', '"')
             .replace("\\r", "")
             .replace("\\n", "")
             .replace("\\t", "")
-            .replace("\/", "")
             .replace("\r\n", "")
-            .replace("<\/th>", "")
-            .replace("<\/div>", "")
-            .replace("<\/td>", "")
-            .replace("<\/center>", "")
-            .replace("\/", "")
-            .replace("<\/tr>", "")
-            .replace("<\/tbody>", "")
-            .replace("<\/table>", "")
-
+            .replace("\\", "")           # remove leftover escapes
         )
 
-        # 2️⃣ Parse HTML
+        # 3️⃣ Remove leftover HTML closing tags using raw strings (no warnings)
+        for pattern in [r"</th>", r"</div>", r"</td>", r"</center>", r"</tr>", r"</tbody>", r"</table>"]:
+            decoded = decoded.replace(pattern, "")
+
+        # 4️⃣ Parse HTML
         soup = BeautifulSoup(decoded, "html.parser")
 
-        # 3️⃣ Remove unwanted tags completely
+        # 5️⃣ Remove unwanted tags completely
         for tag in soup(["script", "style", "thead", "tbody", "th", "div", "center", "table"]):
             tag.decompose()
 
-        # 4️⃣ Fix relative links (if any exist)
+        # 6️⃣ Fix relative links (if any exist)
         for a in soup.find_all("a", href=True):
             if a["href"].startswith("./"):
                 a["href"] = urljoin(SC_URL, a["href"])
             a["target"] = "_blank"
 
-        # 5️⃣ Extract plain text
+        # 7️⃣ Extract plain text
         text = soup.get_text(separator=" ", strip=True)
 
-        # 6️⃣ Final cleanup
+        # 8️⃣ Final cleanup
         text = re.sub(r"\s{2,}", " ", text)
         text = re.sub(r"[\r\n\t]+", " ", text)
         text = text.strip()
@@ -350,7 +347,6 @@ def clean_supreme_court_html(raw_html: str) -> str:
         print(f"⚠️ HTML cleaning error: {e}")
         return raw_html
 
-# ======================
 # Extract results table
 # ======================
 def extract_results_table(html: str) -> str:

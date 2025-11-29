@@ -14,13 +14,13 @@ import httpx
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
-PDFS_ROOT = Path("All_Pdfs")
+PDFS_ROOT = Path("/media/ibmarray2_1/airstorage/commpdf/")
 PDFS_ROOT.mkdir(exist_ok=True)
 PDF_DIR = PDFS_ROOT / "bombay"
 PDF_DIR.mkdir(exist_ok=True)
 
 def convert_date_format(date_str: str) -> str:
-    return datetime.strptime(date_str, "%Y-%m-%d").strftime("%d-%m-%Y")
+    return datetime.strptime(date_str, "%Y-%m-%d").strftime("%d-%m- %Y")
 
 
 def download_pdf(pdf_url, pdf_path):

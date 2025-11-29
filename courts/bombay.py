@@ -10,6 +10,8 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
 import httpx
 
+SERVER_URL = "http://128.127.50.120:8000"
+
 
 router = APIRouter()
 templates = Jinja2Templates(directory="templates")
@@ -128,8 +130,7 @@ def get_bombay_data(
 
                     # Create URL for browser
                     relative_path = pdf_path.replace(str(PDFS_ROOT), "").lstrip("/")
-                    pdf_url = f"/pdfs/{relative_path}"
-
+                    pdf_url = f"{SERVER_URL}/pdfs/{relative_path}"
                     parts.append(f'<a href="{pdf_url}" target="_blank">{link_text}</a>')
 
                 cols.append("<br>".join(parts) if parts else "")

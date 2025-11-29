@@ -23,7 +23,7 @@ templates = Jinja2Templates(directory="templates")
 # === Constants ===
 ASSAM_BASE_URL = "https://hcservices.ecourts.gov.in/ecourtindiaHC/cases/"
 ASSAM_CAPTCHA_URL = "https://hcservices.ecourts.gov.in/ecourtindiaHC/securimage/securimage_show.php?"
-PDFS_ROOT = Path("All_Pdfs")
+PDFS_ROOT = Path("/media/ibmarray2_1/airstorage/commpdf/")
 PDFS_ROOT.mkdir(exist_ok=True)
 PDF_DIR = PDFS_ROOT / "assam"
 PDF_DIR.mkdir(exist_ok=True)

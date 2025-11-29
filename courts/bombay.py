@@ -126,8 +126,11 @@ def get_bombay_data(
 
                     download_pdf(full_url, pdf_path)
 
-                    relative_path = os.path.relpath(pdf_path, os.getcwd())
-                    parts.append(f'<a href="/{relative_path}" target="_blank">{link_text}</a>')
+                    # Create URL for browser
+                    relative_path = pdf_path.replace(str(PDFS_ROOT), "").lstrip("/")
+                    pdf_url = f"/pdfs/{relative_path}"
+
+                    parts.append(f'<a href="{pdf_url}" target="_blank">{link_text}</a>')
 
                 cols.append("<br>".join(parts) if parts else "")
 

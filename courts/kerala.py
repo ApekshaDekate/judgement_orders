@@ -11,7 +11,7 @@ router = APIRouter()
 templates = Jinja2Templates(directory="templates")
 
 # === MAIN PDF DIRECTORY (COMMON FOR ALL STATES) ===
-BASE_PDF_ROOT = "All_Pdfs"
+BASE_PDF_ROOT = "/media/ibmarray2_1/airstorage/commpdf/"
 STATE_FOLDER = os.path.join(BASE_PDF_ROOT, "kerala")
 os.makedirs(STATE_FOLDER, exist_ok=True)
 

@@ -1,7 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-
 from courts import (
     bombay,
     kerala,
@@ -16,6 +15,11 @@ from courts import (
 )
 
 app = FastAPI()
+
+from fastapi.staticfiles import StaticFiles
+
+app.mount("/pdfs", StaticFiles(directory="/media/ibmarray2_1/airstorage/commpdf"), name="pdfs")
+
 templates = Jinja2Templates(directory="templates")
 
 # 📌 Court list for dashboard

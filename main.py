@@ -7,6 +7,7 @@ from courts import (
     kerala,
     andhra,
     assam,
+    calcutta,
     telangana,
     hc,
     delhi,
@@ -31,6 +32,7 @@ court_list = [
     {"name": "Kerala High Court", "description": "Judgements", "url": "/kerala"},
     {"name": "Andhra Pradesh High Court", "description": "Judgements", "url": "/andhra"},
     {"name": "Assam High Court", "description": "Judgements", "url": "/assam"},
+    {"name": "Calcutta High Court", "description": "Judgements", "url": "/calcutta"},
     # {"name": "Telangana High Court", "description": "Judgements", "url": "/telangana"},
     # {"name": "Delhi High Court", "description": "Judgements", "url": "/delhi"},
     # {"name": "Punjab & Haryana High Court", "description": "Judgements", "url": "/punjab"},
@@ -49,6 +51,7 @@ app.include_router(bombay.router)
 app.include_router(kerala.router)
 app.include_router(andhra.router)
 app.include_router(assam.router)
+app.include_router(calcutta.router)
 app.include_router(telangana.router)
 app.include_router(hc.router)
 app.include_router(delhi.router)

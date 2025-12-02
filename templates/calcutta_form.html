@@ -1,137 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calcutta High Court Search</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>calcutta Judgements</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
+
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        label { font-weight: bold; }
+        .form-section { display: none; margin-top: 15px; }
+        .visible { display: block; }
+    </style>
 </head>
 
-<body class="bg-light">
-  <div class="container py-4">
-    <h2 class="mb-4">Calcutta High Court Case Search</h2>
+<body>
 
-    <!-- Search form -->
-    <form id="searchForm">
-      <div class="mb-3">
-        <label for="order_establishment" class="form-label">Establishment</label>
-        <select class="form-control form-control-sm" id="order_establishment" name="order_establishment" required>
-          <option value="">Select</option>
-          <option value="WBCHCA">Appellate Side</option>
-          <option value="WBCHCO">Original Side</option>
-          <option value="WBCHCJ">Circuit Bench Jalpaiguri</option>
-          <option value="WBCHCP">Circuit Bench Portblair</option>
-        </select>
-      </div>
+    <h1>High Court of calcutta</h1>
+    <h2>Search Judgements</h2>
 
-      <div class="mb-3">
-        <label for="caseType" class="form-label">Case Type</label>
-        <select class="form-select" id="caseType" name="order_casetype" required>
-          <option value="">-- Select Case Type --</option>
-        </select>
-      </div>
+    <form id="calcuttaForm" action="/calcutta/results" method="post">
 
-      <div class="mb-3">
-        <label for="order_reg_no" class="form-label">Registration No</label>
-        <input type="text" class="form-control" id="order_reg_no" name="order_reg_no" required>
-      </div>
+        <p><b>Select Search Type:</b></p>
 
-      <div class="mb-3">
-        <label for="order_year" class="form-label">Year</label>
-        <input type="text" class="form-control" id="order_year" name="order_year" required>
-      </div>
+        <label><input type="radio" name="search_type" value="date" checked> By Date</label>
+        <label><input type="radio" name="search_type" value="judge"> By Judge</label>
+        <label><input type="radio" name="search_type" value="party"> By Party Name</label>
+        <label><input type="radio" name="search_type" value="citation"> By Citation</label>
 
-      <button type="submit" class="btn btn-primary">Search</button>
+        <hr>
+
+        <!-- Bench selection ALWAYS visible -->
+        <div id="bench_selector" class="form-section visible">
+            <label>Select Bench:</label>
+            <select id="bench_id" name="bench_id">
+                <option value="original">Original Side</option>
+                <option value="jalpaiguri">Circuit Bench At Jalpaiguri</option>
+                <option value="appellate">Appellate Side</option>
+                <option value="port_blair">Circuit Bench At Port Blair</option>
+            </select>
+            <br><br>
+        </div>
+
+        <!-- DATE SEARCH -->
+        <div id="date" class="form-section visible">
+            <label>From Date:</label>
+            <input type="text" name="from_date" id="from_date">
+
+            <br><br>
+            <label>To Date:</label>
+            <input type="text" name="to_date" id="to_date">
+        </div>
+
+        <!-- JUDGE SEARCH -->
+        <div id="judge" class="form-section">
+            <label>Select Judge:</label>
+            <!-- name must be nnjudgecode1 to match backend -->
+            <select id="judge_dropdown" name="nnjudgecode1">
+                <option value="-1">All Judges</option>
+            </select>
+
+            <br><br>
+            <label>From Date (judge):</label>
+            <!-- we keep separate judge date inputs for UX, but we'll copy these to from_date/to_date before submit -->
+            <input type="text" name="judge_from_date" id="judge_from_date">
+
+            <br><br>
+            <label>To Date (judge):</label>
+            <input type="text" name="judge_to_date" id="judge_to_date">
+        </div>
+
+        <!-- PARTY SEARCH -->
+        <div id="party" class="form-section">
+            <label>Party Name (Petitioner/Respondent):</label>
+            <!-- backend expects "party_name" -->
+            <input type="text" name="party_name" id="party_name">
+
+            <br><br>
+            <label>Year:</label>
+            <input type="text" name="rgyear" id="rgyear" placeholder="YYYY">
+        </div>
+
+        <!-- CITATION SEARCH -->
+        <div id="citation" class="form-section">
+            <label>Citation No:</label>
+            <input type="text" name="citation_no" id="citation_no">
+        </div>
+
+        <br>
+        <button type="submit">Search</button>
+
     </form>
 
-    <div id="result" class="mt-4"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
-    <!-- Results Table -->
-    <div class="mt-4">
-      <h4 id="caseTitle"></h4>
-      <table class="table table-bordered" id="resultTable" style="display:none;">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Date</th>
-            <th>Judge</th>
-            <th>Order</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="resultBody"></tbody>
-      </table>
-    </div>
-  </div>
+    <script>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const estSelect = document.getElementById('order_establishment');
-  const caseTypeSelect = document.getElementById('caseType');
-  const form = document.getElementById('searchForm');
-  const resultDiv = document.getElementById('result');
+        // Helper: load judges for a bench
+        function loadJudgesForBench(benchId) {
+            const sel = $("#judge_dropdown");
+            sel.empty();
+            sel.append(`<option value="-1">All Judges</option>`);
+            fetch(`/calcutta/judges/${benchId}`)
+                .then(res => {
+                    if (!res.ok) throw new Error("Failed to fetch judges");
+                    return res.json();
+                })
+                .then(data => {
+                    // data.judges expected as [{value,label}, ...]
+                    if (data && Array.isArray(data.judges)) {
+                        data.judges.forEach(j => {
+                            sel.append(`<option value="${j.value}">${j.label}</option>`);
+                        });
+                    } else if (Array.isArray(data)) {
+                        // fallback if endpoint returns array directly
+                        data.forEach(j => {
+                            sel.append(`<option value="${j.value}">${j.label}</option>`);
+                        });
+                    }
+                })
+                .catch(err => {
+                    console.warn("Could not load judges:", err);
+                });
+        }
 
-  // When establishment changes → fetch case types
-  estSelect.addEventListener('change', async () => {
-    const est = estSelect.value;
-    caseTypeSelect.innerHTML = '<option value="">Loading…</option>';
-    if (!est) return;
+        // Populate judges when bench selection changes
+        $("#bench_id").on("change", function () {
+            loadJudgesForBench($(this).val());
+        });
 
-    try {
-      const res = await fetch(`/case_types?est=${encodeURIComponent(est)}`);
-      const data = await res.json();
-      console.log("case_types response:", data); // debug
+        // Ensure judges are loaded on page load for the default bench
+        $(document).ready(function () {
+            const defaultBench = $("#bench_id").val();
+            if (defaultBench) {
+                loadJudgesForBench(defaultBench);
+            }
+        });
 
-      caseTypeSelect.innerHTML = '<option value="">-- Select Case Type --</option>';
+        // Toggle visible form section (bench selector remains visible)
+        function toggleSection(type) {
+            document.querySelectorAll(".form-section").forEach(sec => sec.classList.remove("visible"));
+            // bench selector always visible
+            document.getElementById("bench_selector").classList.add("visible");
+            // show chosen section
+            document.getElementById(type).classList.add("visible");
+        }
 
-      // Ensure data is an array
-      const items = Array.isArray(data) ? data : [data];
+        document.querySelectorAll("input[name='search_type']").forEach(r => {
+            r.addEventListener("change", e => toggleSection(e.target.value));
+        });
 
-      items.forEach(item => {
-        const opt = document.createElement('option');
-        opt.value = item.case_type;             // numeric ID
-        opt.textContent = item.full_form || item.type_name; // readable label
-        caseTypeSelect.appendChild(opt);
-      });
+        toggleSection("date"); // default visible section
 
-      if (items.length === 0) {
-        caseTypeSelect.innerHTML = '<option value="">No case types found</option>';
-      }
+        // Date picker initialization
+        $(function () {
+            $("#from_date, #to_date, #judge_from_date, #judge_to_date").datepicker({
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "2000:2050"
+            });
+        });
 
-    } catch (err) {
-      console.error(err);
-      caseTypeSelect.innerHTML = '<option value="">Error loading case types</option>';
-    }
-  });
+        // Before submit:
+        // 1) copy judge_from_date/judge_to_date into from_date/to_date when searching by judge
+        // 2) disable inputs from hidden sections (but keep bench selector enabled)
+        document.getElementById("calcuttaForm").addEventListener("submit", function (ev) {
+            const form = this;
+            const searchType = form.querySelector("input[name='search_type']:checked").value;
 
-  // Submit search form
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    resultDiv.innerHTML = 'Loading…';
+            if (searchType === "judge") {
+                // copy judge dates to the standard names expected by backend
+                const jf = document.getElementById("judge_from_date").value || "";
+                const jt = document.getElementById("judge_to_date").value || "";
+                // ensure there are hidden canonical inputs named from_date / to_date to send
+                // if not present (because date section hidden) create/overwrite hidden inputs
+                let fd = form.querySelector("input[name='from_date']");
+                let td = form.querySelector("input[name='to_date']");
+                if (!fd) {
+                    fd = document.createElement("input");
+                    fd.type = "hidden";
+                    fd.name = "from_date";
+                    form.appendChild(fd);
+                }
+                if (!td) {
+                    td = document.createElement("input");
+                    td.type = "hidden";
+                    td.name = "to_date";
+                    form.appendChild(td);
+                }
+                fd.value = jf;
+                td.value = jt;
+            }
 
-    const formData = new FormData(form);
+            // disable inputs/selects in sections that are not visible, except bench_selector
+            document.querySelectorAll(".form-section").forEach(section => {
+                const isVisible = section.classList.contains("visible");
+                section.querySelectorAll("input, select, textarea").forEach(el => {
+                    // Do not disable bench selector itself
+                    if (section.id === "bench_selector") {
+                        el.disabled = false;
+                    } else {
+                        el.disabled = !isVisible;
+                    }
+                });
+            });
 
-    try {
-      const res = await fetch('/calcutta', {
-        method: 'POST',
-        body: formData
-      });
+            // allow form to submit normally
+        });
 
-      if (res.headers.get('content-type')?.includes('application/json')) {
-        const data = await res.json();
-        resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
-      } else {
-        const html = await res.text();
-        resultDiv.innerHTML = html;
-      }
-    } catch (err) {
-      console.error(err);
-      resultDiv.textContent = 'Error fetching data';
-    }
-  });
-});
-</script>
+    </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -115,6 +115,15 @@
     });
 
     toggleForm("date");
+    setTimeout(() => {
+        $("#from_date, #to_date, #from_date_j, #to_date_j").datepicker({
+            dateFormat: "dd-mm-yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "2000:2050"
+        });
+    }, 50);
+
 
     // Disable hidden fields before submitting
     document.getElementById("searchForm").addEventListener("submit", () => {

@@ -136,24 +136,24 @@
         });
     });
 
-    // Act search
-    document.getElementById("searchActBtn").addEventListener("click", function () {
-        const query = document.getElementById("search_act").value.trim();
-        if (!query) return;
+    // // Act search
+    // document.getElementById("searchActBtn").addEventListener("click", function () {
+    //     const query = document.getElementById("search_act").value.trim();
+    //     if (!query) return;
 
-        fetch(`/andhra/act-types?search=${encodeURIComponent(query)}`)
-            .then(res => res.json())
-            .then(data => {
-                const sel = document.getElementById("act_type_code");
-                sel.innerHTML = `<option value="">---------Select Act---------</option>`;
-                data.forEach(a => {
-                    const op = document.createElement("option");
-                    op.value = a.value;
-                    op.textContent = a.label;
-                    sel.appendChild(op);
-                });
-            });
-    });
+    //     fetch(`/andhra/act-types?search=${encodeURIComponent(query)}`)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             const sel = document.getElementById("act_type_code");
+    //             sel.innerHTML = `<option value="">---------Select Act---------</option>`;
+    //             data.forEach(a => {
+    //                 const op = document.createElement("option");
+    //                 op.value = a.value;
+    //                 op.textContent = a.label;
+    //                 sel.appendChild(op);
+    //             });
+    //         });
+    // });
 
     // Datepicker
     $(function () {

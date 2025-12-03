@@ -93,8 +93,6 @@ def get_bombay_data(
         for b in bflag:
             data.setdefault("bflag[]", []).append(b)
 
-
-    print("\n🚀 FINAL PAYLOAD SENT:")
     for k, v in data.items():
         print(f"{k}: {v}")
 

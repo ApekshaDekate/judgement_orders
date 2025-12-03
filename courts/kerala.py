@@ -158,13 +158,13 @@ async def fetch_kerala_results(
 
                     total_pdfs += 1
 
-                    # ==== FIX: Update frontend-accessible link ====
-                    # Serves PDF via /staticpdf/* route
+                    # === THIS IS THE CRUCIAL FIX ===
                     a_tag["href"] = f"/staticpdf/kerala/{today}/{folder_name}/{filename}"
                     a_tag.attrs.pop("onclick", None)
 
             except:
                 continue
+
 
         # === Save updated HTML for this page ===
         master_html += str(soup)

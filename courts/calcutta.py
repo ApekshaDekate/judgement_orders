@@ -23,7 +23,7 @@ templates = Jinja2Templates(directory="templates")
 # === Constants ===
 CALCUTTA_BASE_URL = "https://hcservices.ecourts.gov.in/ecourtindiaHC/cases/"
 CALCUTTA_CAPTCHA_URL = "https://hcservices.ecourts.gov.in/ecourtindiaHC/securimage/securimage_show.php?"
-PDFS_ROOT = Path("/media/ibmarray2_1/airstorage/commpdf/")
+PDFS_ROOT = Path("/media/ibmarray2_1/airstorage/commpdf")
 PDFS_ROOT.mkdir(exist_ok=True)
 PDF_DIR = PDFS_ROOT / "calcutta"
 PDF_DIR.mkdir(exist_ok=True)

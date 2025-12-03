@@ -87,16 +87,17 @@ async def fetch_kerala_results(
     DATE_FOLDER = os.path.join(STATE_FOLDER, today)
     os.makedirs(DATE_FOLDER, exist_ok=True)
 
-    # === Create search-wise folder inside date folder ===
+    # === Create search-wise folder ===
     folder_path = os.path.join(DATE_FOLDER, folder_name)
     os.makedirs(folder_path, exist_ok=True)
+
+    # === Final HTML collection ===
+    master_html = ""
 
     total_pdfs = 0
 
     # === PAGINATION LOOP ===
     while True:
-        print(f"📄 Fetching results with cnt={cnt} ...")
-
         if citationno and citationyear:
             response = requests.post(url, data=payload, headers=headers, timeout=30)
         else:
@@ -104,14 +105,15 @@ async def fetch_kerala_results(
             response = requests.post(paged_url, data=payload, headers=headers, timeout=30)
 
         if response.status_code != 200:
-            print("⚠️ Page fetch failed.")
             break
 
         soup = BeautifulSoup(response.text, "html.parser")
 
+        # Remove unwanted footer
         for tag in soup.find_all("div", class_="box-footer"):
             tag.decompose()
 
+        # Collect PDF entries
         pdf_tags = []
         for a_tag in soup.find_all("a"):
             onclick = a_tag.get("onclick", "")
@@ -128,65 +130,56 @@ async def fetch_kerala_results(
                     )
                     pdf_tags.append((a_tag, full_url))
 
-        print(f"🧾 Found {len(pdf_tags)} PDFs")
-
         # === Download PDFs ===
         for a_tag, pdf_page_url in pdf_tags:
             try:
-                page_resp = requests.get(pdf_page_url, headers=headers, timeout=20)
-                if page_resp.status_code != 200:
-                    continue
-
                 parsed = urlparse(pdf_page_url)
                 params = parse_qs(parsed.query)
+
                 token_b64 = params.get("token", [""])[0]
                 lookups_b64 = params.get("lookups", [""])[0]
 
-                try:
-                    token_dec = base64.b64decode(token_b64).decode("utf-8")
-                    lookups_dec = base64.b64decode(lookups_b64).decode("utf-8")
-                    pdf_url = f"https://hckinfo.keralacourts.in/digicourt/{lookups_dec}/{token_dec}"
-                except:
-                    continue
+                token_dec = base64.b64decode(token_b64).decode("utf-8")
+                lookups_dec = base64.b64decode(lookups_b64).decode("utf-8")
 
+                pdf_url = f"https://hckinfo.keralacourts.in/digicourt/{lookups_dec}/{token_dec}"
                 filename = os.path.basename(pdf_url)
+
                 if not filename.lower().endswith(".pdf"):
                     filename += ".pdf"
 
                 filepath = os.path.join(folder_path, filename)
-                pdf_resp = requests.get(pdf_url, timeout=20)
+
+                pdf_resp = requests.get(pdf_url, headers=headers, timeout=20)
 
                 if pdf_resp.status_code == 200:
                     with open(filepath, "wb") as f:
                         f.write(pdf_resp.content)
 
-                    print(f"✅ Saved: {filepath}")
                     total_pdfs += 1
 
-                    a_tag["href"] = filename
+                    # ==== FIX: Update frontend-accessible link ====
+                    # Serves PDF via /staticpdf/* route
+                    a_tag["href"] = f"/staticpdf/kerala/{today}/{folder_name}/{filename}"
                     a_tag.attrs.pop("onclick", None)
 
-            except Exception as e:
-                print("❌ Error:", e)
+            except:
+                continue
 
-        # === Save updated HTML ===
-        html_path = os.path.join(folder_path, f"results_cnt_{cnt}.html")
-        with open(html_path, "w", encoding="utf-8") as f:
-            f.write(str(soup))
+        # === Save updated HTML for this page ===
+        master_html += str(soup)
 
-        print(f"💾 Saved: {html_path}")
-
+        # Stop pagination if less rows than page size
         if len(pdf_tags) < 20:
             break
 
         cnt += 20
         page_cnt += 1
 
-    print(f"🎯 Total PDFs downloaded: {total_pdfs}")
-
+    # ==== Return FINAL HTML with correct PDF links ====
     return templates.TemplateResponse("kerala_results.html", {
         "request": request,
-        "html_table": str(soup),
+        "html_table": master_html,
         "from_date": from_date,
         "to_date": to_date,
         "citationno": citationno,

@@ -17,6 +17,9 @@ from courts import (
 )
 
 app = FastAPI()
+from fastapi.staticfiles import StaticFiles
+
+app.mount("/staticpdf", StaticFiles(directory="/media/ibmarray2_1/airstorage/commpdf"), name="staticpdf")
 
 
 app.mount(
